@@ -46,12 +46,14 @@
     BOOL _isScrolling;
     CGFloat _scrollingTranslation;
     CGFloat _absoluteTranslation;
-    
+    CGFloat _selectedTranslation; // pre-calculated
 }
 
 @property (nonatomic, assign) id<GAPickerTableViewDataSource> dataSource;
 @property (nonatomic, assign) id<GAPickerTableViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame andComponent:(NSInteger)component;
+
+- (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated;
 
 @end

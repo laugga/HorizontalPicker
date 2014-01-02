@@ -52,6 +52,8 @@
         
         _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPan:)];
         [self addGestureRecognizer:_panGestureRecognizer];
+        
+        _selectedTranslation = frame.size.width-55.0f;
     }
     return self;
 }
@@ -87,7 +89,6 @@
                     label.text = title;
                     label.textAlignment = UITextAlignmentCenter;
                     label.frame = CGRectMake(offset.x, offset.y, columnRect.size.width, columnRect.size.height);
-                    
                     [_columns addObject:label];
                     
                     [self addSubview:label];
@@ -102,11 +103,49 @@
 - (void)updateLayoutSubviews
 {
     //NSNumber * translation = @(_selectedColumn * -50.0);
-    NSNumber * layerTranslation = @(_absoluteTranslation + _scrollingTranslation);
-    for(UIView * subview in self.subviews)
+    CGFloat currentTranslation = _absoluteTranslation + _scrollingTranslation;
+    NSNumber * layerTranslation = @(currentTranslation);
+    for(UILabel * column in _columns)
     {
-        [subview.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+        [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
     }
+}
+
+- (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated
+{
+    Log(@"setSelectedColumn: %d", column);
+    
+    _selectedColumn = column;
+    _absoluteTranslation = _selectedTranslation-_selectedColumn*50.0;
+    
+    if(animated)
+    {
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+    }
+    
+    NSNumber * layerTranslation = @(_absoluteTranslation);
+    for(UILabel * column in _columns)
+    {
+        [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+    }
+    
+    if(animated)
+    {
+        [UIView commitAnimations];
+    }
+    
+//    NSNumber * layerTranslation = @(_absoluteTranslation);
+//    for(UILabel * column in _columns)
+//    {
+//        CABasicAnimation * translationAnimation;
+//        translationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
+//        translationAnimation.duration = 4.0;
+//        translationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//        translationAnimation.fillMode = kCAFillModeForwards;
+//        translationAnimation.toValue = layerTranslation;
+//        [column.layer addAnimation:translationAnimation forKey:@"transform.translation.x"];
+//    }
 }
 
 #pragma mark -
@@ -139,6 +178,19 @@
             
             _isScrolling = NO;
             _absoluteTranslation = _absoluteTranslation + _scrollingTranslation;
+            
+            NSInteger columnIndex=0;
+            for(UILabel * column in _columns)
+            {
+                CGFloat columnTranslation = -column.frame.origin.x;
+                CGFloat offset = (columnTranslation + _selectedTranslation);
+                if(offset < 30.0f && offset > -30.0f)
+                {
+                    [self setSelectedColumn:columnIndex animated:YES];
+                    break;
+                }
+                columnIndex+=1;
+            }
         }
             break;
         default:
