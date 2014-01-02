@@ -18,4 +18,4 @@ mkdir -p "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/PrivateHead
 # cause propagating rebuilds of files that import these headers.
 echo "PUBLIC ${PUBLIC_HEADERS_FOLDER_PATH}"
 /bin/cp -a "${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers"
-/bin/cp -a "${TARGET_BUILD_DIR}/${PRIVATE_HEADERS_FOLDER_PATH}/" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/PrivateHeaders"
+#/bin/cp -a "${TARGET_BUILD_DIR}/${PRIVATE_HEADERS_FOLDER_PATH}/" "${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/PrivateHeaders"

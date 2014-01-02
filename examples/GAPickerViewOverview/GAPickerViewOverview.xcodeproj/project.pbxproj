@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		A0445E081874785D007BC506 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A0445E071874785D007BC506 /* Default-568h@2x.png */; };
+		A0445E12187481D9007BC506 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0445E10187481D9007BC506 /* ViewController_iPhone.xib */; };
+		A0445E161874826A007BC506 /* libGAPickerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BCA05D1874744D00FC20CE /* libGAPickerView.a */; };
 		A06ACB2A1608B2C300E20441 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB291608B2C300E20441 /* UIKit.framework */; };
 		A06ACB2C1608B2C300E20441 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2B1608B2C300E20441 /* Foundation.framework */; };
 		A06ACB2E1608B2C300E20441 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */; };
@@ -21,10 +23,16 @@
 		A0F1A4FF16302F12002E6BE5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0F1A4FD16302F12002E6BE5 /* main.m */; };
 		A0F1A50816302F3B002E6BE5 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A0F1A50216302F3B002E6BE5 /* InfoPlist.strings */; };
 		A0F1A50916302F3B002E6BE5 /* ViewController_iPad.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0F1A50416302F3B002E6BE5 /* ViewController_iPad.xib */; };
-		A0F1A50A16302F3B002E6BE5 /* ViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = A0F1A50616302F3B002E6BE5 /* ViewController_iPhone.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		A0445E1318748222007BC506 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A0BCA0531874744D00FC20CE /* GAPickerView.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A01C02111620D8B4003DA76F;
+			remoteInfo = "Static Library";
+		};
 		A0BCA05A1874744D00FC20CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A0BCA0531874744D00FC20CE /* GAPickerView.xcodeproj */;
@@ -49,9 +57,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A01822AE187607C300E38975 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = Classes/Constants.h; sourceTree = SOURCE_ROOT; };
 		A01C02411620D9BA003DA76F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		A039A769161F8C08009E4C10 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A0445E071874785D007BC506 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		A0445E11187481D9007BC506 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		A06ACB251608B2C300E20441 /* GAPickerViewOverview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GAPickerViewOverview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A06ACB291608B2C300E20441 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A06ACB2B1608B2C300E20441 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -69,7 +79,6 @@
 		A0F1A4FD16302F12002E6BE5 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = SOURCE_ROOT; };
 		A0F1A50316302F3B002E6BE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = SOURCE_ROOT; };
 		A0F1A50516302F3B002E6BE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPad.xib; sourceTree = SOURCE_ROOT; };
-		A0F1A50716302F3B002E6BE5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController_iPhone.xib; sourceTree = SOURCE_ROOT; };
 		A0F1A56516303A75002E6BE5 /* GAPickerViewOverview-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GAPickerViewOverview-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A0F1A56616303A75002E6BE5 /* GAPickerViewOverview-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GAPickerViewOverview-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
@@ -79,6 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0445E161874826A007BC506 /* libGAPickerView.a in Frameworks */,
 				A06ACB6B160A0FF300E20441 /* CoreText.framework in Frameworks */,
 				A06ACB2A1608B2C300E20441 /* UIKit.framework in Frameworks */,
 				A06ACB2C1608B2C300E20441 /* Foundation.framework in Frameworks */,
@@ -148,6 +158,7 @@
 				A0F1A4F816302EFC002E6BE5 /* AppDelegate.m */,
 				A0F1A4F916302EFC002E6BE5 /* ViewController.h */,
 				A0F1A4FA16302EFC002E6BE5 /* ViewController.m */,
+				A01822AE187607C300E38975 /* Constants.h */,
 			);
 			name = Classes;
 			path = GAPickerView;
@@ -173,7 +184,7 @@
 				A0F1A56516303A75002E6BE5 /* GAPickerViewOverview-Info.plist */,
 				A0F1A50216302F3B002E6BE5 /* InfoPlist.strings */,
 				A0F1A50416302F3B002E6BE5 /* ViewController_iPad.xib */,
-				A0F1A50616302F3B002E6BE5 /* ViewController_iPhone.xib */,
+				A0445E10187481D9007BC506 /* ViewController_iPhone.xib */,
 			);
 			name = Resources;
 			path = GAPickerView;
@@ -193,6 +204,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				A0445E1418748222007BC506 /* PBXTargetDependency */,
 			);
 			name = GAPickerViewOverview;
 			productName = GAPickerViewOverview;
@@ -263,11 +275,11 @@
 				A0A97490186F4A57004468AC /* icon-72.png in Resources */,
 				A0A97493186F4A57004468AC /* icon@2x.png in Resources */,
 				A0A97492186F4A57004468AC /* icon.png in Resources */,
+				A0445E12187481D9007BC506 /* ViewController_iPhone.xib in Resources */,
 				A0F1A50816302F3B002E6BE5 /* InfoPlist.strings in Resources */,
 				A0F1A50916302F3B002E6BE5 /* ViewController_iPad.xib in Resources */,
 				A0445E081874785D007BC506 /* Default-568h@2x.png in Resources */,
 				A0A97491186F4A57004468AC /* icon-72@2x.png in Resources */,
-				A0F1A50A16302F3B002E6BE5 /* ViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -286,7 +298,23 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		A0445E1418748222007BC506 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Static Library";
+			targetProxy = A0445E1318748222007BC506 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
+		A0445E10187481D9007BC506 /* ViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A0445E11187481D9007BC506 /* en */,
+			);
+			name = ViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
 		A0F1A50216302F3B002E6BE5 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -301,14 +329,6 @@
 				A0F1A50516302F3B002E6BE5 /* en */,
 			);
 			name = ViewController_iPad.xib;
-			sourceTree = "<group>";
-		};
-		A0F1A50616302F3B002E6BE5 /* ViewController_iPhone.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A0F1A50716302F3B002E6BE5 /* en */,
-			);
-			name = ViewController_iPhone.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

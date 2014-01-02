@@ -23,6 +23,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		A01822AB1876058D00E38975 /* GAPickerViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AA1876058D00E38975 /* GAPickerViewDelegate.h */; };
+		A01822AD187605A400E38975 /* GAPickerViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AC187605A400E38975 /* GAPickerViewDataSource.h */; };
 		A01C02C01620E286003DA76F /* GAPickerView-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A01C02BF1620E286003DA76F /* GAPickerView-Info.plist */; };
 		A01C02C71620E7A5003DA76F /* GAPIckerViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01C02C61620E7A5003DA76F /* GAPIckerViewTest.m */; };
 		A01C02C81620E7E7003DA76F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB6A160A0FF300E20441 /* CoreText.framework */; };
@@ -31,6 +33,8 @@
 		A039A76A161F8C08009E4C10 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A039A769161F8C08009E4C10 /* SenTestingKit.framework */; };
 		A039A76B161F8C08009E4C10 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB291608B2C300E20441 /* UIKit.framework */; };
 		A039A76C161F8C08009E4C10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2B1608B2C300E20441 /* Foundation.framework */; };
+		A0445E0E18747BCC007BC506 /* GAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0445E0D18747BCC007BC506 /* GAPickerView.m */; };
+		A0445E0F18747BCC007BC506 /* GAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0445E0D18747BCC007BC506 /* GAPickerView.m */; };
 		A0BCA0511874722600FC20CE /* GAPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BCA0501874722600FC20CE /* GAPickerView.h */; };
 /* End PBXBuildFile section */
 
@@ -52,6 +56,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A01822AA1876058D00E38975 /* GAPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAPickerViewDelegate.h; sourceTree = "<group>"; };
+		A01822AC187605A400E38975 /* GAPickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAPickerViewDataSource.h; sourceTree = "<group>"; };
 		A01C02121620D8B4003DA76F /* libGAPickerView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGAPickerView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01C02401620D9BA003DA76F /* GAPickerView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GAPickerView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01C02411620D9BA003DA76F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -61,6 +67,7 @@
 		A01C02C61620E7A5003DA76F /* GAPIckerViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAPIckerViewTest.m; sourceTree = "<group>"; };
 		A039A768161F8C08009E4C10 /* Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A039A769161F8C08009E4C10 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		A0445E0D18747BCC007BC506 /* GAPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAPickerView.m; sourceTree = "<group>"; };
 		A06ACB291608B2C300E20441 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A06ACB2B1608B2C300E20441 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -148,7 +155,10 @@
 		A0F0BE0516388E050017AEC3 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				A01822AC187605A400E38975 /* GAPickerViewDataSource.h */,
+				A01822AA1876058D00E38975 /* GAPickerViewDelegate.h */,
 				A0BCA0501874722600FC20CE /* GAPickerView.h */,
+				A0445E0D18747BCC007BC506 /* GAPickerView.m */,
 			);
 			name = Library;
 			path = lib;
@@ -161,7 +171,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01822AB1876058D00E38975 /* GAPickerViewDelegate.h in Headers */,
 				A0BCA0511874722600FC20CE /* GAPickerView.h in Headers */,
+				A01822AD187605A400E38975 /* GAPickerViewDataSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0445E0F18747BCC007BC506 /* GAPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -351,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0445E0E18747BCC007BC506 /* GAPickerView.m in Sources */,
 				A01C02C71620E7A5003DA76F /* GAPIckerViewTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

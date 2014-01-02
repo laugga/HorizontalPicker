@@ -27,29 +27,50 @@
 
 #import "ViewController.h"
 
+#import "Constants.h"
+
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
 
+#pragma mark -
+#pragma mark Initialization
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if(self)
     {
+        
     }
     return self;
 }
 
 - (void)dealloc
 {
+    [_horizontalPickerView release];
+    [_verticalPickerView release];
     [super dealloc];
 }
+
+#pragma mark -
+#pragma mark View
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    _horizontalPickerView = [[GAPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2)];
+    _horizontalPickerView.dataSource = self;
+    _horizontalPickerView.delegate = self;
+    [self.view addSubview:_horizontalPickerView];
+    
+    _verticalPickerView = [[UIPickerView alloc] initWithFrame:CGRectMake(0, self.view.frame.size.height/2, self.view.frame.size.width, self.view.frame.size.height/2)];
+    _verticalPickerView.dataSource = self;
+    _verticalPickerView.delegate = self;
+    [self.view addSubview:_verticalPickerView];
 }
 
 - (void)viewDidUnload
@@ -77,9 +98,103 @@
 }
 
 #pragma mark -
-#pragma mark GAPickerViewDataSource
+#pragma mark GAPickerViewDataSource and UIPickerViewDataSource
+
+- (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
+{
+    return kGAPickerViewOverviewNumberOfComponents;
+}
+
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+{
+    switch (component)
+    {
+        case 0: // aperture
+            return aperturesCount;
+            break;
+        case 1: // shutter speed
+            return shutterSpeedsCount;
+            break;
+        case 2: // iso speed
+            return isoSpeedsCount;
+            break;
+        default:
+            return 0;
+    }
+}
+
+- (NSInteger)pickerView:(GAPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component
+{
+    switch (component)
+    {
+        case 0: // aperture
+            return aperturesCount;
+            break;
+        case 1: // shutter speed
+            return shutterSpeedsCount;
+            break;
+        case 2: // iso speed
+            return isoSpeedsCount;
+            break;
+        default:
+            return 0;
+    }
+}
 
 #pragma mark -
-#pragma mark GAPickerViewDelegate
+#pragma mark GAPickerViewDelegate and UIPickerViewDelegate
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
+{
+    switch (component) {
+        case 0: // aperture
+            return [NSString stringWithFormat:@"f/%.1f", apertures[column]];
+            break;
+        case 1: // shutter speed
+            return [NSString stringWithFormat:@"1/%.1f", shutterSpeeds[column]];
+            break;
+        case 2: // iso speed
+            return [NSString stringWithFormat:@"%.0f", isoSpeeds[column]];
+            break;
+        default:
+            return @"";
+    }
+}
+
+- (NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
+{
+    switch (component) {
+        case 0: // aperture
+            return [NSString stringWithFormat:@"f/%.1f", apertures[row]];
+            break;
+        case 1: // shutter speed
+            return [NSString stringWithFormat:@"1/%.1f", shutterSpeeds[row]];
+            break;
+        case 2: // iso speed
+            return [NSString stringWithFormat:@"%.0f", isoSpeeds[row]];
+            break;
+        default:
+            return @"";
+    }
+}
+
+- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    UILabel *label = [[UILabel alloc] init];
+    label.textColor = [UIColor whiteColor];
+    label.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+    label.textAlignment = UITextAlignmentCenter;
+    return [label autorelease];
+}
+
+- (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
+{
+    Log(@"pickerView: vertical didSelectRow: %d inComponent: %d", row, component);
+}
+
+- (void)pickerView:(GAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+{
+    Log(@"pickerView: horizontal didSelectRow: %d inComponent: %d", column, component);
+}
 
 @end

@@ -1,7 +1,7 @@
 /*
  
- ViewController.h
- GAPickerViewOverview
+ GAPickerViewDataSource.h
+ GAPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -12,10 +12,10 @@
  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  the Software, and to permit persons to whom the Software is furnished to do so,
  subject to the following conditions:
- 
+
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
- 
+
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -25,14 +25,21 @@
  
 */
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-#import <GAPickerView/GAPickerView.h>
+@class GAPickerView;
 
-@interface ViewController : UIViewController <GAPickerViewDataSource, GAPickerViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
-{
-    UIPickerView * _verticalPickerView;
-    GAPickerView * _horizontalPickerView;
-}
+@protocol GAPickerViewDataSource <NSObject>
+@required
+
+/*!
+ returns the number of 'rows' to display.
+ */
+- (NSInteger)numberOfComponentsInPickerView:(GAPickerView *)pickerView;
+
+/*!
+ returns the # of columns in each component.
+ */
+- (NSInteger)pickerView:(GAPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component;
 
 @end
