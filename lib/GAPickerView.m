@@ -37,11 +37,20 @@
 #pragma mark -
 #pragma mark Initialization
 
+#if !__has_feature(objc_arc)
+- (void)dealloc
+{
+    [_tables release];
+    [super dealloc];
+}
+#endif
+
 - (id)initWithFrame:(struct CGRect)frame
 {
     self = [super initWithFrame:frame];
     if(self)
     {
+        _tables = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -52,42 +61,58 @@
 - (void)layoutSubviews
 {
     PrettyLog;
-    
-    CGPoint offset = CGPointZero;
-    
-    NSInteger numberOfComponents = 0;
-    NSInteger numberOfColumns[10];
+
+    _numberOfComponents = 0;
     
     if(_dataSource)
     {
-        numberOfComponents = [_dataSource numberOfComponentsInPickerView:self];
-        for(int component=0; component<numberOfComponents; ++component)
-            numberOfColumns[component] = [_dataSource pickerView:self numberOfColumnsInComponent:component];
+        _numberOfComponents = [_dataSource numberOfComponentsInPickerView:self];
+        
+        CGFloat tableViewRectSizeWidth = self.frame.size.width;
+        CGFloat tableViewRectSizeHeight = self.frame.size.height/_numberOfComponents;
     
-        if(_delegate)
+        for(int component=0; component<_numberOfComponents; ++component)
         {
-            CGRect columnRect = CGRectMake(0, 0, 50.0, self.frame.size.height/numberOfComponents);
-            
-            for(int component=0; component<numberOfComponents; ++component)
-            {
-                for(int column=0; column<numberOfColumns[component]; ++column)
-                {
-                    NSString * title = [_delegate pickerView:self titleForColumn:column forComponent:component];
-                    
-                    UILabel * label = [[UILabel alloc] init];
-                    label.textColor = [UIColor whiteColor];
-                    label.text = title;
-                    label.textAlignment = UITextAlignmentCenter;
-                    label.frame = CGRectMake(offset.x, offset.y, columnRect.size.width, columnRect.size.height);
-                    [self addSubview:label];
-                    
-                    offset.x += columnRect.size.width;
-                }
-                
-                offset.x = 0.0f;
-                offset.y += columnRect.size.height;
-            }
+            CGRect tableViewRect = CGRectMake(0, component*tableViewRectSizeHeight, tableViewRectSizeWidth, tableViewRectSizeHeight);
+            GAPickerTableView * tableView = [[GAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
+            tableView.dataSource = self;
+            tableView.delegate = self;
+            [self addSubview:tableView];
         }
+    }
+}
+
+#pragma mark -
+#pragma GAPickerTableViewDataSource
+
+- (NSInteger)pickerTableView:(GAPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component
+{
+    if(_dataSource)
+    {
+        return [_dataSource pickerView:self numberOfColumnsInComponent:component];
+    }
+    
+    return 0;
+}
+
+#pragma mark -
+#pragma GAPickerTableViewDelegate
+
+- (NSString *)pickerTableView:(GAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:titleForColumn:forComponent:)])
+    {
+        return [_delegate pickerView:self titleForColumn:column forComponent:component];
+    }
+    
+    return 0;
+}
+
+- (void)pickerView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didSelectColumn:inComponent:)])
+    {
+        return [_delegate pickerView:self didSelectColumn:column inComponent:component];
     }
 }
 

@@ -30,16 +30,18 @@
 #import "GAPickerViewDataSource.h"
 #import "GAPickerViewDelegate.h"
 
+#import "GAPickerTableView.h"
+
 //@class <UIPickerViewDataSource>, UIImageView, NSMutableArray, UIView, <UIPickerViewDelegate>, CALayer, UIColor;
 
-@interface GAPickerView : UIView </*UIPickerTableViewContainerDelegate, UITableViewDelegate, NSCoding, UITableViewDataSource,*/ UIInputViewAudioFeedback>
+@interface GAPickerView : UIView <UIInputViewAudioFeedback, GAPickerTableViewDataSource, GAPickerTableViewDelegate/*UIPickerTableViewContainerDelegate, UITableViewDelegate, NSCoding, UITableViewDataSource,*/>
 {
-//    NSMutableArray *_tables;
+    NSMutableArray * _tables;
 //    UIView *_topFrame;
 //    NSMutableArray *_dividers;
 //    NSMutableArray *_selectionBars;
 //    UIView *_backgroundView;
-//    int _numberOfComponents;
+    NSInteger _numberOfComponents;
 //    UIImageView *_topGradient;
 //    UIImageView *_bottomGradient;
 //    UIView *_foregroundView;
