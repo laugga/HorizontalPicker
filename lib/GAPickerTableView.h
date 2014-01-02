@@ -34,11 +34,19 @@
 {
     NSInteger _component;
     NSInteger _numberOfColumns;
+    NSInteger _selectedColumn;
+    
+    NSMutableArray * _columns;
     
     id<GAPickerTableViewDataSource> _dataSource;
     id<GAPickerTableViewDelegate> _delegate;
     
     UIPanGestureRecognizer * _panGestureRecognizer;
+    
+    BOOL _isScrolling;
+    CGFloat _scrollingTranslation;
+    CGFloat _absoluteTranslation;
+    
 }
 
 @property (nonatomic, assign) id<GAPickerTableViewDataSource> dataSource;

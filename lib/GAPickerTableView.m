@@ -57,38 +57,55 @@
 }
 
 #pragma mark -
-#pragma mark UIView
+#pragma mark Layout
 
 - (void)layoutSubviews
 {
     PrettyLog;
     
-    CGPoint offset = CGPointZero;
-    
-    _numberOfColumns = 0;
-    
-    if(_dataSource)
+    if(_columns == nil)
     {
-        _numberOfColumns = [_dataSource pickerTableView:self numberOfColumnsInComponent:_component];
+        CGPoint offset = CGPointZero;
         
-        if(_delegate)
+        _numberOfColumns = 0;
+        _absoluteTranslation = 0.0f;
+        
+        if(_dataSource)
         {
-            CGRect columnRect = CGRectMake(0, 0, 50.0, self.frame.size.height);
+            _numberOfColumns = [_dataSource pickerTableView:self numberOfColumnsInComponent:_component];
+            _columns = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
             
-            for(int column=0; column<_numberOfColumns; ++column)
+            if(_delegate)
             {
-                NSString * title = [_delegate pickerTableView:self titleForColumn:column forComponent:_component];
+                CGRect columnRect = CGRectMake(0, 0, 50.0, self.frame.size.height);
                 
-                UILabel * label = [[UILabel alloc] init];
-                label.textColor = [UIColor whiteColor];
-                label.text = title;
-                label.textAlignment = UITextAlignmentCenter;
-                label.frame = CGRectMake(offset.x, offset.y, columnRect.size.width, columnRect.size.height);
-                [self addSubview:label];
-                
-                offset.x += columnRect.size.width;
+                for(int column=0; column<_numberOfColumns; ++column)
+                {
+                    NSString * title = [_delegate pickerTableView:self titleForColumn:column forComponent:_component];
+                    UILabel * label = [[UILabel alloc] init];
+                    label.textColor = [UIColor whiteColor];
+                    label.text = title;
+                    label.textAlignment = UITextAlignmentCenter;
+                    label.frame = CGRectMake(offset.x, offset.y, columnRect.size.width, columnRect.size.height);
+                    
+                    [_columns addObject:label];
+                    
+                    [self addSubview:label];
+                    
+                    offset.x += columnRect.size.width;
+                }
             }
         }
+    }
+}
+
+- (void)updateLayoutSubviews
+{
+    //NSNumber * translation = @(_selectedColumn * -50.0);
+    NSNumber * layerTranslation = @(_absoluteTranslation + _scrollingTranslation);
+    for(UIView * subview in self.subviews)
+    {
+        [subview.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
     }
 }
 
@@ -97,35 +114,36 @@
 
 - (void)userDidPan:(UIPanGestureRecognizer *)panGesture
 {
-    //    // Long press position
-    //    CGPoint position = [longPressGesture locationInView:self.view];
-    //
-    //    switch (longPressGesture.state) {
-    //        case UIGestureRecognizerStateBegan:
-    //        {
-    //            // Being position change
-    //            [_focusView beginPositionChangeForPoint:position];
-    //
-    //            // Start adjusting and metering
-    //            [_camera setFocusPoint:CGPointMake((self.view.frame.size.width-position.x)/self.view.frame.size.width, position.y/self.view.frame.size.height) andStartMetering:YES];
-    //        }
-    //            break;
-    //        case UIGestureRecognizerStateChanged:
-    //        {
-    //            // Change position
-    //            _focusView.position = position;
-    //        }
-    //            break;
-    //        case UIGestureRecognizerStateEnded:
-    //        case UIGestureRecognizerStateCancelled:
-    //        {
-    //            // End position change
-    //            [_focusView endPositionChange];
-    //        }
-    //            break;
-    //        default:
-    //            break;
-    //    }
+    switch (panGesture.state)
+    {
+        case UIGestureRecognizerStateBegan:
+        {
+            _isScrolling = YES;
+            
+            _scrollingTranslation = [panGesture translationInView:self].x;
+            [self updateLayoutSubviews];
+        }
+            break;
+        case UIGestureRecognizerStateChanged:
+        {
+            _scrollingTranslation = [panGesture translationInView:self].x;
+            [self updateLayoutSubviews];
+            
+        }
+            break;
+        case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateCancelled:
+        {
+            _scrollingTranslation = [panGesture translationInView:self].x;
+            [self updateLayoutSubviews];
+            
+            _isScrolling = NO;
+            _absoluteTranslation = _absoluteTranslation + _scrollingTranslation;
+        }
+            break;
+        default:
+            break;
+    }
 }
 
 #pragma mark -
