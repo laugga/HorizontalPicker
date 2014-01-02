@@ -23,8 +23,13 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		A01822AB1876058D00E38975 /* GAPickerViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AA1876058D00E38975 /* GAPickerViewDelegate.h */; };
-		A01822AD187605A400E38975 /* GAPickerViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AC187605A400E38975 /* GAPickerViewDataSource.h */; };
+		A01822AB1876058D00E38975 /* GAPickerViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AA1876058D00E38975 /* GAPickerViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A01822AD187605A400E38975 /* GAPickerViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AC187605A400E38975 /* GAPickerViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A01822B41876147000E38975 /* GAPickerTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822B21876147000E38975 /* GAPickerTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A01822B51876147000E38975 /* GAPickerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01822B31876147000E38975 /* GAPickerTableView.m */; };
+		A01822B61876147000E38975 /* GAPickerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01822B31876147000E38975 /* GAPickerTableView.m */; };
+		A01822B9187614E700E38975 /* GAPickerTableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822B7187614E700E38975 /* GAPickerTableViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A01822BA187614E700E38975 /* GAPickerTableViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822B8187614E700E38975 /* GAPickerTableViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A01C02C01620E286003DA76F /* GAPickerView-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A01C02BF1620E286003DA76F /* GAPickerView-Info.plist */; };
 		A01C02C71620E7A5003DA76F /* GAPIckerViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01C02C61620E7A5003DA76F /* GAPIckerViewTest.m */; };
 		A01C02C81620E7E7003DA76F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB6A160A0FF300E20441 /* CoreText.framework */; };
@@ -35,7 +40,7 @@
 		A039A76C161F8C08009E4C10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2B1608B2C300E20441 /* Foundation.framework */; };
 		A0445E0E18747BCC007BC506 /* GAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0445E0D18747BCC007BC506 /* GAPickerView.m */; };
 		A0445E0F18747BCC007BC506 /* GAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0445E0D18747BCC007BC506 /* GAPickerView.m */; };
-		A0BCA0511874722600FC20CE /* GAPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BCA0501874722600FC20CE /* GAPickerView.h */; };
+		A0BCA0511874722600FC20CE /* GAPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BCA0501874722600FC20CE /* GAPickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +63,10 @@
 /* Begin PBXFileReference section */
 		A01822AA1876058D00E38975 /* GAPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAPickerViewDelegate.h; sourceTree = "<group>"; };
 		A01822AC187605A400E38975 /* GAPickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAPickerViewDataSource.h; sourceTree = "<group>"; };
+		A01822B21876147000E38975 /* GAPickerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAPickerTableView.h; sourceTree = "<group>"; };
+		A01822B31876147000E38975 /* GAPickerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GAPickerTableView.m; sourceTree = "<group>"; };
+		A01822B7187614E700E38975 /* GAPickerTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAPickerTableViewDataSource.h; sourceTree = "<group>"; };
+		A01822B8187614E700E38975 /* GAPickerTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GAPickerTableViewDelegate.h; sourceTree = "<group>"; };
 		A01C02121620D8B4003DA76F /* libGAPickerView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libGAPickerView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01C02401620D9BA003DA76F /* GAPickerView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GAPickerView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01C02411620D9BA003DA76F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -159,6 +168,10 @@
 				A01822AA1876058D00E38975 /* GAPickerViewDelegate.h */,
 				A0BCA0501874722600FC20CE /* GAPickerView.h */,
 				A0445E0D18747BCC007BC506 /* GAPickerView.m */,
+				A01822B7187614E700E38975 /* GAPickerTableViewDataSource.h */,
+				A01822B8187614E700E38975 /* GAPickerTableViewDelegate.h */,
+				A01822B21876147000E38975 /* GAPickerTableView.h */,
+				A01822B31876147000E38975 /* GAPickerTableView.m */,
 			);
 			name = Library;
 			path = lib;
@@ -172,7 +185,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				A01822AB1876058D00E38975 /* GAPickerViewDelegate.h in Headers */,
+				A01822BA187614E700E38975 /* GAPickerTableViewDelegate.h in Headers */,
 				A0BCA0511874722600FC20CE /* GAPickerView.h in Headers */,
+				A01822B41876147000E38975 /* GAPickerTableView.h in Headers */,
+				A01822B9187614E700E38975 /* GAPickerTableViewDataSource.h in Headers */,
 				A01822AD187605A400E38975 /* GAPickerViewDataSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -357,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A0445E0F18747BCC007BC506 /* GAPickerView.m in Sources */,
+				A01822B61876147000E38975 /* GAPickerTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -364,6 +381,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01822B51876147000E38975 /* GAPickerTableView.m in Sources */,
 				A0445E0E18747BCC007BC506 /* GAPickerView.m in Sources */,
 				A01C02C71620E7A5003DA76F /* GAPIckerViewTest.m in Sources */,
 			);
