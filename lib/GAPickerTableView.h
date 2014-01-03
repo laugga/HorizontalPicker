@@ -47,6 +47,8 @@
     CGFloat _scrollingTranslation;
     CGFloat _absoluteTranslation;
     CGFloat _selectedTranslation; // pre-calculated
+    CGFloat _minimumTranslation;
+    CGFloat _maximumTranslation;
 }
 
 @property (nonatomic, readonly) NSInteger selectedColumn;

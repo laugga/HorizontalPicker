@@ -79,6 +79,9 @@
             _numberOfColumns = [_dataSource pickerTableView:self numberOfColumnsInComponent:_component];
             _columns = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
             
+            _minimumTranslation = -_numberOfColumns*50.0f+_selectedTranslation;
+            _maximumTranslation = _selectedTranslation+25.0f;
+            
             if(_delegate)
             {
                 CGRect columnRect = CGRectMake(0, 0, 50.0, self.frame.size.height);
@@ -106,6 +109,10 @@
 {
     //NSNumber * translation = @(_selectedColumn * -50.0);
     CGFloat currentTranslation = _absoluteTranslation + _scrollingTranslation;
+    
+    currentTranslation = MIN(currentTranslation, _maximumTranslation);
+    currentTranslation = MAX(currentTranslation, _minimumTranslation);
+
     NSNumber * layerTranslation = @(currentTranslation);
     for(UILabel * column in _columns)
     {
@@ -180,26 +187,32 @@
             
             _isScrolling = NO;
             _absoluteTranslation = _absoluteTranslation + _scrollingTranslation;
+            _absoluteTranslation = MIN(_absoluteTranslation, _maximumTranslation);
+            _absoluteTranslation = MAX(_absoluteTranslation, _minimumTranslation);
             
             NSInteger columnIndex=0;
+            NSInteger selectedColumn=-1;
+            CGFloat selectedOffset = INFINITY;
             for(UILabel * column in _columns)
             {
                 CGFloat columnTranslation = -column.frame.origin.x;
-                CGFloat offset = (columnTranslation + _selectedTranslation);
-                if(offset < 30.0f && offset > -30.0f)
+                CGFloat columnOffset = (columnTranslation + _selectedTranslation);
+                
+                if(fabs(columnOffset) < selectedOffset)
                 {
-                    [self setSelectedColumn:columnIndex animated:YES];
-    
-                    
-                    if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
-                        [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
-                    
-                    break;
+                    selectedOffset = columnOffset;
+                    selectedColumn = columnIndex;
+                }
+                else
+                {
+                    break; // TODO optimize
                 }
                 columnIndex+=1;
             }
             
-            
+            [self setSelectedColumn:selectedColumn animated:YES];
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
+                [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
         }
             break;
         default:

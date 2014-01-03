@@ -105,7 +105,7 @@
     return kGAPickerViewOverviewNumberOfComponents;
 }
 
-- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
+- (NSInteger)pickerView:(GAPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component
 {
     switch (component)
     {
@@ -123,7 +123,7 @@
     }
 }
 
-- (NSInteger)pickerView:(GAPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component
+- (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
 {
     switch (component)
     {
@@ -190,11 +190,15 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
     Log(@"pickerView: vertical didSelectRow: %d inComponent: %d", row, component);
+    
+    [_horizontalPickerView selectColumn:row inComponent:component animated:YES];
 }
 
 - (void)pickerView:(GAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
 {
     Log(@"pickerView: horizontal didSelectColumn: %d/%d inComponent: %d", column, [pickerView selectedColumnInComponent:component], component);
+    
+    [_verticalPickerView selectRow:column inComponent:component animated:YES];
 }
 
 @end
