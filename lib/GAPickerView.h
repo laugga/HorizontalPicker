@@ -34,7 +34,7 @@
 
 //@class <UIPickerViewDataSource>, UIImageView, NSMutableArray, UIView, <UIPickerViewDelegate>, CALayer, UIColor;
 
-@interface GAPickerView : UIView <UIInputViewAudioFeedback, GAPickerTableViewDataSource, GAPickerTableViewDelegate/*UIPickerTableViewContainerDelegate, UITableViewDelegate, NSCoding, UITableViewDataSource,*/>
+@interface GAPickerView : UIView <GAPickerTableViewDataSource, GAPickerTableViewDelegate/*UIPickerTableViewContainerDelegate, UITableViewDelegate, NSCoding, UITableViewDataSource,*/>
 {
     NSMutableArray * _tables;
 //    UIView *_topFrame;
@@ -71,14 +71,16 @@
 //    BOOL _isInLayoutSubviews;
 //    BOOL _magnifierEnabled;
     
+    GAPickerTableView * _selectingTable; // Table being changed
+    
     id<GAPickerViewDataSource> _dataSource;
     id<GAPickerViewDelegate> _delegate;
 }
 
-@property (nonatomic, readonly) BOOL enableInputClicksWhenVisible;
-
 @property (nonatomic, assign) id<GAPickerViewDataSource> dataSource;
 @property (nonatomic, assign) id<GAPickerViewDelegate> delegate;
+
+@property(nonatomic, readwrite, assign) UIView *inputView;
 
 - (NSInteger)selectedColumnInComponent:(NSInteger)component;
 

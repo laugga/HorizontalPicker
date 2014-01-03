@@ -1,6 +1,6 @@
 /*
  
- GAPickerViewDelegate.h
+ GAPickerTableInputSound.h
  GAPickerView
  
  Copyright (cc) 2012 Luis Laugga.
@@ -26,16 +26,15 @@
 */
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
-@class GAPickerTableView;
+@interface GAPickerTableInputSound : NSObject
+{
+    SystemSoundID _inputSoundId;
+}
 
-@protocol GAPickerTableViewDelegate <NSObject>
-@optional
++ (GAPickerTableInputSound *)sharedPickerTableInputSound;
 
-- (NSString *)pickerTableView:(GAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
-
-- (void)pickerTableView:(GAPickerTableView *)pickerView willSelectColumnInComponent:(NSInteger)component;
-- (void)pickerTableView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
-
+- (void)play;
 
 @end

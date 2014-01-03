@@ -1,6 +1,6 @@
 /*
  
- GAPickerViewDelegate.h
+ GAPickerTableInputSound.m
  GAPickerView
  
  Copyright (cc) 2012 Luis Laugga.
@@ -25,17 +25,34 @@
  
 */
 
-#import <Foundation/Foundation.h>
+#import "GAPickerTableInputSound.h"
 
-@class GAPickerTableView;
+@implementation GAPickerTableInputSound
 
-@protocol GAPickerTableViewDelegate <NSObject>
-@optional
+static GAPickerTableInputSound * _defaultInputSound;
 
-- (NSString *)pickerTableView:(GAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
+- (id)init
+{
+    self = [super init];
+    if(self)
+    {
+        NSURL * soundPath = [NSURL fileURLWithPath:@"/System/Library/Audio/UISounds/Tock.caf"]; // TODO add sound to GAPickerView.bundle
+        AudioServicesCreateSystemSoundID((CFURLRef)soundPath, &_inputSoundId);
+    }
+    return self;
+}
 
-- (void)pickerTableView:(GAPickerTableView *)pickerView willSelectColumnInComponent:(NSInteger)component;
-- (void)pickerTableView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
++ (GAPickerTableInputSound *)sharedPickerTableInputSound
+{
+    if(_defaultInputSound == nil)
+        _defaultInputSound = [[GAPickerTableInputSound alloc] init]; // singleton object
+    
+    return _defaultInputSound;
+}
 
+- (void)play
+{
+    AudioServicesPlaySystemSound(_inputSoundId);
+}
 
 @end

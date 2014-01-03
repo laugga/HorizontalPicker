@@ -27,6 +27,8 @@
 
 #import "GAPickerTableView.h"
 
+#import "GAPickerTableInputSound.h"
+
 @implementation GAPickerTableView
 
 @synthesize selectedColumn=_selectedColumn;
@@ -127,34 +129,29 @@
     _selectedColumn = column;
     _absoluteTranslation = _selectedTranslation-_selectedColumn*50.0;
     
-    if(animated)
-    {
-        [UIView beginAnimations:nil context:nil];
-        [UIView setAnimationDuration:0.3];
-    }
-    
     NSNumber * layerTranslation = @(_absoluteTranslation);
-    for(UILabel * column in _columns)
-    {
-        [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
-    }
-    
+
     if(animated)
     {
-        [UIView commitAnimations];
+        [UIView animateWithDuration:0.3 animations:^{
+            
+            for(UILabel * column in _columns)
+            {
+                [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+            }
+            
+        } completion:^(BOOL finished){
+            [[GAPickerTableInputSound sharedPickerTableInputSound] play]; // FIXME
+            
+        }];
     }
-    
-//    NSNumber * layerTranslation = @(_absoluteTranslation);
-//    for(UILabel * column in _columns)
-//    {
-//        CABasicAnimation * translationAnimation;
-//        translationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.translation.x"];
-//        translationAnimation.duration = 4.0;
-//        translationAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//        translationAnimation.fillMode = kCAFillModeForwards;
-//        translationAnimation.toValue = layerTranslation;
-//        [column.layer addAnimation:translationAnimation forKey:@"transform.translation.x"];
-//    }
+    else
+    {
+        for(UILabel * column in _columns)
+        {
+            [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+        }
+    }
 }
 
 #pragma mark -
@@ -166,6 +163,9 @@
     {
         case UIGestureRecognizerStateBegan:
         {
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:willSelectColumnInComponent:)]) // TODO when animation finishes
+                [_delegate pickerTableView:self willSelectColumnInComponent:_component];
+            
             _isScrolling = YES;
             
             _scrollingTranslation = [panGesture translationInView:self].x;
@@ -213,6 +213,7 @@
             [self setSelectedColumn:selectedColumn animated:YES];
             if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
                 [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
+            
         }
             break;
         default:

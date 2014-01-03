@@ -32,7 +32,7 @@
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
 
-@dynamic enableInputClicksWhenVisible;
+@synthesize inputView;
 
 #pragma mark -
 #pragma mark Initialization
@@ -51,6 +51,7 @@
     if(self)
     {
         _tables = [[NSMutableArray alloc] init];
+        _selectingTable = nil;
     }
     return self;
 }
@@ -79,10 +80,13 @@
             tableView.delegate = self;
             
             [_tables addObject:tableView];
+            self.inputView = tableView;
             
             [self addSubview:tableView];
         }
     }
+    
+    [self becomeFirstResponder];
 }
 
 #pragma mark -
@@ -136,22 +140,19 @@
     return 0;
 }
 
-- (void)pickerTableView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+- (void)pickerTableView:(GAPickerTableView *)pickerTableView willSelectColumnInComponent:(NSInteger)component
 {
+    _selectingTable = pickerTableView;
+}
+
+- (void)pickerTableView:(GAPickerTableView *)pickerTableView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+{
+    _selectingTable = nil;
+    
     if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didSelectColumn:inComponent:)])
     {
         return [_delegate pickerView:self didSelectColumn:column inComponent:component];
     }
-}
-
-#pragma mark -
-#pragma mark UIInputViewAudioFeedback
-
-- (BOOL) enableInputClicksWhenVisible
-{
-    // call [[UIDevice currentDevice] playInputClick];
-
-    return YES;
 }
 
 @end
