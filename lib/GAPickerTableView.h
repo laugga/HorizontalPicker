@@ -49,6 +49,8 @@
     CGFloat _selectedTranslation; // pre-calculated
 }
 
+@property (nonatomic, readonly) NSInteger selectedColumn;
+
 @property (nonatomic, assign) id<GAPickerTableViewDataSource> dataSource;
 @property (nonatomic, assign) id<GAPickerTableViewDelegate> delegate;
 

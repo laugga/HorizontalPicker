@@ -80,7 +80,7 @@
 @property (nonatomic, assign) id<GAPickerViewDataSource> dataSource;
 @property (nonatomic, assign) id<GAPickerViewDelegate> delegate;
 
-- (NSInteger)selectedRowInComponent:(NSInteger)component;
+- (NSInteger)selectedColumnInComponent:(NSInteger)component;
 
 - (void)selectColumn:(NSInteger)column inComponent:(NSInteger)component animated:(BOOL)animated;
 

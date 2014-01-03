@@ -29,6 +29,8 @@
 
 @implementation GAPickerTableView
 
+@synthesize selectedColumn=_selectedColumn;
+
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
 

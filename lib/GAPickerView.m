@@ -85,9 +85,17 @@
 #pragma mark -
 #pragma mark Selection
 
-- (NSInteger)selectedRowInComponent:(NSInteger)component
+- (NSInteger)selectedColumnInComponent:(NSInteger)component
 {
-    return 0; // TODO
+    NSInteger selectedColumnInComponent = 0;
+    
+    if(component < [_tables count])
+    {
+        GAPickerTableView * pickerTableView = [_tables objectAtIndex:component];
+        selectedColumnInComponent = pickerTableView.selectedColumn;
+    }
+    
+    return selectedColumnInComponent;
 }
 
 - (void)selectColumn:(NSInteger)column inComponent:(NSInteger)component animated:(BOOL)animated
