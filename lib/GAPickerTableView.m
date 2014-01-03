@@ -137,9 +137,6 @@
         [UIView commitAnimations];
     }
     
-    if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
-       [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
-    
 //    NSNumber * layerTranslation = @(_absoluteTranslation);
 //    for(UILabel * column in _columns)
 //    {
@@ -192,10 +189,17 @@
                 if(offset < 30.0f && offset > -30.0f)
                 {
                     [self setSelectedColumn:columnIndex animated:YES];
+    
+                    
+                    if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
+                        [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
+                    
                     break;
                 }
                 columnIndex+=1;
             }
+            
+            
         }
             break;
         default:
