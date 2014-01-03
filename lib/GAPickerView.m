@@ -77,6 +77,9 @@
             GAPickerTableView * tableView = [[GAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
             tableView.dataSource = self;
             tableView.delegate = self;
+            
+            [_tables addObject:tableView];
+            
             [self addSubview:tableView];
         }
     }
@@ -108,7 +111,7 @@
 }
 
 #pragma mark -
-#pragma GAPickerTableViewDataSource
+#pragma mark GAPickerTableViewDataSource
 
 - (NSInteger)pickerTableView:(GAPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component
 {
@@ -121,7 +124,7 @@
 }
 
 #pragma mark -
-#pragma GAPickerTableViewDelegate
+#pragma mark GAPickerTableViewDelegate
 
 - (NSString *)pickerTableView:(GAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
 {
@@ -133,7 +136,7 @@
     return 0;
 }
 
-- (void)pickerView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+- (void)pickerTableView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
 {
     if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didSelectColumn:inComponent:)])
     {

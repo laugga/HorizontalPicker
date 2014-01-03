@@ -194,7 +194,7 @@
 
 - (void)pickerView:(GAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
 {
-    Log(@"pickerView: horizontal didSelectRow: %d inComponent: %d", column, component);
+    Log(@"pickerView: horizontal didSelectColumn: %d/%d inComponent: %d", column, [pickerView selectedColumnInComponent:component], component);
 }
 
 @end

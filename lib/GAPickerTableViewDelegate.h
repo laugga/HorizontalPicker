@@ -34,6 +34,6 @@
 
 - (NSString *)pickerTableView:(GAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
 
-- (void)pickerView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)pickerTableView:(GAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
 
 @end
