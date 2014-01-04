@@ -48,7 +48,7 @@ typedef enum {
     GAPickerSelectionAlignmentRight
 } GAPickerSelectionAlignment;
 
-@interface GAPickerTableView : UIView <UIGestureRecognizerDelegate>
+@interface GAPickerTableView : UIView <UIScrollViewDelegate>
 {
     // State
     NSInteger _component;
@@ -62,17 +62,22 @@ typedef enum {
     UIPanGestureRecognizer * _panGestureRecognizer;
     BOOL _isScrolling;
     CGFloat _scrollingTranslation;
+    
+    // View
+    UIScrollView * _scrollView;
 
     // Layout
     CGFloat _absoluteTranslation;
     CGFloat _minimumTranslation;
     CGFloat _maximumTranslation;
-    CGRect _columnRect; // max-width found
+    CGSize _columnSize; // max-width found
     
     // Selection
     GAPickerSelectionAlignment _selectionAlignment;
-    CGFloat _selectionTranslation; // pre-calculated
-    CGFloat _translationVelocity;
+    CGFloat _selectionEdgeInset; // inset from left edge
+    CGFloat _contentSize; // content size for the columns
+    CGFloat _contentSizePadding; // padding for the content size
+    CGFloat _contentOffset;
     
     id<GAPickerTableViewDataSource> _dataSource;
     id<GAPickerTableViewDelegate> _delegate;

@@ -39,6 +39,7 @@
 #define kColumnOpacity 0.35
 #define kSelectedColumnOpacity 1.0
 
+#define kSelectionAlignmentAnimationDuration 0.25
 
 #pragma mark -
 #pragma mark Initialization
@@ -46,7 +47,8 @@
 #if !__has_feature(objc_arc)
 - (void)dealloc
 {
-    [_panGestureRecognizer release];
+    //[_panGestureRecognizer release];
+    [_scrollView release];
     [super dealloc];
 }
 #endif
@@ -60,38 +62,19 @@
         _component = component;
         _selectedColumn = -1; // none selected, default
         
-        // Interaction
-        _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPan:)];
-        [self addGestureRecognizer:_panGestureRecognizer];
+//        // Interaction
+//        _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPan:)];
+//        [self addGestureRecognizer:_panGestureRecognizer];
+        
+        // View
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _scrollView.delegate = self;
+        [self addSubview:_scrollView];
         
         // Layout
-        _columnRect = CGRectMake(0, 0, 60, self.frame.size.height);
-        _translationVelocity = 0.0f;
+        _columnSize = CGSizeMake(60, self.frame.size.height);
     }
     return self;
-}
-
-#pragma mark -
-#pragma mark Drawing
-
-- (void)drawRect:(CGRect)rect
-{
-    PrettyLog;
-    
-    if(_translationVelocity != 0.0)
-    {
-        Log(@"velocity %f", _translationVelocity);
-        _absoluteTranslation += _translationVelocity;
-        _translationVelocity *= 0.9;
-        [self updateLayoutSubviews];
-//        if(_translationVelocity < 1.0 || _translationVelocity > -1.0)
-//           _translationVelocity = 0.0;
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self setNeedsDisplay];
-        });
-    }
-    
-    [super drawRect:rect];
 }
 
 #pragma mark -
@@ -125,16 +108,20 @@
                     label.textColor = [UIColor whiteColor];
                     label.text = title;
                     label.textAlignment = UITextAlignmentCenter;
-                    label.frame = CGRectMake(offset.x, offset.y, _columnRect.size.width, _columnRect.size.height);
+                    label.frame = CGRectMake(offset.x, offset.y, _columnSize.width, _columnSize.height);
                     [_columns addObject:label];
                     
-                    [self addSubview:label];
+                    [_scrollView addSubview:label];
                     
-                    offset.x += _columnRect.size.width;
+                    offset.x += _columnSize.width;
+                    _contentSize += _columnSize.width;
                 }
                 
+                // content size
+                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.width);
+                
                 // Recalculate
-                _minimumTranslation = -_numberOfColumns*_columnRect.size.width+_selectionTranslation;
+                _minimumTranslation = -_numberOfColumns*_columnSize.width+_selectionEdgeInset;
             }
             
             // Update
@@ -150,62 +137,64 @@
     currentTranslation = MIN(currentTranslation, _maximumTranslation);
     currentTranslation = MAX(currentTranslation, _minimumTranslation);
 
-    NSNumber * layerTranslation = @(currentTranslation);
-    for(UILabel * column in _columns)
-    {
-        [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
-    }
+//    NSNumber * layerTranslation = @(currentTranslation);
+//    for(UILabel * column in _columns)
+//    {
+//        [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+//    }
 }
 
 - (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated
 {
     Log(@"setSelectedColumn: %d", column);
     
-    // Check if column is valid
-    if(column >= 0 && column < _numberOfColumns)
+    // Range is [0, numberOfColumns]
+    if(column > -1 && column < _numberOfColumns)
     {
         _selectedColumn = column;
-        _absoluteTranslation = _selectionTranslation-_selectedColumn*_columnRect.size.width;
+        _contentOffset = _selectedColumn*_columnSize.width;
         
-        NSNumber * layerTranslation = @(_absoluteTranslation);
-
-        if(animated)
-        {
-            [UIView animateWithDuration:0.3 animations:^{
-                
-                NSInteger columnIndex=0;
-                for(UILabel * column in _columns)
-                {
-                    [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
-                    
-                    if(columnIndex == _selectedColumn)
-                        column.layer.opacity = kSelectedColumnOpacity;
-                    else
-                        column.layer.opacity = kColumnOpacity;
-                    
-                    ++columnIndex;
-                }
-                
-            } completion:^(BOOL finished){
-                [[GAPickerTableInputSound sharedPickerTableInputSound] play]; // FIXME
-                
-            }];
-        }
-        else
-        {
-            NSInteger columnIndex=0;
-            for(UILabel * column in _columns)
-            {
-                [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
-                
-                if(columnIndex == _selectedColumn)
-                    column.layer.opacity = kSelectedColumnOpacity;
-                else
-                    column.layer.opacity = kColumnOpacity;
-                
-                ++columnIndex;
-            }
-        }
+        [_scrollView setContentOffset:CGPointMake(-_selectionEdgeInset+_contentOffset, 0) animated:animated];
+//
+//        NSNumber * layerTranslation = @(_absoluteTranslation);
+//
+//        if(animated)
+//        {
+//            [UIView animateWithDuration:0.3 animations:^{
+//                
+//                NSInteger columnIndex=0;
+//                for(UILabel * column in _columns)
+//                {
+//                    [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+//                    
+//                    if(columnIndex == _selectedColumn)
+//                        column.layer.opacity = kSelectedColumnOpacity;
+//                    else
+//                        column.layer.opacity = kColumnOpacity;
+//                    
+//                    ++columnIndex;
+//                }
+//                
+//            } completion:^(BOOL finished){
+//                [[GAPickerTableInputSound sharedPickerTableInputSound] play]; // FIXME
+//                
+//            }];
+//        }
+//        else
+//        {
+//            NSInteger columnIndex=0;
+//            for(UILabel * column in _columns)
+//            {
+//                [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+//                
+//                if(columnIndex == _selectedColumn)
+//                    column.layer.opacity = kSelectedColumnOpacity;
+//                else
+//                    column.layer.opacity = kColumnOpacity;
+//                
+//                ++columnIndex;
+//            }
+//        }
     }
 }
 
@@ -224,29 +213,54 @@
     {
         case GAPickerSelectionAlignmentLeft:
         {
-            _selectionTranslation = 0.0;
+            _selectionEdgeInset = 0.0;
+            _contentSizePadding = _scrollView.frame.size.width-_columnSize.width;
+            
         }
             break;
         case GAPickerSelectionAlignmentRight:
         {
-            _selectionTranslation = self.frame.size.width-_columnRect.size.width;
+            _selectionEdgeInset = self.frame.size.width-_columnSize.width;
+            _contentSizePadding = 0.0;
         }
             break;
         case GAPickerSelectionAlignmentCenter:
         default:
         {
-            _selectionTranslation = self.frame.size.width/2.0f-_columnRect.size.width/2.0;
+            _selectionEdgeInset = self.frame.size.width/2.0f-_columnSize.width/2.0;
+            _contentSizePadding = _selectionEdgeInset;
         }
             break;
     }
     
     // Recalculate and correct non-integer values
-    _selectionTranslation = floorf(_selectionTranslation);
-    _minimumTranslation = -_numberOfColumns*_columnRect.size.width+_selectionTranslation;
-    _maximumTranslation = _selectionTranslation+_columnRect.size.width/2.0;
+    _selectionEdgeInset = floorf(_selectionEdgeInset);
+    _contentSizePadding = floorf(_contentSizePadding);
     
-    // Update layout
-    [self setSelectedColumn:_selectedColumn animated:animated];
+    if(animated)
+    {
+        [UIView animateWithDuration:kSelectionAlignmentAnimationDuration animations:^{
+            
+            // Update scroll view
+            _scrollView.contentInset = UIEdgeInsetsMake(0, _selectionEdgeInset, 0, 0);
+            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.width);
+            
+        } completion:^(BOOL finished){
+            
+            // Update selected column
+            [self setSelectedColumn:_selectedColumn animated:animated];
+            
+        }];
+    }
+    else
+    {
+        // Update scroll view
+        _scrollView.contentInset = UIEdgeInsetsMake(0, _selectionEdgeInset, 0, 0);
+        _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.width);
+        
+        // Update selected column
+        [self setSelectedColumn:_selectedColumn animated:animated];
+    }
 }
 
 #pragma mark -
@@ -291,7 +305,7 @@
             for(UILabel * column in _columns)
             {
                 CGFloat columnTranslation = -column.frame.origin.x;
-                CGFloat columnOffset = (columnTranslation + _selectionTranslation);
+                CGFloat columnOffset = (columnTranslation + _selectionEdgeInset);
                 
                 if(fabs(columnOffset) < selectedOffset)
                 {
@@ -308,18 +322,10 @@
             CGPoint velocity = [panGesture velocityInView:self];
             
             Log(@"velocity (%f,%f)", velocity.x, velocity.y);
-            
-            if(velocity.x > 5.0 || velocity.x < -5.0)
-            {
-                _translationVelocity = velocity.x*0.03;
-                [self setNeedsDisplay];
-            }
-            else
-            {
-                [self setSelectedColumn:selectedColumn animated:YES];
-                if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
-                    [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
-            }
+
+            [self setSelectedColumn:selectedColumn animated:YES];
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
+                [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
             
         }
             break;
@@ -344,6 +350,62 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
     return NO;
+}
+
+#pragma mark -
+#pragma mark UIScrollViewDelegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    PrettyLog;
+    
+    NSInteger selectedColumn = (NSInteger)((scrollView.contentOffset.x+_selectionEdgeInset+_columnSize.width/2.0)/_columnSize.width); // TODO optimize calculations with pre-calculated values
+    
+    if(selectedColumn > -1 && selectedColumn < _numberOfColumns)
+    {
+        if(selectedColumn != _selectedColumn && selectedColumn)
+        {
+            UILabel * previousSelectedColumn = [_columns objectAtIndex:_selectedColumn];
+            UILabel * nextSelectedColumn = [_columns objectAtIndex:selectedColumn];
+            _selectedColumn = selectedColumn;
+            
+            previousSelectedColumn.layer.opacity = kColumnOpacity;
+            nextSelectedColumn.layer.opacity = kSelectedColumnOpacity;
+        }
+        
+        Log(@"selectedColumn %d", selectedColumn);
+    }
+
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    PrettyLog;
+}
+
+- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+{
+    PrettyLog;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    PrettyLog;
+}
+
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    PrettyLog;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    PrettyLog;
+}
+
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    PrettyLog;
 }
 
 @end
