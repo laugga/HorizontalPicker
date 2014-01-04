@@ -50,12 +50,13 @@ typedef enum {
 
 @interface GAPickerTableView : UIView <UIScrollViewDelegate>
 {
-    // State
+    // Columns
     NSInteger _component;
     NSInteger _numberOfColumns;
 
     // Selection
     NSInteger _selectedColumn;
+    NSInteger _maxSelectionRange; // [0, _numberOfColumns-1]
     UIView * _selectedColumnView;
     
     // Interaction
@@ -68,6 +69,7 @@ typedef enum {
     // Layout
     GAPickerSelectionAlignment _selectionAlignment;
     CGFloat _selectionEdgeInset; // inset from left edge
+    CGFloat _selectionOffsetDelta; // _selectionEdgeInset + _columnSize.width/2.0
     CGFloat _contentSize; // content size for the columns
     CGFloat _contentSizePadding; // padding for the content size
     CGFloat _contentOffset;
