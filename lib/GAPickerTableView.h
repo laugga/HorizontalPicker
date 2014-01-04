@@ -72,6 +72,7 @@ typedef enum {
     // Selection
     GAPickerSelectionAlignment _selectionAlignment;
     CGFloat _selectionTranslation; // pre-calculated
+    CGFloat _translationVelocity;
     
     id<GAPickerTableViewDataSource> _dataSource;
     id<GAPickerTableViewDelegate> _delegate;

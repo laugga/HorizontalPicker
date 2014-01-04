@@ -66,8 +66,32 @@
         
         // Layout
         _columnRect = CGRectMake(0, 0, 60, self.frame.size.height);
+        _translationVelocity = 0.0f;
     }
     return self;
+}
+
+#pragma mark -
+#pragma mark Drawing
+
+- (void)drawRect:(CGRect)rect
+{
+    PrettyLog;
+    
+    if(_translationVelocity != 0.0)
+    {
+        Log(@"velocity %f", _translationVelocity);
+        _absoluteTranslation += _translationVelocity;
+        _translationVelocity *= 0.9;
+        [self updateLayoutSubviews];
+//        if(_translationVelocity < 1.0 || _translationVelocity > -1.0)
+//           _translationVelocity = 0.0;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self setNeedsDisplay];
+        });
+    }
+    
+    [super drawRect:rect];
 }
 
 #pragma mark -
@@ -281,9 +305,21 @@
                 columnIndex+=1;
             }
             
-            [self setSelectedColumn:selectedColumn animated:YES];
-            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
-                [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
+            CGPoint velocity = [panGesture velocityInView:self];
+            
+            Log(@"velocity (%f,%f)", velocity.x, velocity.y);
+            
+            if(velocity.x > 5.0 || velocity.x < -5.0)
+            {
+                _translationVelocity = velocity.x*0.03;
+                [self setNeedsDisplay];
+            }
+            else
+            {
+                [self setSelectedColumn:selectedColumn animated:YES];
+                if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)]) // TODO when animation finishes
+                    [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
+            }
             
         }
             break;
