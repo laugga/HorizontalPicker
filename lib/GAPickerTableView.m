@@ -132,7 +132,7 @@
                 
                 // Update scroll view
                 _scrollView.contentInset = UIEdgeInsetsMake(0, _selectionEdgeInset, 0, 0);
-                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.width);
+                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
                 
             } completion:^(BOOL finished){
                 
@@ -145,7 +145,7 @@
         {
             // Update scroll view
             _scrollView.contentInset = UIEdgeInsetsMake(0, _selectionEdgeInset, 0, 0);
-            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.width);
+            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
             
             // Update selected column
             [self setSelectedColumn:_selectedColumn animated:animated];
