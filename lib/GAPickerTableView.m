@@ -36,6 +36,10 @@
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
 
+#define kColumnOpacity 0.35
+#define kSelectedColumnOpacity 1.0
+
+
 #pragma mark -
 #pragma mark Initialization
 
@@ -133,30 +137,50 @@
 {
     Log(@"setSelectedColumn: %d", column);
     
-    _selectedColumn = column;
-    _absoluteTranslation = _selectionTranslation-_selectedColumn*_columnRect.size.width;
-    
-    NSNumber * layerTranslation = @(_absoluteTranslation);
-
-    if(animated)
+    // Check if column is valid
+    if(column >= 0 && column < _numberOfColumns)
     {
-        [UIView animateWithDuration:0.3 animations:^{
-            
+        _selectedColumn = column;
+        _absoluteTranslation = _selectionTranslation-_selectedColumn*_columnRect.size.width;
+        
+        NSNumber * layerTranslation = @(_absoluteTranslation);
+
+        if(animated)
+        {
+            [UIView animateWithDuration:0.3 animations:^{
+                
+                NSInteger columnIndex=0;
+                for(UILabel * column in _columns)
+                {
+                    [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+                    
+                    if(columnIndex == _selectedColumn)
+                        column.layer.opacity = kSelectedColumnOpacity;
+                    else
+                        column.layer.opacity = kColumnOpacity;
+                    
+                    ++columnIndex;
+                }
+                
+            } completion:^(BOOL finished){
+                [[GAPickerTableInputSound sharedPickerTableInputSound] play]; // FIXME
+                
+            }];
+        }
+        else
+        {
+            NSInteger columnIndex=0;
             for(UILabel * column in _columns)
             {
                 [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
+                
+                if(columnIndex == _selectedColumn)
+                    column.layer.opacity = kSelectedColumnOpacity;
+                else
+                    column.layer.opacity = kColumnOpacity;
+                
+                ++columnIndex;
             }
-            
-        } completion:^(BOOL finished){
-            [[GAPickerTableInputSound sharedPickerTableInputSound] play]; // FIXME
-            
-        }];
-    }
-    else
-    {
-        for(UILabel * column in _columns)
-        {
-            [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
         }
     }
 }

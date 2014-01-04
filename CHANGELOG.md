@@ -2,7 +2,7 @@
 
 Features:
 
-  - Left, Center or Right selection alignment
+  - Left, Center or Right selection alignment (selection indicator position, layout)
   - Drag left or right
   - iOS click-input sound
 
