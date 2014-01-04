@@ -30,34 +30,66 @@
 #import "GAPickerTableViewDataSource.h"
 #import "GAPickerTableViewDelegate.h"
 
+/*!
+ @abstract Options for the picker selection alignment, in relation to the view.
+ 
+ @constant GAPickerSelectionAlignmentLeft
+ Align selection along the left edge of the view.
+ 
+ @constant GAPickerSelectionAlignmentCenter
+ Align selection equally along both sides of the view. This is the default selection.
+ 
+ @constant APickerSelectionAlignmentRight
+ Align selection along the right edge of the view.
+ */
+typedef enum {
+    GAPickerSelectionAlignmentLeft,
+    GAPickerSelectionAlignmentCenter,
+    GAPickerSelectionAlignmentRight
+} GAPickerSelectionAlignment;
+
 @interface GAPickerTableView : UIView <UIGestureRecognizerDelegate>
 {
+    // State
     NSInteger _component;
     NSInteger _numberOfColumns;
     NSInteger _selectedColumn;
     
+    // Data
     NSMutableArray * _columns;
+    
+    // Interaction
+    UIPanGestureRecognizer * _panGestureRecognizer;
+    BOOL _isScrolling;
+    CGFloat _scrollingTranslation;
+
+    // Layout
+    CGFloat _absoluteTranslation;
+    CGFloat _minimumTranslation;
+    CGFloat _maximumTranslation;
+    CGRect _columnRect; // max-width found
+    
+    // Selection
+    GAPickerSelectionAlignment _selectionAlignment;
+    CGFloat _selectionTranslation; // pre-calculated
     
     id<GAPickerTableViewDataSource> _dataSource;
     id<GAPickerTableViewDelegate> _delegate;
-    
-    UIPanGestureRecognizer * _panGestureRecognizer;
-    
-    BOOL _isScrolling;
-    CGFloat _scrollingTranslation;
-    CGFloat _absoluteTranslation;
-    CGFloat _selectedTranslation; // pre-calculated
-    CGFloat _minimumTranslation;
-    CGFloat _maximumTranslation;
 }
 
 @property (nonatomic, readonly) NSInteger selectedColumn;
+
+/*!
+ Sets the selection to the left edge, center or right edge
+ */
+@property (nonatomic) GAPickerSelectionAlignment selectionAlignment;
 
 @property (nonatomic, assign) id<GAPickerTableViewDataSource> dataSource;
 @property (nonatomic, assign) id<GAPickerTableViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame andComponent:(NSInteger)component;
 
+- (void)setSelectionAlignment:(GAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;
 - (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated;
 
 @end

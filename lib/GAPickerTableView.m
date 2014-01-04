@@ -52,12 +52,16 @@
     self = [super initWithFrame:frame];
     if(self)
     {
+        // State
         _component = component;
+        _selectedColumn = -1; // none selected, default
         
+        // Interaction
         _panGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(userDidPan:)];
         [self addGestureRecognizer:_panGestureRecognizer];
         
-        _selectedTranslation = frame.size.width-55.0f;
+        // Layout
+        _columnRect = CGRectMake(0, 0, 60, self.frame.size.height);
     }
     return self;
 }
@@ -81,12 +85,10 @@
             _numberOfColumns = [_dataSource pickerTableView:self numberOfColumnsInComponent:_component];
             _columns = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
             
-            _minimumTranslation = -_numberOfColumns*50.0f+_selectedTranslation;
-            _maximumTranslation = _selectedTranslation+25.0f;
-            
             if(_delegate)
             {
-                CGRect columnRect = CGRectMake(0, 0, 50.0, self.frame.size.height);
+                if(_numberOfColumns > 0)
+                    _selectedColumn = 0;
                 
                 for(int column=0; column<_numberOfColumns; ++column)
                 {
@@ -95,21 +97,26 @@
                     label.textColor = [UIColor whiteColor];
                     label.text = title;
                     label.textAlignment = UITextAlignmentCenter;
-                    label.frame = CGRectMake(offset.x, offset.y, columnRect.size.width, columnRect.size.height);
+                    label.frame = CGRectMake(offset.x, offset.y, _columnRect.size.width, _columnRect.size.height);
                     [_columns addObject:label];
                     
                     [self addSubview:label];
                     
-                    offset.x += columnRect.size.width;
+                    offset.x += _columnRect.size.width;
                 }
+                
+                // Recalculate
+                _minimumTranslation = -_numberOfColumns*_columnRect.size.width+_selectionTranslation;
             }
+            
+            // Update
+            [self setSelectedColumn:_selectedColumn animated:NO];
         }
     }
 }
 
 - (void)updateLayoutSubviews
 {
-    //NSNumber * translation = @(_selectedColumn * -50.0);
     CGFloat currentTranslation = _absoluteTranslation + _scrollingTranslation;
     
     currentTranslation = MIN(currentTranslation, _maximumTranslation);
@@ -127,7 +134,7 @@
     Log(@"setSelectedColumn: %d", column);
     
     _selectedColumn = column;
-    _absoluteTranslation = _selectedTranslation-_selectedColumn*50.0;
+    _absoluteTranslation = _selectionTranslation-_selectedColumn*_columnRect.size.width;
     
     NSNumber * layerTranslation = @(_absoluteTranslation);
 
@@ -152,6 +159,46 @@
             [column.layer setValue:layerTranslation forKeyPath:@"transform.translation.x"];
         }
     }
+}
+
+- (void)setSelectionAlignment:(GAPickerSelectionAlignment)selectionAlignment
+{
+    [self setSelectionAlignment:selectionAlignment animated:NO];
+}
+
+- (void)setSelectionAlignment:(GAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
+{
+    // Assign
+    _selectionAlignment = selectionAlignment;
+    
+    // Update layout
+    switch (_selectionAlignment)
+    {
+        case GAPickerSelectionAlignmentLeft:
+        {
+            _selectionTranslation = 0.0;
+        }
+            break;
+        case GAPickerSelectionAlignmentRight:
+        {
+            _selectionTranslation = self.frame.size.width-_columnRect.size.width;
+        }
+            break;
+        case GAPickerSelectionAlignmentCenter:
+        default:
+        {
+            _selectionTranslation = self.frame.size.width/2.0f-_columnRect.size.width/2.0;
+        }
+            break;
+    }
+    
+    // Recalculate and correct non-integer values
+    _selectionTranslation = floorf(_selectionTranslation);
+    _minimumTranslation = -_numberOfColumns*_columnRect.size.width+_selectionTranslation;
+    _maximumTranslation = _selectionTranslation+_columnRect.size.width/2.0;
+    
+    // Update layout
+    [self setSelectedColumn:_selectedColumn animated:animated];
 }
 
 #pragma mark -
@@ -196,7 +243,7 @@
             for(UILabel * column in _columns)
             {
                 CGFloat columnTranslation = -column.frame.origin.x;
-                CGFloat columnOffset = (columnTranslation + _selectedTranslation);
+                CGFloat columnOffset = (columnTranslation + _selectionTranslation);
                 
                 if(fabs(columnOffset) < selectedOffset)
                 {

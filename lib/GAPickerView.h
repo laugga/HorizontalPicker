@@ -32,16 +32,31 @@
 
 #import "GAPickerTableView.h"
 
-//@class <UIPickerViewDataSource>, UIImageView, NSMutableArray, UIView, <UIPickerViewDelegate>, CALayer, UIColor;
-
-@interface GAPickerView : UIView <GAPickerTableViewDataSource, GAPickerTableViewDelegate/*UIPickerTableViewContainerDelegate, UITableViewDelegate, NSCoding, UITableViewDataSource,*/>
+/*!
+ @abstract Picker View
+ @discussion
+ The GAPickerView class implements objects, called picker views, that use an horizontal slider to show one or more sets of values. Users select values by dragging the slider so that the desired column of values aligns with a selection indicator.
+ The user interface provided by a picker view consists of components and columns. A component is a slider, which has a series of items (columns) at indexed locations on the slider. Each component also has an indexed location (left to right) in a picker view. Each column on a component has content, which is either a string or a view object such as a label (UILabel) or an image (UIImageView).
+ */
+@interface GAPickerView : UIView <GAPickerTableViewDataSource, GAPickerTableViewDelegate/*, NSCoding*/>
 {
+    // Components
+    NSInteger _numberOfComponents;
     NSMutableArray * _tables;
+    
+    // Layout
+    GAPickerSelectionAlignment _selectionAlignment;
+    
+    // Selection
+    GAPickerTableView * _selectingTable; // table being changed
+    
+    id<GAPickerViewDataSource> _dataSource;
+    id<GAPickerViewDelegate> _delegate;
+    
 //    UIView *_topFrame;
 //    NSMutableArray *_dividers;
 //    NSMutableArray *_selectionBars;
 //    UIView *_backgroundView;
-    NSInteger _numberOfComponents;
 //    UIImageView *_topGradient;
 //    UIImageView *_bottomGradient;
 //    UIView *_foregroundView;
@@ -70,20 +85,49 @@
 //    UIColor *_textShadowColor;
 //    BOOL _isInLayoutSubviews;
 //    BOOL _magnifierEnabled;
-    
-    GAPickerTableView * _selectingTable; // Table being changed
-    
-    id<GAPickerViewDataSource> _dataSource;
-    id<GAPickerViewDelegate> _delegate;
 }
 
+/*!
+ The data source for the picker view.
+ @discussion
+ The data source must adopt the GAPickerViewDataSource protocol and implement the required methods to return the number of components and the number of columns in each component.
+ */
 @property (nonatomic, assign) id<GAPickerViewDataSource> dataSource;
+
+/*!
+ The delegate for the picker view.
+ @discussion
+ The delegate must adopt the GAPickerViewDelegate protocol and implement the required methods to return the drawing rectangle for column in each component. It also provides the content for each component’s column, either as a string or a view, and it typically responds to new selections or deselections.
+ */
 @property (nonatomic, assign) id<GAPickerViewDelegate> delegate;
 
-@property(nonatomic, readwrite, assign) UIView *inputView;
+/*!
+ The alignment of the picker view selection indicator.
+ @discussion
+ The default value is GAPickerSelectionAlignmentCenter.
+ */
+@property (nonatomic) GAPickerSelectionAlignment selectionAlignment;
 
+/*!
+ Sets the alignment of the picker view selection indicator.
+ @param selectionAlignment The alignment, can be aligned along the left edge, center of view (default) or right edge of view.
+ @param animated YES to animate the selection alignment change; if you specify NO, the new selection alignment is shown immediately.
+ */
+- (void)setSelectionAlignment:(GAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;
+
+/*!
+ Returns the index of the selected row in a given component.
+ @param component A zero-indexed number identifying a component of the picker view.
+ @result A zero-indexed number identifying the selected column, or -1 if no column is selected.
+ */
 - (NSInteger)selectedColumnInComponent:(NSInteger)component;
 
+/*!
+ Selects a column in a specified component of the picker view.
+ @param column A zero-indexed number identifying a column of component.
+ @param component A zero-indexed number identifying a component of the picker view.
+ @param animated YES to animate the selection by translating the slider (component) to the new value; if you specify NO, the new selection is shown immediately.
+ */
 - (void)selectColumn:(NSInteger)column inComponent:(NSInteger)component animated:(BOOL)animated;
 
 //@property BOOL showsSelectionIndicator;

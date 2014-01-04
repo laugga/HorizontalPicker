@@ -2,7 +2,9 @@
 
 Features:
 
-  - ?
+  - Left, Center or Right selection alignment
+  - Drag left or right
+  - iOS click-input sound
 
 Documentation:
 
@@ -10,4 +12,4 @@ Documentation:
 
 Examples:
 
-  - ?
+  - Overview example (GAPickerView linked to UIPickerView and vice-versa)

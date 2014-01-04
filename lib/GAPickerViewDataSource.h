@@ -33,12 +33,12 @@
 @required
 
 /*!
- returns the number of 'rows' to display.
+ returns the number of 'columns' to display.
  */
 - (NSInteger)numberOfComponentsInPickerView:(GAPickerView *)pickerView;
 
 /*!
- returns the # of columns in each component.
+ returns the number of columns in each component.
  */
 - (NSInteger)pickerView:(GAPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component;
 

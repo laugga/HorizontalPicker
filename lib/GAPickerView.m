@@ -32,7 +32,7 @@
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
 
-@synthesize inputView;
+@synthesize selectionAlignment=_selectionAlignment;
 
 #pragma mark -
 #pragma mark Initialization
@@ -52,12 +52,14 @@
     {
         _tables = [[NSMutableArray alloc] init];
         _selectingTable = nil;
+        
+        _selectionAlignment = GAPickerSelectionAlignmentCenter; // default is center
     }
     return self;
 }
 
 #pragma mark -
-#pragma mark UIView
+#pragma mark Layout
 
 - (void)layoutSubviews
 {
@@ -78,9 +80,9 @@
             GAPickerTableView * tableView = [[GAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
             tableView.dataSource = self;
             tableView.delegate = self;
+            tableView.selectionAlignment = _selectionAlignment;
             
             [_tables addObject:tableView];
-            self.inputView = tableView;
             
             [self addSubview:tableView];
         }
@@ -89,12 +91,32 @@
     [self becomeFirstResponder];
 }
 
+- (void)setSelectionAlignment:(GAPickerSelectionAlignment)selectionAlignment
+{
+    // Assign
+    _selectionAlignment = selectionAlignment;
+    
+    // Set to all tables
+    for(GAPickerTableView * table in _tables)
+        table.selectionAlignment = selectionAlignment;
+}
+
+- (void)setSelectionAlignment:(GAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
+{
+    // Assign
+    _selectionAlignment = selectionAlignment;
+    
+    // Set to all tables
+    for(GAPickerTableView * table in _tables)
+        [table setSelectionAlignment:selectionAlignment animated:animated];
+}
+
 #pragma mark -
 #pragma mark Selection
 
 - (NSInteger)selectedColumnInComponent:(NSInteger)component
 {
-    NSInteger selectedColumnInComponent = 0;
+    NSInteger selectedColumnInComponent = -1;
     
     if(component < [_tables count])
     {
