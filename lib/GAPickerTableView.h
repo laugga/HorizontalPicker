@@ -53,31 +53,25 @@ typedef enum {
     // State
     NSInteger _component;
     NSInteger _numberOfColumns;
+
+    // Selection
     NSInteger _selectedColumn;
-    
-    // Data
-    NSMutableArray * _columns;
+    UIView * _selectedColumnView;
     
     // Interaction
-    UIPanGestureRecognizer * _panGestureRecognizer;
     BOOL _isScrolling;
-    CGFloat _scrollingTranslation;
     
-    // View
+    // Subviews
     UIScrollView * _scrollView;
-
-    // Layout
-    CGFloat _absoluteTranslation;
-    CGFloat _minimumTranslation;
-    CGFloat _maximumTranslation;
-    CGSize _columnSize; // max-width found
+    NSMutableArray * _columns;
     
-    // Selection
+    // Layout
     GAPickerSelectionAlignment _selectionAlignment;
     CGFloat _selectionEdgeInset; // inset from left edge
     CGFloat _contentSize; // content size for the columns
     CGFloat _contentSizePadding; // padding for the content size
     CGFloat _contentOffset;
+    CGSize _columnSize; // max-width found
     
     id<GAPickerTableViewDataSource> _dataSource;
     id<GAPickerTableViewDelegate> _delegate;

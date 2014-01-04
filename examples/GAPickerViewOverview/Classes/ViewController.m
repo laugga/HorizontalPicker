@@ -72,41 +72,41 @@
     _verticalPickerView.delegate = self;
     [self.view addSubview:_verticalPickerView];
     
-//    double delayInSeconds = 5.0;
-//    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        _horizontalPickerView.selectionAlignment = GAPickerSelectionAlignmentLeft;
-//    });
-//    
-//    delayInSeconds = 10.0;
-//    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        _horizontalPickerView.selectionAlignment = GAPickerSelectionAlignmentRight;
-//    });
-//    
-//    delayInSeconds = 15.0;
-//    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        _horizontalPickerView.selectionAlignment = GAPickerSelectionAlignmentCenter;
-//    });
-//    
-//    delayInSeconds = 20.0;
-//    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [_horizontalPickerView setSelectionAlignment:GAPickerSelectionAlignmentLeft animated:YES];
-//    });
-//    
-//    delayInSeconds = 25.0;
-//    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [_horizontalPickerView setSelectionAlignment:GAPickerSelectionAlignmentRight animated:YES];
-//    });
-//    
-//    delayInSeconds = 30.0;
-//    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-//    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [_horizontalPickerView setSelectionAlignment:GAPickerSelectionAlignmentCenter animated:YES];
-//    });
+    double delayInSeconds = 5.0;
+    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _horizontalPickerView.selectionAlignment = GAPickerSelectionAlignmentLeft;
+    });
+    
+    delayInSeconds = 10.0;
+    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _horizontalPickerView.selectionAlignment = GAPickerSelectionAlignmentRight;
+    });
+    
+    delayInSeconds = 15.0;
+    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        _horizontalPickerView.selectionAlignment = GAPickerSelectionAlignmentCenter;
+    });
+    
+    delayInSeconds = 20.0;
+    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_horizontalPickerView setSelectionAlignment:GAPickerSelectionAlignmentLeft animated:YES];
+    });
+    
+    delayInSeconds = 25.0;
+    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_horizontalPickerView setSelectionAlignment:GAPickerSelectionAlignmentRight animated:YES];
+    });
+    
+    delayInSeconds = 30.0;
+    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+        [_horizontalPickerView setSelectionAlignment:GAPickerSelectionAlignmentCenter animated:YES];
+    });
 }
 
 - (void)viewDidUnload
