@@ -72,7 +72,7 @@
         [self addSubview:_scrollView];
         
         // Layout
-        _columnSize = CGSizeMake(60, self.frame.size.height);
+        _columnSize = CGSizeMake(60, frame.size.height);
     }
     return self;
 }
@@ -112,7 +112,7 @@
                 }
                 
                 // content size
-                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.width);
+                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
             }
             
             // Update selected column

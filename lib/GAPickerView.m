@@ -72,7 +72,7 @@
         _numberOfComponents = [_dataSource numberOfComponentsInPickerView:self];
         
         CGFloat tableViewRectSizeWidth = self.frame.size.width;
-        CGFloat tableViewRectSizeHeight = self.frame.size.height/_numberOfComponents;
+        CGFloat tableViewRectSizeHeight = floorf(self.frame.size.height/_numberOfComponents);
     
         for(int component=0; component<_numberOfComponents; ++component)
         {
