@@ -56,11 +56,9 @@ typedef enum {
 
     // Selection
     NSInteger _selectedColumn;
+    NSInteger _highlightedColumn;
     NSInteger _maxSelectionRange; // [0, _numberOfColumns-1]
     UIView * _selectedColumnView;
-    
-    // Interaction
-    BOOL _isScrolling;
     
     // Subviews
     UIScrollView * _scrollView;

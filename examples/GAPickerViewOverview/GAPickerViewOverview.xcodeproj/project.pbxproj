@@ -417,7 +417,7 @@
 				GCC_PREFIX_HEADER = "GAPickerViewOverview-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "GAPickerViewOverview-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = GAPickerViewOverview;
 				VALID_ARCHS = "armv7 armv7s";
@@ -437,7 +437,7 @@
 				GCC_PREFIX_HEADER = "GAPickerViewOverview-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "GAPickerViewOverview-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = GAPickerViewOverview;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
