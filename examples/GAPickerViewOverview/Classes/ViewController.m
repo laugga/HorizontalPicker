@@ -62,6 +62,9 @@
 {
     [super viewDidLoad];
     
+    self.view.autoresizesSubviews = YES;
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    
     _horizontalPickerView = [[GAPickerView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height/2)];
     _horizontalPickerView.dataSource = self;
     _horizontalPickerView.delegate = self;
@@ -214,14 +217,14 @@
     }
 }
 
-- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
-{
-    UILabel *label = [[UILabel alloc] init];
-    label.textColor = [UIColor whiteColor];
-    label.text = [self pickerView:pickerView titleForRow:row forComponent:component];
-    label.textAlignment = UITextAlignmentCenter;
-    return [label autorelease];
-}
+//- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+//{
+//    UILabel *label = [[UILabel alloc] init];
+//    label.textColor = [UIColor whiteColor];
+//    label.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+//    label.textAlignment = UITextAlignmentCenter;
+//    return [label autorelease];
+//}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
