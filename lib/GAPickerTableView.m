@@ -105,6 +105,7 @@
                     label.text = title;
                     label.textAlignment = UITextAlignmentCenter;
                     label.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
+                    label.backgroundColor = [UIColor clearColor];
                     label.layer.opacity = kColumnOpacity;
                     [_columns addObject:label];
                     [_scrollView addSubview:label];
