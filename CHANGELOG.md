@@ -12,4 +12,4 @@ Examples:
  
 Other:
   
-  - Support for CocoaPods
+  - Support for CocoaPods added

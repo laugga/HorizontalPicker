@@ -2,12 +2,12 @@ Pod::Spec.new do |s|
   s.name         = "LAPickerView"
   s.version      = "0.1.0"
   s.summary      = "Horizontal spinning-wheel picker view for iOS."
-  # s.description  = <<-DESC
-  #                   * Markdown format.
-  #                   * Don't worry about the indent, we strip it!
-  #                  DESC
+# s.description  = <<-DESC
+#                   * Markdown format.
+#                   * Don't worry about the indent, we strip it!
+#                  DESC
   s.homepage     = "http://github.com/laugga/lapickerview"
-  # s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+# s.screenshots  = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
   s.license      = 'MIT'
   s.author       = { "Luis Laugga" => "luis@laugga.com" }
   s.source       = { :git => "https://github.com/laugga/lapickerview.git", :tag => s.version.to_s }
