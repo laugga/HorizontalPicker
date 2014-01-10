@@ -1,0 +1,4 @@
+pod "LAPickerViewOverview", '~> 0.1.0'
+
+target "LAPickerViewOverview" do
+end
