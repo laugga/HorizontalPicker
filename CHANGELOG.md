@@ -12,4 +12,4 @@ Documentation:
 
 Examples:
 
-  - Overview example (GAPickerView linked to UIPickerView and vice-versa)
+  - Overview example (LAPickerView linked to UIPickerView and vice-versa)

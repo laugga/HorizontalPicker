@@ -1,4 +1,4 @@
-# GAPickerView
+# LAPickerView
 
 ## Introduction
 
@@ -6,7 +6,7 @@
 
 * iOS 5 or later
 
-## How to use GAPickerView in your project
+## How to use LAPickerView in your project
 
 ## Overview
 

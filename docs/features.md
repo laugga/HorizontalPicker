@@ -1,4 +1,4 @@
-# GAPickerView Features
+# LAPickerView Features
 
 * Vertical Picker View
 * Horizontal Picker View
