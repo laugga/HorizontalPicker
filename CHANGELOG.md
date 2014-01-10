@@ -9,3 +9,7 @@ Features:
 Examples:
 
   - Overview example (LAPickerView linked to UIPickerView and vice-versa)
+ 
+Other:
+  
+  - Support for CocoaPods
