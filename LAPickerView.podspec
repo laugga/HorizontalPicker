@@ -20,5 +20,5 @@ Pod::Spec.new do |s|
   s.resources = 'resources'
 
   s.public_header_files = 'lib/*.h'
-  s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', CoreText', 'AudioToolbox'
+  s.frameworks = 'Foundation', 'UIKit', 'CoreGraphics', 'QuartzCore', 'CoreText', 'AudioToolbox'
 end
