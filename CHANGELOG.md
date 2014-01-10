@@ -6,10 +6,6 @@ Features:
   - Drag left or right
   - iOS click-input sound
 
-Documentation:
-
-  - ?
-
 Examples:
 
   - Overview example (LAPickerView linked to UIPickerView and vice-versa)
