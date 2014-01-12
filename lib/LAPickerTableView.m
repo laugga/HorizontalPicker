@@ -101,7 +101,7 @@
                 {
                     NSString * title = [_delegate pickerTableView:self titleForColumn:column forComponent:_component];
                     UILabel * label = [[UILabel alloc] init];
-                        label.textColor = [UIColor whiteColor];
+                        label.textColor = [UIColor blackColor];
                     label.text = title;
                     label.textAlignment = UITextAlignmentCenter;
                     label.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
