@@ -67,6 +67,7 @@
     self.view.autoresizesSubviews = YES;
     
     _horizontalPickerView = [[LAPickerView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height/3)];
+    _horizontalPickerView.selectionAlignment = LAPickerSelectionAlignmentCenter;
     _horizontalPickerView.dataSource = self;
     _horizontalPickerView.delegate = self;
     

@@ -1,4 +1,3 @@
-pod "LAPickerViewOverview", '~> 0.1.0'
+platform :ios, '5.1'
 
-target "LAPickerViewOverview" do
-end
+pod "LAPickerView", '~> 0.1.0'
