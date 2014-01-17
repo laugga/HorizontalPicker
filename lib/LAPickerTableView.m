@@ -87,40 +87,7 @@
     
     if(_columns == nil)
     {
-        _numberOfColumns = 0;
-        
-        if(_dataSource)
-        {
-            _numberOfColumns = [_dataSource pickerTableView:self numberOfColumnsInComponent:_component];
-            _columns = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
-            _maxSelectionRange = _numberOfColumns-1;
-            
-            if(_delegate)
-            {
-                for(int column=0; column<_numberOfColumns; ++column)
-                {
-                    NSString * title = [_delegate pickerTableView:self titleForColumn:column forComponent:_component];
-                    UILabel * label = [[UILabel alloc] init];
-                        label.textColor = [UIColor blackColor];
-                    label.text = title;
-                    label.textAlignment = UITextAlignmentCenter;
-                    label.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
-                    label.backgroundColor = [UIColor clearColor];
-                    label.layer.opacity = kColumnOpacity;
-                    [_columns addObject:label];
-                    [_scrollView addSubview:label];
-                    
-                    _contentSize += _columnSize.width;
-                }
-                
-                // content size
-                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
-            }
-            
-            // Update selected column
-            [self updateScrollViewAnimated:NO];
-            [self setSelectedColumn:0 animated:NO];
-        }
+        [self reloadData];
     }
 }
 
@@ -242,6 +209,54 @@
         
         // Assign new value
         _highlightedColumn = highlightedColumn;
+    }
+}
+
+#pragma mark -
+#pragma mark Data
+
+- (void)reloadData
+{
+    // Set number of columns to 0
+    _numberOfColumns = 0;
+
+    // Clean up
+    [_columns removeAllObjects];
+    [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    [_scrollView setContentSize:CGSizeZero];
+    
+    if(_dataSource)
+    {
+        _numberOfColumns = [_dataSource pickerTableView:self numberOfColumnsInComponent:_component];
+        _columns = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
+        _maxSelectionRange = _numberOfColumns-1;
+        
+        if(_delegate)
+        {
+            for(int column=0; column<_numberOfColumns; ++column)
+            {
+                NSString * title = [_delegate pickerTableView:self titleForColumn:column forComponent:_component];
+                UILabel * label = [[UILabel alloc] init];
+                label.textColor = [UIColor blackColor];
+                label.text = title;
+                label.textAlignment = UITextAlignmentCenter;
+                label.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
+                label.backgroundColor = [UIColor clearColor];
+                label.layer.opacity = kColumnOpacity;
+                [_columns addObject:label];
+                [_scrollView addSubview:label];
+                [label release];
+                
+                _contentSize += _columnSize.width;
+            }
+            
+            // content size
+            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
+        }
+        
+        // Update selected column
+        [self updateScrollViewAnimated:NO];
+        [self setSelectedColumn:0 animated:NO];
     }
 }
 

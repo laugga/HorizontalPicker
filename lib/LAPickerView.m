@@ -65,30 +65,10 @@
 {
     PrettyLog;
 
-    _numberOfComponents = 0;
-    
-    if(_dataSource)
+    if(_tables == nil)
     {
-        _numberOfComponents = [_dataSource numberOfComponentsInPickerView:self];
-        
-        CGFloat tableViewRectSizeWidth = self.frame.size.width;
-        CGFloat tableViewRectSizeHeight = floorf(self.frame.size.height/_numberOfComponents);
-    
-        for(int component=0; component<_numberOfComponents; ++component)
-        {
-            CGRect tableViewRect = CGRectMake(0, component*tableViewRectSizeHeight, tableViewRectSizeWidth, tableViewRectSizeHeight);
-            LAPickerTableView * tableView = [[LAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
-            tableView.dataSource = self;
-            tableView.delegate = self;
-            tableView.selectionAlignment = _selectionAlignment;
-            
-            [_tables addObject:tableView];
-            
-            [self addSubview:tableView];
-        }
+        [self reloadData];
     }
-    
-    [self becomeFirstResponder];
 }
 
 - (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment
@@ -109,6 +89,39 @@
     // Set to all tables
     for(LAPickerTableView * table in _tables)
         [table setSelectionAlignment:selectionAlignment animated:animated];
+}
+
+#pragma mark -
+#pragma mark Data
+
+- (void)reloadData
+{
+    // Set number of components to 0
+    _numberOfComponents = 0;
+    
+    // Clean up
+    [_tables removeAllObjects];
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    if(_dataSource)
+    {
+        _numberOfComponents = [_dataSource numberOfComponentsInPickerView:self];
+        
+        CGFloat tableViewRectSizeWidth = self.frame.size.width;
+        CGFloat tableViewRectSizeHeight = floorf(self.frame.size.height/_numberOfComponents);
+        
+        for(int component=0; component<_numberOfComponents; ++component)
+        {
+            CGRect tableViewRect = CGRectMake(0, component*tableViewRectSizeHeight, tableViewRectSizeWidth, tableViewRectSizeHeight);
+            LAPickerTableView * tableView = [[LAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
+            tableView.dataSource = self;
+            tableView.delegate = self;
+            tableView.selectionAlignment = _selectionAlignment;
+            [_tables addObject:tableView];
+            [self addSubview:tableView];
+            [tableView release];
+        }
+    }
 }
 
 #pragma mark -

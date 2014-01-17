@@ -130,6 +130,11 @@
  */
 - (void)selectColumn:(NSInteger)column inComponent:(NSInteger)component animated:(BOOL)animated;
 
+/*!
+ Reloads all columns for all components.
+ */
+- (void)reloadData;
+
 //@property BOOL showsSelectionIndicator;
 //@property(readonly) int numberOfComponents;
 //@property(setter=_setMagnifierEnabled:) BOOL _magnifierEnabled;
@@ -232,7 +237,6 @@
 //- (id)_popoverSuffix;
 //- (id)_selectionBarSuffix;
 //- (void)reloadComponent:(int)arg1;
-//- (void)reloadData;
 //- (int)_delegateNumberOfComponents;
 //- (void)reloadAllComponents;
 //- (void)didMoveToWindow;
