@@ -27,8 +27,6 @@
 
 #import "LAPickerTableView.h"
 
-#import "LAPickerTableInputSound.h"
-
 @implementation LAPickerTableView
 
 @synthesize selectedColumn=_selectedColumn;
@@ -198,8 +196,6 @@
             
             previousHighlightedColumn.layer.opacity = kColumnOpacity;
             nextHighlightedColumn.layer.opacity = kSelectedColumnOpacity;
-            
-            [[LAPickerTableInputSound sharedPickerTableInputSound] play]; // Play sound when selected column changes
         }
         else // No previous selection
         {
@@ -209,6 +205,9 @@
         
         // Assign new value
         _highlightedColumn = highlightedColumn;
+        
+        // Notify delegate
+        [_delegate pickerTableView:self didHighlightColumn:highlightedColumn inComponent:_component];
     }
 }
 

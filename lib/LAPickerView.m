@@ -27,12 +27,15 @@
 
 #import "LAPickerView.h"
 
+#import "LAPickerTableInputSound.h"
+
 @implementation LAPickerView
 
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
 
 @synthesize selectionAlignment=_selectionAlignment;
+@dynamic soundsEnabled;
 
 #pragma mark -
 #pragma mark Initialization
@@ -54,6 +57,7 @@
         _selectingTable = nil;
         
         _selectionAlignment = LAPickerSelectionAlignmentCenter; // default is center
+        _pickerViewFlags.soundsEnabled = 1; // default is enabled	
     }
     return self;
 }
@@ -65,7 +69,7 @@
 {
     PrettyLog;
 
-    if(_tables == nil)
+    if(_numberOfComponents == 0)
     {
         [self reloadData];
     }
@@ -150,6 +154,19 @@
 }
 
 #pragma mark -
+#pragma mark Sounds
+
+- (BOOL)soundsEnabled
+{
+    return (_pickerViewFlags.soundsEnabled == 1);
+}
+
+- (void)setSoundsEnabled:(BOOL)soundsEnabled
+{
+    _pickerViewFlags.soundsEnabled = (soundsEnabled ? 1 : 0);
+}
+
+#pragma mark -
 #pragma mark LAPickerTableViewDataSource
 
 - (NSInteger)pickerTableView:(LAPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component
@@ -164,6 +181,12 @@
 
 #pragma mark -
 #pragma mark LAPickerTableViewDelegate
+
+- (void)pickerTableView:(LAPickerTableView *)pickerView didHighlightColumn:(NSInteger)column inComponent:(NSInteger)component
+{
+    if(_pickerViewFlags.soundsEnabled)
+        [[LAPickerTableInputSound sharedPickerTableInputSound] play]; // Play sound when highlighted column changes
+}
 
 - (NSString *)pickerTableView:(LAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
 {

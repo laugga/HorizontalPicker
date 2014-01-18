@@ -30,12 +30,16 @@
 @class LAPickerTableView;
 
 @protocol LAPickerTableViewDelegate <NSObject>
+
+@required
+
+- (void)pickerTableView:(LAPickerTableView *)pickerView didHighlightColumn:(NSInteger)column inComponent:(NSInteger)component;
+
 @optional
 
 - (NSString *)pickerTableView:(LAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
 
 - (void)pickerTableView:(LAPickerTableView *)pickerView willSelectColumnInComponent:(NSInteger)component;
 - (void)pickerTableView:(LAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
-
 
 @end

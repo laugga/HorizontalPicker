@@ -63,7 +63,7 @@
 //    CALayer *_maskGradientLayer;
 //    UIView *_topLineView;
 //    UIView *_bottomLineView;
-//    struct {
+    struct {
 //        unsigned int needsLayout : 1;
 //        unsigned int delegateRespondsToNumberOfComponentsInPickerView : 1;
 //        unsigned int delegateRespondsToNumberOfRowsInComponent : 1;
@@ -76,10 +76,10 @@
 //        unsigned int showsSelectionBar : 1;
 //        unsigned int allowsMultipleSelection : 1;
 //        unsigned int allowSelectingCells : 1;
-//        unsigned int soundsDisabled : 1;
+        unsigned int soundsEnabled : 1;
 //        unsigned int usesCheckedSelection : 1;
 //        unsigned int skipsBackground : 1;
-//    } _pickerViewFlags;
+    } _pickerViewFlags;
 //    BOOL _usesModernStyle;
 //    UIColor *_textColor;
 //    UIColor *_textShadowColor;
@@ -107,6 +107,13 @@
  The default value is LAPickerSelectionAlignmentCenter.
  */
 @property (nonatomic) LAPickerSelectionAlignment selectionAlignment;
+
+/*!
+ The input sounds of the picker view are played when the selection changes.
+ @discussion
+ The default value is YES.
+ */
+@property (nonatomic, readwrite) BOOL soundsEnabled;
 
 /*!
  Sets the alignment of the picker view selection indicator.
@@ -192,11 +199,9 @@
 //- (BOOL)_contentHuggingDefault_isUsuallyFixedWidth;
 //- (BOOL)_contentHuggingDefault_isUsuallyFixedHeight;
 //- (void)reloadDataForColumn:(int)arg1;
-//- (void)setSoundsEnabled:(BOOL)arg1;
 //- (id)tableView:(id)arg1 cellForRowAtIndexPath:(id)arg2;
 //- (int)tableView:(id)arg1 numberOfRowsInSection:(int)arg2;
 //- (BOOL)_usesCheckSelection;
-//- (BOOL)_soundsEnabled;
 //- (void)_sendCheckedRow:(int)arg1 inTableView:(id)arg2 checked:(BOOL)arg3;
 //- (id)_delegateTitleForRow:(int)arg1 forComponent:(int)arg2;
 //- (id)_delegateAttributedTitleForRow:(int)arg1 forComponent:(int)arg2;
