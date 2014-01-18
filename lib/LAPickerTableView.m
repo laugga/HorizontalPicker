@@ -12,10 +12,10 @@
  use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
  the Software, and to permit persons to whom the Software is furnished to do so,
  subject to the following conditions:
-
+ 
  The above copyright notice and this permission notice shall be included in all
  copies or substantial portions of the Software.
-
+ 
  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
  FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
@@ -23,7 +23,7 @@
  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  
-*/
+ */
 
 #import "LAPickerTableView.h"
 
@@ -218,7 +218,7 @@
 {
     // Set number of columns to 0
     _numberOfColumns = 0;
-
+    
     // Clean up
     [_columns removeAllObjects];
     [_scrollView.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
@@ -232,6 +232,9 @@
         
         if(_delegate)
         {
+            NSMutableArray * columnViews = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
+            CGSize columnSize = CGSizeZero;
+            
             for(int column=0; column<_numberOfColumns; ++column)
             {
                 UIView * view = [[_delegate pickerTableView:self viewForColumn:column forComponent:_component reusingView:nil] retain];
@@ -245,16 +248,31 @@
                     label.textAlignment = UITextAlignmentCenter;
                     label.backgroundColor = [UIColor clearColor];
                     
+                    [label sizeToFit];
+                    
                     view = label;
                 }
                 else if(title != nil && [view isKindOfClass:[UILabel class]])
                 {
                     [((UILabel *)view) setText:title];
+                    [((UILabel *)view) sizeToFit];
                 }
+                
+                columnSize.width = MAX(columnSize.width, view.frame.size.width);
+                columnSize.height = MAX(columnSize.height, view.frame.size.height);
+                
+                [columnViews addObject:view];
+            }
+            
+            _columnSize = columnSize;
+            
+            for(int column=0; column<_numberOfColumns; ++column)
+            {
+                UIView * view = [columnViews objectAtIndex:column];
                 
                 view.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
                 view.layer.opacity = kColumnOpacity;
-    
+                
                 [_columns addObject:view];
                 [_scrollView addSubview:view];
                 [view release];
@@ -262,12 +280,14 @@
                 _contentSize += _columnSize.width;
             }
             
+            [columnViews release];
+            
             // content size
             _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
         }
         
         // Update selected column
-        [self updateScrollViewAnimated:NO];
+        [self setSelectionAlignment:_selectionAlignment];
         [self setSelectedColumn:0 animated:NO];
     }
 }
@@ -338,7 +358,7 @@
         {
             // Assign new value
             _selectedColumn = selectedColumn;
-          
+            
             // Notify delegate
             if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)])
                 [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
