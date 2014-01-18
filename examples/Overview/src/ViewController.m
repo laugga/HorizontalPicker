@@ -63,6 +63,7 @@
     [super viewDidLoad];
     
     self.navigationItem.title = @"LAPickerView Overview";
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Toggle Sounds" style:UIBarButtonItemStylePlain target:self action:@selector(togglePickerViewSoundsEnabled)];
     
     self.view.autoresizesSubviews = YES;
     
@@ -142,6 +143,14 @@
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
 {
     PrettyLog;
+}
+
+#pragma mark -
+#pragma mark Actions
+
+- (void)togglePickerViewSoundsEnabled
+{
+    [_horizontalPickerView setSoundsEnabled:!(_horizontalPickerView.soundsEnabled)];
 }
 
 #pragma mark -
