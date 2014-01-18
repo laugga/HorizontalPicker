@@ -234,17 +234,30 @@
         {
             for(int column=0; column<_numberOfColumns; ++column)
             {
+                UIView * view = [[_delegate pickerTableView:self viewForColumn:column forComponent:_component reusingView:nil] retain];
                 NSString * title = [_delegate pickerTableView:self titleForColumn:column forComponent:_component];
-                UILabel * label = [[UILabel alloc] init];
-                label.textColor = [UIColor blackColor];
-                label.text = title;
-                label.textAlignment = UITextAlignmentCenter;
-                label.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
-                label.backgroundColor = [UIColor clearColor];
-                label.layer.opacity = kColumnOpacity;
-                [_columns addObject:label];
-                [_scrollView addSubview:label];
-                [label release];
+                
+                if(view == nil)
+                {
+                    UILabel * label = [[UILabel alloc] init];
+                    label.textColor = [UIColor blackColor];
+                    label.text = title;
+                    label.textAlignment = UITextAlignmentCenter;
+                    label.backgroundColor = [UIColor clearColor];
+                    
+                    view = label;
+                }
+                else if(title != nil && [view isKindOfClass:[UILabel class]])
+                {
+                    [((UILabel *)view) setText:title];
+                }
+                
+                view.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
+                view.layer.opacity = kColumnOpacity;
+    
+                [_columns addObject:view];
+                [_scrollView addSubview:view];
+                [view release];
                 
                 _contentSize += _columnSize.width;
             }

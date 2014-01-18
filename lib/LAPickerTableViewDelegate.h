@@ -38,6 +38,7 @@
 @optional
 
 - (NSString *)pickerTableView:(LAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
+- (UIView *)pickerTableView:(LAPickerTableView *)pickerTableView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view;
 
 - (void)pickerTableView:(LAPickerTableView *)pickerView willSelectColumnInComponent:(NSInteger)component;
 - (void)pickerTableView:(LAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;

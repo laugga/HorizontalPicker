@@ -62,6 +62,17 @@
     return self;
 }
 
+- (void)setDelegate:(id<LAPickerViewDelegate>)delegate
+{
+    _delegate = delegate;
+
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:titleForColumn:forComponent:)])
+        _pickerViewFlags.delegateRespondsToTitleForColumn = 1;
+    
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:viewForColumn:forComponent:reusingView:)])
+        _pickerViewFlags.delegateRespondsToViewForColumn = 1;
+}
+
 #pragma mark -
 #pragma mark Layout
 
@@ -190,12 +201,22 @@
 
 - (NSString *)pickerTableView:(LAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
 {
-    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:titleForColumn:forComponent:)])
+    if(_pickerViewFlags.delegateRespondsToTitleForColumn)
     {
         return [_delegate pickerView:self titleForColumn:column forComponent:component];
     }
     
-    return 0;
+    return nil;
+}
+
+- (UIView *)pickerTableView:(LAPickerTableView *)pickerTableView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view
+{
+    if(_pickerViewFlags.delegateRespondsToViewForColumn)
+    {
+        return [_delegate pickerView:self viewForColumn:column forComponent:component reusingView:nil];
+    }
+    
+    return nil;
 }
 
 - (void)pickerTableView:(LAPickerTableView *)pickerTableView willSelectColumnInComponent:(NSInteger)component

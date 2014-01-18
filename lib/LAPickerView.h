@@ -68,8 +68,8 @@
 //        unsigned int delegateRespondsToNumberOfComponentsInPickerView : 1;
 //        unsigned int delegateRespondsToNumberOfRowsInComponent : 1;
 //        unsigned int delegateRespondsToDidSelectRow : 1;
-//        unsigned int delegateRespondsToViewForRow : 1;
-//        unsigned int delegateRespondsToTitleForRow : 1;
+        unsigned int delegateRespondsToViewForColumn : 1;
+        unsigned int delegateRespondsToTitleForColumn : 1;
 //        unsigned int delegateRespondsToAttributedTitleForRow : 1;
 //        unsigned int delegateRespondsToWidthForComponent : 1;
 //        unsigned int delegateRespondsToRowHeightForComponent : 1;
