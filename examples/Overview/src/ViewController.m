@@ -234,12 +234,12 @@
     }
 }
 
-//- (UIView *)pickerView:(UIPickerView *)pickerView viewForRow:(NSInteger)row forComponent:(NSInteger)component reusingView:(UIView *)view
+//- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view
 //{
-//    UILabel *label = [[UILabel alloc] init];
-//    label.textColor = [UIColor whiteColor];
-//    label.text = [self pickerView:pickerView titleForRow:row forComponent:component];
+//    UILabel * label = [[UILabel alloc] init];
+//    label.textColor = [UIColor blackColor];
 //    label.textAlignment = UITextAlignmentCenter;
+//    label.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:30.0f];
 //    return [label autorelease];
 //}
 
