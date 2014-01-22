@@ -27,16 +27,24 @@
 - (void)setUp
 {
     [super setUp];
+    
+    _pickerView = [[LAPickerView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)tearDown
-{   
+{
+    [_pickerView release];
+    
     [super tearDown];
 }
 
-- (void)testSetRepresentedObjects
+- (void)testInit
 {
-    STFail(@"Unit tests are not implemented yet in Test");
+    STAssertNil(_pickerView.delegate, @"");
+    STAssertNil(_pickerView.dataSource, @"");
+    
+    STAssertEquals(LAPickerSelectionAlignmentCenter, _pickerView.selectionAlignment, @"Alignment center set by default");
+    STAssertTrue(_pickerView.soundsEnabled, @"Input sounds enabled by default");
 }
 
 @end

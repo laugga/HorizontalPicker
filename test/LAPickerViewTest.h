@@ -26,5 +26,6 @@
 
 @interface LAPickerViewTest : SenTestCase
 {
+    LAPickerView * _pickerView;
 }
 @end
