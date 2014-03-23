@@ -234,14 +234,22 @@
     }
 }
 
-//- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view
-//{
-//    UILabel * label = [[UILabel alloc] init];
-//    label.textColor = [UIColor blackColor];
-//    label.textAlignment = UITextAlignmentCenter;
-//    label.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:30.0f];
-//    return [label autorelease];
-//}
+- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component     (UIView *)view
+{
+    UIView * viewForColumn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+    viewForColumn.backgroundColor = [UIColor grayColor];
+    
+    UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
+    label.backgroundColor = [UIColor clearColor];
+    label.textColor = [UIColor whiteColor];
+    label.textAlignment = UITextAlignmentCenter;
+    label.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:30.0f];
+    label.text = [self pickerView:pickerView titleForColumn:column forComponent:component];
+    
+    [viewForColumn addSubview:label];
+
+    return viewForColumn;
+}
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component
 {
