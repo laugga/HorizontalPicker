@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = 'LAPickerView'
-  s.version      = '0.1.0'
+  s.version      = '0.2.0'
   s.summary      = 'Horizontal spinning-wheel picker view for iOS.'
 # s.description  = <<-DESC
 #                   * Markdown format.

@@ -20,7 +20,7 @@ It is similar to UIPickerView, but the user interface provided consists of colum
 ```ruby
 platform :ios, '5.1'
 
-pod "LAPickerView", '~> 0.1.0'
+pod "LAPickerView", '~> 0.2.0'
 ```
 
 2. Install LAPickerView in your project:

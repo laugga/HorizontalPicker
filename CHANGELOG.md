@@ -1,3 +1,14 @@
+## 0.2.0
+
+Features:
+
+  - Support for 'pickerView:viewForColumn:forComponent:reusingView:' delegate method.
+	
+Improvements:
+
+  - Bug fixes
+  - Updated examples
+
 ## 0.1.0
 
 Features:
