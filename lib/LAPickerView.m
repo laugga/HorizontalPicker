@@ -48,6 +48,20 @@
 }
 #endif
 
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if(self)
+    {
+        _tables = [[NSMutableArray alloc] init];
+        _selectingTable = nil;
+        
+        _selectionAlignment = LAPickerSelectionAlignmentCenter; // default is center
+        _pickerViewFlags.soundsEnabled = 1; // default is enabled
+    }
+    return self;
+}
+
 - (id)initWithFrame:(struct CGRect)frame
 {
     self = [super initWithFrame:frame];
