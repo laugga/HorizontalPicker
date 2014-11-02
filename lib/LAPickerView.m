@@ -78,8 +78,6 @@
 
 - (void)layoutSubviews
 {
-    PrettyLog;
-
     if(_numberOfComponents == 0)
     {
         [self reloadData];
@@ -129,9 +127,10 @@
         {
             CGRect tableViewRect = CGRectMake(0, component*tableViewRectSizeHeight, tableViewRectSizeWidth, tableViewRectSizeHeight);
             LAPickerTableView * tableView = [[LAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
+            tableView.selectionAlignment = _selectionAlignment;
             tableView.dataSource = self;
             tableView.delegate = self;
-            tableView.selectionAlignment = _selectionAlignment;
+            [tableView reloadData];
             [_tables addObject:tableView];
             [self addSubview:tableView];
             [tableView release];

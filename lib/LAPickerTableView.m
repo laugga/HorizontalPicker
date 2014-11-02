@@ -91,6 +91,8 @@
 
 - (void)updateScrollViewAnimated:(BOOL)animated
 {
+    PrettyLog;
+    
     if(_numberOfColumns > 0)
     {
         if(animated)
@@ -130,8 +132,15 @@
         if(column > -1 && column < _numberOfColumns)
         {
             _contentOffset = column*_columnSize.width;
+            CGPoint selectedColumnContentOffset = CGPointMake(-_selectionEdgeInset+_contentOffset, 0);
             
-            [_scrollView setContentOffset:CGPointMake(-_selectionEdgeInset+_contentOffset, 0) animated:animated];
+            if (animated)
+            {
+                [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
+            }
+            else {
+                _scrollView.contentOffset = selectedColumnContentOffset;
+            }
         }
     }
 }
@@ -146,38 +155,41 @@
     // Assign
     _selectionAlignment = selectionAlignment;
     
-    // Update layout
-    switch (_selectionAlignment)
+    if (self.dataSource)
     {
-        case LAPickerSelectionAlignmentLeft:
+        // Update layout
+        switch (_selectionAlignment)
         {
-            _selectionEdgeInset = 0.0;
-            _contentSizePadding = _scrollView.frame.size.width-_columnSize.width;
-            
+            case LAPickerSelectionAlignmentLeft:
+            {
+                _selectionEdgeInset = 0.0;
+                _contentSizePadding = _scrollView.frame.size.width-_columnSize.width;
+                
+            }
+                break;
+            case LAPickerSelectionAlignmentRight:
+            {
+                _selectionEdgeInset = self.frame.size.width-_columnSize.width;
+                _contentSizePadding = 0.0;
+            }
+                break;
+            case LAPickerSelectionAlignmentCenter:
+            default:
+            {
+                _selectionEdgeInset = self.frame.size.width/2.0f-_columnSize.width/2.0;
+                _contentSizePadding = _selectionEdgeInset;
+            }
+                break;
         }
-            break;
-        case LAPickerSelectionAlignmentRight:
-        {
-            _selectionEdgeInset = self.frame.size.width-_columnSize.width;
-            _contentSizePadding = 0.0;
-        }
-            break;
-        case LAPickerSelectionAlignmentCenter:
-        default:
-        {
-            _selectionEdgeInset = self.frame.size.width/2.0f-_columnSize.width/2.0;
-            _contentSizePadding = _selectionEdgeInset;
-        }
-            break;
+        
+        // Recalculate and correct non-integer values
+        _selectionEdgeInset = floorf(_selectionEdgeInset);
+        _contentSizePadding = floorf(_contentSizePadding);
+        _selectionOffsetDelta = _selectionEdgeInset + _columnSize.width/2.0;
+        
+        // Update scroll view
+        [self updateScrollViewAnimated:animated];
     }
-    
-    // Recalculate and correct non-integer values
-    _selectionEdgeInset = floorf(_selectionEdgeInset);
-    _contentSizePadding = floorf(_contentSizePadding);
-    _selectionOffsetDelta = _selectionEdgeInset + _columnSize.width/2.0;
-    
-    // Update scroll view
-    [self updateScrollViewAnimated:animated];
 }
 
 - (void)setHighlightedColumn:(NSInteger)highlightedColumn
@@ -284,11 +296,12 @@
             
             // content size
             _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                _selectedColumn = 0;
+                [self setSelectionAlignment:_selectionAlignment animated:YES];
+            });
         }
-        
-        // Update selected column
-        [self setSelectionAlignment:_selectionAlignment];
-        [self setSelectedColumn:0 animated:NO];
     }
 }
 

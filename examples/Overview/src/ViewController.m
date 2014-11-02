@@ -68,7 +68,7 @@
     self.view.autoresizesSubviews = YES;
     
     _horizontalPickerView = [[LAPickerView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height/3)];
-    _horizontalPickerView.selectionAlignment = LAPickerSelectionAlignmentCenter;
+    _horizontalPickerView.selectionAlignment = LAPickerSelectionAlignmentRight;
     _horizontalPickerView.dataSource = self;
     _horizontalPickerView.delegate = self;
     
@@ -234,7 +234,7 @@
     }
 }
 
-- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component     (UIView *)view
+- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component 
 {
     UIView * viewForColumn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
     viewForColumn.backgroundColor = [UIColor grayColor];
