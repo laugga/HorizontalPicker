@@ -139,6 +139,7 @@
                 [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
             }
             else {
+                _selectedColumn = column;
                 _scrollView.contentOffset = selectedColumnContentOffset;
             }
         }
@@ -297,10 +298,8 @@
             // content size
             _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
             
-            dispatch_async(dispatch_get_main_queue(), ^{
-                _selectedColumn = 0;
-                [self setSelectionAlignment:_selectionAlignment animated:YES];
-            });
+            _selectedColumn = 0;
+            [self setSelectionAlignment:_selectionAlignment animated:NO];
         }
     }
 }
