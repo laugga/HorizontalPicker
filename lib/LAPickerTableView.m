@@ -129,7 +129,7 @@
         if(column > -1 && column < _numberOfColumns)
         {
             _contentOffset = [_columnsOffset[column] floatValue];
-            CGPoint selectedColumnContentOffset = CGPointMake(-_firstColumnOffset+_contentOffset, 0);
+            CGPoint selectedColumnContentOffset = CGPointMake(-_firstColumnOffset+_contentOffset+_interColumnSpacing, 0);
             
             if (animated)
             {
@@ -294,9 +294,9 @@
                 [_columns addObject:view];
                 [_scrollView addSubview:view];
                 
-                UIView * targetOffsetView = [[UIView alloc] initWithFrame:CGRectMake(cumulativeViewOffset, 0, 2, CGRectGetHeight(self.bounds))];
-                targetOffsetView.backgroundColor = [UIColor grayColor];
-                [_scrollView addSubview:targetOffsetView];
+                //UIView * targetOffsetView = [[UIView alloc] initWithFrame:CGRectMake(cumulativeViewOffset, 0, 2, CGRectGetHeight(self.bounds))];
+                //targetOffsetView.backgroundColor = [UIColor grayColor];
+                //[_scrollView addSubview:targetOffsetView];
                 
                 _contentSize += viewWidth;
             }
@@ -375,7 +375,7 @@
         }
         
         // Change targetContentOffset
-        targetContentOffset->x = currentOffset - _firstColumnOffset;
+        targetContentOffset->x = currentOffset - _firstColumnOffset + _interColumnSpacing;
     }
 }
 
