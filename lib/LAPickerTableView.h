@@ -67,6 +67,7 @@ typedef enum {
     
     // Layout
     LAPickerSelectionAlignment _selectionAlignment;
+    CGFloat _interColumnSpacing;
     CGFloat _selectionEdgeInset; // inset from left edge
     CGFloat _firstColumnOffset;
     CGFloat _selectionOffsetDelta; // _selectionEdgeInset + _columnSize.width/2.0
