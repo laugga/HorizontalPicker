@@ -69,9 +69,6 @@
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
         [self addSubview:_scrollView];
-        
-        // Layout
-        _columnSize = CGSizeMake(60, frame.size.height);
     }
     return self;
 }
@@ -101,7 +98,7 @@
                 
                 // Update scroll view
                 _scrollView.contentInset = UIEdgeInsetsMake(0, _selectionEdgeInset, 0, 0);
-                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
+                _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, CGRectGetHeight(self.bounds));
                 
             } completion:^(BOOL finished){
                 
@@ -114,7 +111,7 @@
         {
             // Update scroll view
             _scrollView.contentInset = UIEdgeInsetsMake(0, _selectionEdgeInset, 0, 0);
-            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
+            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, CGRectGetHeight(self.bounds));
             
             // Update selected column
             [self setSelectedColumn:_selectedColumn animated:animated];
@@ -126,24 +123,24 @@
 {
     Log(@"setSelectedColumn: %d", column);
     
-    if(_numberOfColumns)
-    {
-        // Range is [0, numberOfColumns]
-        if(column > -1 && column < _numberOfColumns)
-        {
-            _contentOffset = column*_columnSize.width;
-            CGPoint selectedColumnContentOffset = CGPointMake(-_selectionEdgeInset+_contentOffset, 0);
-            
-            if (animated)
-            {
-                [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
-            }
-            else {
-                _selectedColumn = column;
-                _scrollView.contentOffset = selectedColumnContentOffset;
-            }
-        }
-    }
+//    if(_numberOfColumns)
+//    {
+//        // Range is [0, numberOfColumns]
+//        if(column > -1 && column < _numberOfColumns)
+//        {
+//            _contentOffset = column*_columnSize.width;
+//            CGPoint selectedColumnContentOffset = CGPointMake(-_selectionEdgeInset+_contentOffset, 0);
+//            
+//            if (animated)
+//            {
+//                [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
+//            }
+//            else {
+//                _selectedColumn = column;
+//                _scrollView.contentOffset = selectedColumnContentOffset;
+//            }
+//        }
+//    }
 }
 
 - (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment
@@ -158,26 +155,33 @@
     
     if (self.dataSource)
     {
+        CGFloat firstColumnWidth = 0.0f;
+        if ([_columnsOffset count]) {
+            firstColumnWidth = [_columnsOffset[0] doubleValue];
+        }
         // Update layout
         switch (_selectionAlignment)
         {
             case LAPickerSelectionAlignmentLeft:
             {
-                _selectionEdgeInset = 0.0;
-                _contentSizePadding = _scrollView.frame.size.width-_columnSize.width;
+                _selectionEdgeInset = 0.0f;
+                _firstColumnOffset = 0.0f;
+                _contentSizePadding = _scrollView.frame.size.width - firstColumnWidth;
                 
             }
                 break;
             case LAPickerSelectionAlignmentRight:
             {
-                _selectionEdgeInset = self.frame.size.width-_columnSize.width;
-                _contentSizePadding = 0.0;
+                _selectionEdgeInset = self.frame.size.width - firstColumnWidth;
+                _firstColumnOffset = self.frame.size.width;
+                _contentSizePadding = 0.0f;
             }
                 break;
             case LAPickerSelectionAlignmentCenter:
             default:
             {
-                _selectionEdgeInset = self.frame.size.width/2.0f-_columnSize.width/2.0;
+                _selectionEdgeInset = self.frame.size.width/2.0f - firstColumnWidth/2.0f;
+                _firstColumnOffset = self.frame.size.width/2.0f;
                 _contentSizePadding = _selectionEdgeInset;
             }
                 break;
@@ -186,7 +190,7 @@
         // Recalculate and correct non-integer values
         _selectionEdgeInset = floorf(_selectionEdgeInset);
         _contentSizePadding = floorf(_contentSizePadding);
-        _selectionOffsetDelta = _selectionEdgeInset + _columnSize.width/2.0;
+        _selectionOffsetDelta = _selectionEdgeInset + firstColumnWidth/2.0f;
         
         // Update scroll view
         [self updateScrollViewAnimated:animated];
@@ -195,33 +199,33 @@
 
 - (void)setHighlightedColumn:(NSInteger)highlightedColumn
 {
-    // Range is [0, _numberOfColumns-1]
-    highlightedColumn = MIN(highlightedColumn, _maxSelectionRange);
-    highlightedColumn = MAX(0, highlightedColumn);
-    
-    // Selected column is different
-    if(highlightedColumn != _highlightedColumn)
-    {
-        if(_highlightedColumn > -1) // Previous highlighted
-        {
-            UILabel * previousHighlightedColumn = [_columns objectAtIndex:_highlightedColumn];
-            UILabel * nextHighlightedColumn = [_columns objectAtIndex:highlightedColumn];
-            
-            previousHighlightedColumn.layer.opacity = kColumnOpacity;
-            nextHighlightedColumn.layer.opacity = kSelectedColumnOpacity;
-        }
-        else // No previous selection
-        {
-            UILabel * nextHighlightedColumn = [_columns objectAtIndex:highlightedColumn];
-            nextHighlightedColumn.layer.opacity = kSelectedColumnOpacity;
-        }
-        
-        // Assign new value
-        _highlightedColumn = highlightedColumn;
-        
-        // Notify delegate
-        [_delegate pickerTableView:self didHighlightColumn:highlightedColumn inComponent:_component];
-    }
+//    // Range is [0, _numberOfColumns-1]
+//    highlightedColumn = MIN(highlightedColumn, _maxSelectionRange);
+//    highlightedColumn = MAX(0, highlightedColumn);
+//    
+//    // Selected column is different
+//    if(highlightedColumn != _highlightedColumn)
+//    {
+//        if(_highlightedColumn > -1) // Previous highlighted
+//        {
+//            UILabel * previousHighlightedColumn = [_columns objectAtIndex:_highlightedColumn];
+//            UILabel * nextHighlightedColumn = [_columns objectAtIndex:highlightedColumn];
+//            
+//            previousHighlightedColumn.layer.opacity = kColumnOpacity;
+//            nextHighlightedColumn.layer.opacity = kSelectedColumnOpacity;
+//        }
+//        else // No previous selection
+//        {
+//            UILabel * nextHighlightedColumn = [_columns objectAtIndex:highlightedColumn];
+//            nextHighlightedColumn.layer.opacity = kSelectedColumnOpacity;
+//        }
+//        
+//        // Assign new value
+//        _highlightedColumn = highlightedColumn;
+//        
+//        // Notify delegate
+//        [_delegate pickerTableView:self didHighlightColumn:highlightedColumn inComponent:_component];
+//    }
 }
 
 #pragma mark -
@@ -241,12 +245,13 @@
     {
         _numberOfColumns = [_dataSource pickerTableView:self numberOfColumnsInComponent:_component];
         _columns = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
+        _columnsOffset = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
         _maxSelectionRange = _numberOfColumns-1;
-        
+
         if(_delegate)
         {
-            NSMutableArray * columnViews = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
             CGSize columnSize = CGSizeZero;
+            CGFloat cumulativeViewOffset = 0.0;
             
             for(int column=0; column<_numberOfColumns; ++column)
             {
@@ -274,29 +279,28 @@
                 columnSize.width = MAX(columnSize.width, view.frame.size.width);
                 columnSize.height = MAX(columnSize.height, view.frame.size.height);
                 
-                [columnViews addObject:view];
-            }
-            
-            _columnSize = columnSize;
-            
-            for(int column=0; column<_numberOfColumns; ++column)
-            {
-                UIView * view = [columnViews objectAtIndex:column];
+                CGFloat viewWidth = CGRectGetWidth(view.bounds);
+                CGFloat viewHeight = CGRectGetHeight(view.bounds);
                 
-                view.frame = CGRectMake(_contentSize, 0, _columnSize.width, _columnSize.height);
+                view.frame = CGRectMake(cumulativeViewOffset, 0, viewWidth, viewHeight);
+                
+                cumulativeViewOffset += viewWidth;
+                [_columnsOffset addObject:@(cumulativeViewOffset)];
+                
                 view.layer.opacity = kColumnOpacity;
                 
                 [_columns addObject:view];
                 [_scrollView addSubview:view];
-                [view release];
                 
-                _contentSize += _columnSize.width;
+                UIView * targetOffsetView = [[UIView alloc] initWithFrame:CGRectMake(cumulativeViewOffset, 0, 2, CGRectGetHeight(self.bounds))];
+                targetOffsetView.backgroundColor = [UIColor grayColor];
+                [_scrollView addSubview:targetOffsetView];
+                
+                _contentSize += viewWidth;
             }
             
-            [columnViews release];
-            
             // content size
-            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, _columnSize.height);
+            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, CGRectGetHeight(self.bounds));
             
             _selectedColumn = 0;
             [self setSelectionAlignment:_selectionAlignment animated:NO];
@@ -309,15 +313,15 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    // Ignore if empty
-    if(_numberOfColumns > 0)
-    {
-        // Calculate highlighted column
-        NSInteger highlightedColumn = (NSInteger)((scrollView.contentOffset.x+_selectionOffsetDelta)/_columnSize.width);
-        
-        // Change highlighted column
-        [self setHighlightedColumn:highlightedColumn];
-    }
+//    // Ignore if empty
+//    if(_numberOfColumns > 0)
+//    {
+//        // Calculate highlighted column
+//        NSInteger highlightedColumn = (NSInteger)((scrollView.contentOffset.x+_selectionOffsetDelta)/_columnSize.width);
+//        
+//        // Change highlighted column
+//        [self setHighlightedColumn:highlightedColumn];
+//    }
 }
 
 //- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -330,18 +334,24 @@
     // Ignore if empty
     if(_numberOfColumns > 0)
     {
-        // Calculate selected column
-        NSInteger targetSelectedColumn = (NSInteger)((targetContentOffset->x+_selectionOffsetDelta)/_columnSize.width);
+        CGFloat targetOffset = targetContentOffset->x + _firstColumnOffset;
+ 
+        CGFloat currentOffset = 0.0f;
+        CGFloat currentDelta = INFINITY;
         
-        // Range is [0, _numberOfColumns-1]
-        targetSelectedColumn = MIN(targetSelectedColumn, _maxSelectionRange);
-        targetSelectedColumn = MAX(0, targetSelectedColumn);
-        
-        // Calculate contentOffset
-        CGFloat targetContentOffsetX = targetSelectedColumn*_columnSize.width;
+        for (NSNumber * columnOffset in _columnsOffset)
+        {
+            CGFloat delta = fabsf(columnOffset.floatValue - targetOffset);
+            if (delta <= currentDelta) {
+                currentDelta = delta;
+                currentOffset = columnOffset.floatValue;
+            } else {
+                break;
+            }
+        }
         
         // Change targetContentOffset
-        targetContentOffset->x = -_selectionEdgeInset+targetContentOffsetX;
+        targetContentOffset->x = currentOffset - _firstColumnOffset;
     }
 }
 
@@ -357,30 +367,31 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    // Calculate selected column
-    NSInteger selectedColumn = (NSInteger)((scrollView.contentOffset.x+_selectionOffsetDelta)/_columnSize.width);
-    
-    // Range is [0, _numberOfColumns-1]
-    selectedColumn = MIN(selectedColumn, _maxSelectionRange);
-    selectedColumn = MAX(0, selectedColumn);
-    
-    if(selectedColumn != _selectedColumn)
-    {
-        if(selectedColumn > -1 && selectedColumn < _numberOfColumns)
-        {
-            // Assign new value
-            _selectedColumn = selectedColumn;
-            
-            // Notify delegate
-            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)])
-                [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
-        }
-    }
+//    // Calculate selected column
+//    NSInteger selectedColumn = (NSInteger)((scrollView.contentOffset.x+_selectionOffsetDelta)/_columnSize.width);
+//    
+//    // Range is [0, _numberOfColumns-1]
+//    selectedColumn = MIN(selectedColumn, _maxSelectionRange);
+//    selectedColumn = MAX(0, selectedColumn);
+//    
+//    if(selectedColumn != _selectedColumn)
+//    {
+//        if(selectedColumn > -1 && selectedColumn < _numberOfColumns)
+//        {
+//            // Assign new value
+//            _selectedColumn = selectedColumn;
+//            
+//            // Notify delegate
+//            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)])
+//                [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
+//        }
+//    }
 }
 
 //- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 //{
 //    PrettyLog;
 //}
+
 
 @end

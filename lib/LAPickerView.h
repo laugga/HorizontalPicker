@@ -138,6 +138,13 @@
 - (void)selectColumn:(NSInteger)column inComponent:(NSInteger)component animated:(BOOL)animated;
 
 /*!
+ Hightlights a specified component of the picker view.
+ @param component A zero-indexed number identifying a component of the picker view.
+ @param animated YES to animate the selection by translating the slider (component) to the new value; if you specify NO, the new selection is shown immediately.
+ */
+- (void)highlightComponent:(NSInteger)component animated:(BOOL)animated;
+
+/*!
  Reloads all columns for all components.
  */
 - (void)reloadData;

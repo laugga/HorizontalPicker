@@ -63,15 +63,16 @@ typedef enum {
     // Subviews
     UIScrollView * _scrollView;
     NSMutableArray * _columns;
+    NSMutableArray * _columnsOffset;
     
     // Layout
     LAPickerSelectionAlignment _selectionAlignment;
     CGFloat _selectionEdgeInset; // inset from left edge
+    CGFloat _firstColumnOffset;
     CGFloat _selectionOffsetDelta; // _selectionEdgeInset + _columnSize.width/2.0
     CGFloat _contentSize; // content size for the columns
     CGFloat _contentSizePadding; // padding for the content size
     CGFloat _contentOffset;
-    CGSize _columnSize; // max-width found
     
     id<LAPickerTableViewDataSource> _dataSource;
     id<LAPickerTableViewDelegate> _delegate;

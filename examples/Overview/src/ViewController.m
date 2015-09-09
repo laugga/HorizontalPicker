@@ -234,18 +234,21 @@
     }
 }
 
-- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component 
+- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view
 {
-    UIView * viewForColumn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
-    viewForColumn.backgroundColor = [UIColor grayColor];
     
     UILabel * label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
     label.backgroundColor = [UIColor clearColor];
-    label.textColor = [UIColor whiteColor];
+    label.textColor = [UIColor blackColor];
     label.textAlignment = UITextAlignmentCenter;
     label.font = [UIFont fontWithName:@"HelveticaNeue-Thin" size:30.0f];
     label.text = [self pickerView:pickerView titleForColumn:column forComponent:component];
+    [label sizeToFit];
     
+    CGSize size = [label.text sizeWithFont:label.font];
+    
+    UIView * viewForColumn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, size.width, size.height)];
+    viewForColumn.backgroundColor = [UIColor clearColor];
     [viewForColumn addSubview:label];
 
     return viewForColumn;
@@ -256,6 +259,7 @@
     Log(@"pickerView: vertical didSelectRow: %d inComponent: %d", row, component);
     
     [_horizontalPickerView selectColumn:row inComponent:component animated:YES];
+    [_horizontalPickerView highlightComponent:component animated:YES];
 }
 
 - (void)pickerView:(LAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
@@ -263,6 +267,7 @@
     Log(@"pickerView: horizontal didSelectColumn: %d/%d inComponent: %d", column, [pickerView selectedColumnInComponent:component], component);
     
     [_verticalPickerView selectRow:column inComponent:component animated:YES];
+    [_horizontalPickerView highlightComponent:component animated:YES];
 }
 
 @end

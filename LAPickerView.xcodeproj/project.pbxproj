@@ -362,7 +362,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Scripts/copy_framework_headers.sh\"";
+			shellScript = "\"${SRCROOT}/scripts/copy_framework_headers.sh\"";
 		};
 		A0F1A4EA16301D15002E6BE5 /* Run Copy Framework Resources */ = {
 			isa = PBXShellScriptBuildPhase;
