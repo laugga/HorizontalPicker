@@ -94,6 +94,8 @@ typedef enum {
 - (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;
 - (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated;
 
+- (void)setSelectedColumnHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+
 /*!
  Reloads all columns in table view;
  */

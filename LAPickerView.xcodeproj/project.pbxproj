@@ -23,6 +23,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		38DBA1BE1BA8C7EB008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
+		38DBA1BF1BA8C7F1008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
 		A01822AB1876058D00E38975 /* LAPickerViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A01822AD187605A400E38975 /* LAPickerViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AC187605A400E38975 /* LAPickerViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A01822B41876147000E38975 /* LAPickerTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822B21876147000E38975 /* LAPickerTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -65,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		38DBA1BC1BA8C7EB008F9EEF /* LAPickerViewLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewLabel.h; sourceTree = "<group>"; };
+		38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerViewLabel.m; sourceTree = "<group>"; };
 		A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDelegate.h; sourceTree = "<group>"; };
 		A01822AC187605A400E38975 /* LAPickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDataSource.h; sourceTree = "<group>"; };
 		A01822B21876147000E38975 /* LAPickerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableView.h; sourceTree = "<group>"; };
@@ -173,6 +177,8 @@
 		A0F0BE0516388E050017AEC3 /* Library */ = {
 			isa = PBXGroup;
 			children = (
+				38DBA1BC1BA8C7EB008F9EEF /* LAPickerViewLabel.h */,
+				38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */,
 				A01822AC187605A400E38975 /* LAPickerViewDataSource.h */,
 				A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */,
 				A0BCA0501874722600FC20CE /* LAPickerView.h */,
@@ -385,6 +391,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38DBA1BF1BA8C7F1008F9EEF /* LAPickerViewLabel.m in Sources */,
 				A0445E0F18747BCC007BC506 /* LAPickerView.m in Sources */,
 				A01822B61876147000E38975 /* LAPickerTableView.m in Sources */,
 				A0A09B461876FB2A00855DD5 /* LAPickerTableInputSound.m in Sources */,
@@ -397,6 +404,7 @@
 			files = (
 				A0A09B451876FB2A00855DD5 /* LAPickerTableInputSound.m in Sources */,
 				A01822B51876147000E38975 /* LAPickerTableView.m in Sources */,
+				38DBA1BE1BA8C7EB008F9EEF /* LAPickerViewLabel.m in Sources */,
 				A0445E0E18747BCC007BC506 /* LAPickerView.m in Sources */,
 				A01C02C71620E7A5003DA76F /* LAPIckerViewTest.m in Sources */,
 			);

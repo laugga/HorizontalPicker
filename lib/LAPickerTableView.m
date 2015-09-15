@@ -26,6 +26,7 @@
  */
 
 #import "LAPickerTableView.h"
+#import "LAPickerViewLabel.h"
 
 @implementation LAPickerTableView
 
@@ -139,6 +140,18 @@
                 _selectedColumn = column;
                 _scrollView.contentOffset = selectedColumnContentOffset;
             }
+        }
+    }
+}
+
+- (void)setSelectedColumnHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+{
+    if(_selectedColumn > -1 && _selectedColumn < _numberOfColumns)
+    {
+        LAPickerViewLabel * view = (LAPickerViewLabel *)_columns[_selectedColumn];
+        if ([view isKindOfClass:[LAPickerViewLabel class]])
+        {
+            [view setHighlighted:highlighted animated:YES];
         }
     }
 }
@@ -262,11 +275,14 @@
                 
                 if(view == nil)
                 {
-                    UILabel * label = [[UILabel alloc] init];
+                    LAPickerViewLabel * label = [[LAPickerViewLabel alloc] init];
                     label.textColor = [UIColor blackColor];
                     label.text = title;
                     label.textAlignment = UITextAlignmentCenter;
                     label.backgroundColor = [UIColor clearColor];
+                    
+                    // TODO expose in the LAPickerView interface
+                    label.highlightedFont = [UIFont boldSystemFontOfSize:20.0];
                     
                     [label sizeToFit];
                     

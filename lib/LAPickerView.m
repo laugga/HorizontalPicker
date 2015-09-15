@@ -177,23 +177,13 @@
     }
 }
 
-- (void)highlightComponent:(NSInteger)highlightedComponent animated:(BOOL)animated
+- (void)setSelectedColumnHighlighted:(BOOL)highlighted inComponent:(NSInteger)component animated:(BOOL)animated
 {
-//    if(highlightedComponent < [_tables count])
-//    {
-//        LAPickerTableView * pickerTableView = [_tables objectAtIndex:highlightedComponent];
-//        pickerTableView.layer.affineTransform = CGAffineTransformMakeScale(1.3, 1.3);
-//        
-//        for(int component=0; component<_numberOfComponents; ++component)
-//        {
-//            if (component != highlightedComponent)
-//            {
-//                LAPickerTableView * pickerTableView = [_tables objectAtIndex:component];
-//                pickerTableView.layer.affineTransform = CGAffineTransformMakeScale(1.0, 1.0);
-//
-//            }
-//        }
-//    }
+    if(component < [_tables count])
+    {
+        LAPickerTableView * pickerTableView = [_tables objectAtIndex:component];
+        [pickerTableView setSelectedColumnHighlighted:highlighted animated:animated];
+    }
 }
 
 #pragma mark -
