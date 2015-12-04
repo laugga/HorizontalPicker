@@ -136,10 +136,19 @@
         
         CGFloat tableViewRectSizeWidth = self.frame.size.width;
         CGFloat tableViewRectSizeHeight = floorf(self.frame.size.height/_numberOfComponents);
+        CGFloat tableViewRectSizeTop = 0;
         
         for(int component=0; component<_numberOfComponents; ++component)
         {
-            CGRect tableViewRect = CGRectMake(0, component*tableViewRectSizeHeight, tableViewRectSizeWidth, tableViewRectSizeHeight);
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerView:heightForComponent:)]) {
+                tableViewRectSizeHeight = [_delegate pickerView:self heightForComponent:component];
+            }
+            
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerView:topSpaceForComponent:)]) {
+                tableViewRectSizeTop = [_delegate pickerView:self topSpaceForComponent:component];
+            }
+
+            CGRect tableViewRect = CGRectMake(0, tableViewRectSizeTop, tableViewRectSizeWidth, tableViewRectSizeHeight);
             LAPickerTableView * tableView = [[LAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
             tableView.selectionAlignment = _selectionAlignment;
             tableView.dataSource = self;

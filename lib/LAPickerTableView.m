@@ -35,7 +35,7 @@
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
 
-#define kColumnOpacity 0.35
+#define kColumnOpacity 0.0
 #define kSelectedColumnOpacity 1.0
 
 #define kSelectionAlignmentAnimationDuration 0.25
@@ -261,7 +261,7 @@
         _columnsOffset = [[NSMutableArray alloc] initWithCapacity:_numberOfColumns];
         _maxSelectionRange = _numberOfColumns-1;
         
-        _interColumnSpacing = 10.0f;
+        _interColumnSpacing = 5.5f;
 
         if(_delegate)
         {

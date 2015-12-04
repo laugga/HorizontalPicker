@@ -35,8 +35,9 @@
 /*!
  returns width of column and height of row for each component.
  */
-- (CGFloat)pickerView:(LAPickerView *)pickerView widthForComponent:(NSInteger)component;
-- (CGFloat)pickerView:(LAPickerView *)pickerView rowHeightForComponent:(NSInteger)component;
+//- (CGFloat)pickerView:(LAPickerView *)pickerView widthForComponent:(NSInteger)component;
+- (CGFloat)pickerView:(LAPickerView *)pickerView heightForComponent:(NSInteger)component;
+- (CGFloat)pickerView:(LAPickerView *)pickerView topSpaceForComponent:(NSInteger)component;
 
 /*!
  these methods return either a plain NSString, a NSAttributedString, or a view (e.g UILabel) to display the row for the component.
