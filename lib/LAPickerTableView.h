@@ -30,6 +30,8 @@
 #import "LAPickerTableViewDataSource.h"
 #import "LAPickerTableViewDelegate.h"
 
+#import "LAPickerScrollView.h"
+
 /*!
  @abstract Options for the picker selection alignment, in relation to the view.
  
@@ -61,7 +63,7 @@ typedef enum {
     UIView * _selectedColumnView;
     
     // Subviews
-    UIScrollView * _scrollView;
+    LAPickerScrollView * _scrollView;
     NSMutableArray * _columns;
     NSMutableArray * _columnsOffset;
     

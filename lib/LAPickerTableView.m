@@ -65,7 +65,7 @@
         _highlightedColumn = -1; // none highlighted, default
         
         // View
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _scrollView = [[LAPickerScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
@@ -351,6 +351,11 @@
 #pragma mark -
 #pragma mark UIScrollViewDelegate
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    PrettyLog;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     // Ignore if empty
@@ -371,6 +376,8 @@
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
+    PrettyLog;
+
     // Ignore if empty
     if(_numberOfColumns > 0)
     {
@@ -395,18 +402,20 @@
     }
 }
 
-//- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-//{
-//    PrettyLog;
-//}
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    PrettyLog;
+}
 
-//- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
-//{
-//    PrettyLog;
-//}
+- (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
+{
+    PrettyLog;
+}
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    PrettyLog;
+    
     // Calculate selected column
     NSInteger selectedColumn = [self columnForContentOffset:scrollView.contentOffset.x];
     
@@ -428,10 +437,10 @@
     }
 }
 
-//- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
-//{
-//    PrettyLog;
-//}
+- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+{
+    PrettyLog;
+}
 
 
 @end
