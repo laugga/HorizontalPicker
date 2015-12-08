@@ -196,6 +196,55 @@
 }
 
 #pragma mark -
+#pragma mark Animation
+
+- (void)showComponent:(NSInteger)shownComponent andHideComponent:(NSInteger)hiddenComponent animated:(BOOL)animated
+{
+    if (shownComponent < [_tables count] && hiddenComponent < [_tables count]) {
+        LAPickerTableView * shownPickerTableView = [_tables objectAtIndex:shownComponent];
+        LAPickerTableView * hiddenPickerTableView = [_tables objectAtIndex:hiddenComponent];
+        
+//        UIView * shownPickerTableViewColumn = [shownPickerTableView viewForColumn:shownPickerTableView.selectedColumn];
+//        UIView * hiddenPickerTableViewColumn = [hiddenPickerTableView viewForColumn:hiddenPickerTableView.selectedColumn];
+        
+        if (animated) {
+            
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                shownPickerTableView.alpha = 0.0;
+                
+                CGFloat shownAnimationScale = CGRectGetHeight(shownPickerTableView.frame) / CGRectGetHeight(hiddenPickerTableView.frame);
+                CGFloat hiddenAnimationScale = 1.0 / shownAnimationScale;
+                CGFloat hiddenAnimationTranslate = hiddenAnimationScale > 1.0 ? -50.0 : 70.0;
+                
+                shownPickerTableView.transform = CGAffineTransformScale(CGAffineTransformIdentity, hiddenAnimationScale, hiddenAnimationScale);
+                shownPickerTableView.transform = CGAffineTransformTranslate(shownPickerTableView.transform, hiddenAnimationTranslate, 0);
+                
+                [UIView animateWithDuration:0.3 delay:0.0 usingSpringWithDamping:1.0 initialSpringVelocity:0.0 options:UIViewAnimationOptionBeginFromCurrentState|UIViewAnimationOptionCurveEaseInOut animations:^{
+                    
+                    shownPickerTableView.transform = CGAffineTransformIdentity;
+                    shownPickerTableView.alpha = 1.0;
+                    
+                    hiddenPickerTableView.transform = CGAffineTransformScale(CGAffineTransformIdentity, shownAnimationScale/2.0, shownAnimationScale/2.0);
+                    hiddenPickerTableView.transform = CGAffineTransformTranslate(hiddenPickerTableView.transform, -hiddenAnimationTranslate, 0);
+                    hiddenPickerTableView.alpha = 0.0;
+                    
+                } completion:^(BOOL finished) {
+                    
+                    hiddenPickerTableView.transform = CGAffineTransformIdentity;
+                }];
+            });
+            
+        } else {
+            shownPickerTableView.alpha = 1.0;
+            hiddenPickerTableView.alpha = 0.0;
+        }
+        
+        [shownPickerTableView hideColumns:YES animated:animated];
+        [hiddenPickerTableView hideColumns:YES animated:animated];
+    }
+}
+
+#pragma mark -
 #pragma mark Sounds
 
 - (BOOL)soundsEnabled
@@ -262,6 +311,14 @@
     if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didSelectColumn:inComponent:)])
     {
         return [_delegate pickerView:self didSelectColumn:column inComponent:component];
+    }
+}
+
+- (void)pickerTableView:(LAPickerTableView *)pickerView didTouchUpColumn:(NSInteger)column inComponent:(NSInteger)component
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didTouchUpColumn:inComponent:)])
+    {
+        return [_delegate pickerView:self didTouchUpColumn:column inComponent:component];
     }
 }
 

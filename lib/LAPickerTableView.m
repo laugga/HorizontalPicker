@@ -250,6 +250,22 @@
     }
 }
 
+- (UIView *)viewForColumn:(NSInteger)column
+{
+    UIView * view = nil;
+    
+    if(_numberOfColumns)
+    {
+        // Range is [0, numberOfColumns]
+        if(column > -1 && column < _numberOfColumns)
+        {
+            view = [_columns objectAtIndex:column];
+        }
+    }
+    
+    return view;
+}
+
 #pragma mark -
 #pragma mark Data
 
@@ -407,6 +423,10 @@
     
     if (!scrollView.isDecelerating && !scrollView.isDragging) {
         [self hideColumns:YES animated:YES];
+        
+        // Notify delegate
+        if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didTouchUpColumn:inComponent:)])
+            [_delegate pickerTableView:self didTouchUpColumn:_selectedColumn inComponent:_component];
     }
 }
 

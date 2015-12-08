@@ -101,6 +101,9 @@ typedef enum {
 
 - (void)setSelectedColumnHighlighted:(BOOL)highlighted animated:(BOOL)animated;
 
+- (void)hideColumns:(BOOL)hiddenColumns animated:(BOOL)animated;
+- (UIView *)viewForColumn:(NSInteger)column;
+
 /*!
  Reloads all columns in table view;
  */

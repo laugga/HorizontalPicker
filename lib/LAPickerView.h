@@ -137,6 +137,8 @@
  */
 - (void)selectColumn:(NSInteger)column inComponent:(NSInteger)component animated:(BOOL)animated;
 
+- (void)showComponent:(NSInteger)shownComponent andHideComponent:(NSInteger)hiddenComponent animated:(BOOL)animated;
+
 /*!
  Hightlights a specified component of the picker view.
  @param highlighted YES if the selected column of component should be hightlighted.
