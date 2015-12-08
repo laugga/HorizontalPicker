@@ -23,6 +23,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		389641E61C16DC12002CE923 /* LAPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 389641E51C16DC12002CE923 /* LAPickerScrollView.m */; };
 		38DBA1BE1BA8C7EB008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
 		38DBA1BF1BA8C7F1008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
 		A01822AB1876058D00E38975 /* LAPickerViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -67,6 +68,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		389641E41C16DC12002CE923 /* LAPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerScrollView.h; sourceTree = "<group>"; };
+		389641E51C16DC12002CE923 /* LAPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerScrollView.m; sourceTree = "<group>"; };
 		38DBA1BC1BA8C7EB008F9EEF /* LAPickerViewLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewLabel.h; sourceTree = "<group>"; };
 		38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerViewLabel.m; sourceTree = "<group>"; };
 		A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDelegate.h; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */,
 				A0BCA0501874722600FC20CE /* LAPickerView.h */,
 				A0445E0D18747BCC007BC506 /* LAPickerView.m */,
+				389641E41C16DC12002CE923 /* LAPickerScrollView.h */,
+				389641E51C16DC12002CE923 /* LAPickerScrollView.m */,
 				A01822B7187614E700E38975 /* LAPickerTableViewDataSource.h */,
 				A01822B8187614E700E38975 /* LAPickerTableViewDelegate.h */,
 				A01822B21876147000E38975 /* LAPickerTableView.h */,
@@ -406,6 +411,7 @@
 				A01822B51876147000E38975 /* LAPickerTableView.m in Sources */,
 				38DBA1BE1BA8C7EB008F9EEF /* LAPickerViewLabel.m in Sources */,
 				A0445E0E18747BCC007BC506 /* LAPickerView.m in Sources */,
+				389641E61C16DC12002CE923 /* LAPickerScrollView.m in Sources */,
 				A01C02C71620E7A5003DA76F /* LAPIckerViewTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

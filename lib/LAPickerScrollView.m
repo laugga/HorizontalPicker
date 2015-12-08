@@ -12,17 +12,23 @@
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    PrettyLog;
+    if ([self.delegate respondsToSelector:@selector(scrollViewTouchesDidBegin:)]) {
+        [self.delegate performSelector:@selector(scrollViewTouchesDidBegin:) withObject:self];
+    }
 }
 
 - (void)touchesEnded:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    PrettyLog;
+    if ([self.delegate respondsToSelector:@selector(scrollViewTouchesDidEnd:)]) {
+        [self.delegate performSelector:@selector(scrollViewTouchesDidEnd:) withObject:self];
+    }
 }
 
 - (void)touchesCancelled:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {
-    PrettyLog;
+    if ([self.delegate respondsToSelector:@selector(scrollViewTouchesDidEnd:)]) {
+        [self.delegate performSelector:@selector(scrollViewTouchesDidEnd:) withObject:self];
+    }
 }
 
 @end

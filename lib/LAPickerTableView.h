@@ -50,7 +50,7 @@ typedef enum {
     LAPickerSelectionAlignmentRight
 } LAPickerSelectionAlignment;
 
-@interface LAPickerTableView : UIView <UIScrollViewDelegate>
+@interface LAPickerTableView : UIView <UIScrollViewDelegate, LAPickerScrollViewDelegate>
 {
     // Columns
     NSInteger _component;
@@ -61,6 +61,9 @@ typedef enum {
     NSInteger _highlightedColumn;
     NSInteger _maxSelectionRange; // [0, _numberOfColumns-1]
     UIView * _selectedColumnView;
+
+    // State
+    BOOL _hiddenColumns;
     
     // Subviews
     LAPickerScrollView * _scrollView;

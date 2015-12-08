@@ -28,6 +28,8 @@
 #import "LAPickerTableView.h"
 #import "LAPickerViewLabel.h"
 
+#import "LAPickerScrollView.h"
+
 @implementation LAPickerTableView
 
 @synthesize selectedColumn=_selectedColumn;
@@ -35,7 +37,8 @@
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
 
-#define kColumnOpacity 0.0
+#define kHiddenColumnOpacity 0.0
+#define kShownColumnOpacity 0.5
 #define kSelectedColumnOpacity 1.0
 
 #define kSelectionAlignmentAnimationDuration 0.25
@@ -62,6 +65,8 @@
         // State
         _component = component;
         _selectedColumn = -1; // none selected, default
+        _selectedColumnView = nil;
+        _hiddenColumns = NO;
         _highlightedColumn = -1; // none highlighted, default
         
         // View
@@ -132,12 +137,15 @@
             _contentOffset = [_columnsOffset[column] floatValue];
             CGPoint selectedColumnContentOffset = CGPointMake(-_firstColumnOffset+_contentOffset+_interColumnSpacing, 0);
             
+            _selectedColumn = column;
+            _selectedColumnView = _columns[_selectedColumn];
+            
             if (animated)
             {
+                [self hideColumns:NO animated:animated];
                 [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
             }
             else {
-                _selectedColumn = column;
                 _scrollView.contentOffset = selectedColumnContentOffset;
             }
         }
@@ -224,7 +232,7 @@
             UILabel * previousHighlightedColumn = [_columns objectAtIndex:_highlightedColumn];
             UILabel * nextHighlightedColumn = [_columns objectAtIndex:highlightedColumn];
             
-            previousHighlightedColumn.layer.opacity = kColumnOpacity;
+            previousHighlightedColumn.layer.opacity = kShownColumnOpacity;
             nextHighlightedColumn.layer.opacity = kSelectedColumnOpacity;
         }
         else // No previous selection
@@ -305,7 +313,7 @@
                 cumulativeViewOffset += viewWidth + _interColumnSpacing;
                 [_columnsOffset addObject:@(cumulativeViewOffset)];
                 
-                view.layer.opacity = kColumnOpacity;
+                view.layer.opacity = kHiddenColumnOpacity;
                 
                 [_columns addObject:view];
                 [_scrollView addSubview:view];
@@ -319,9 +327,13 @@
             
             // content size
             _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, CGRectGetHeight(self.bounds));
-            
+        
             _selectedColumn = 0;
+            _selectedColumnView = _columns[_selectedColumn];
+            
             [self setSelectionAlignment:_selectionAlignment animated:NO];
+            [self hideColumns:YES animated:NO];
+
         }
     }
 }
@@ -349,11 +361,64 @@
 }
 
 #pragma mark -
+#pragma mark Show/Hide with Animation
+
+- (void)hideColumns:(BOOL)hiddenColumns animated:(BOOL)animated
+{
+    if (_hiddenColumns != hiddenColumns) {
+        _hiddenColumns = hiddenColumns;
+        
+        CGFloat alpha = hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
+        
+        if (animated) {
+            [UIView beginAnimations:@"hideColumns" context:nil];
+            [UIView setAnimationDuration:0.1f];
+            [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+        }
+        
+        for (UIView * column in _columns) {
+            
+            // Skip selected column
+            if (column == _selectedColumnView) {
+                continue;
+            }
+            
+            column.alpha = alpha;
+        }
+        
+        if (animated) {
+            [UIView commitAnimations];
+        }
+    }
+}
+
+#pragma mark -
+#pragma mark LAPickerScrollViewDelegate
+
+- (void)scrollViewTouchesDidBegin:(UIScrollView *)scrollView
+{
+    PrettyLog;
+    
+    [self hideColumns:NO animated:YES];
+}
+
+- (void)scrollViewTouchesDidEnd:(UIScrollView *)scrollView
+{
+    PrettyLog;
+    
+    if (!scrollView.isDecelerating && !scrollView.isDragging) {
+        [self hideColumns:YES animated:YES];
+    }
+}
+
+#pragma mark -
 #pragma mark UIScrollViewDelegate
 
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     PrettyLog;
+    
+    [self hideColumns:NO animated:NO];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -368,11 +433,6 @@
         [self setHighlightedColumn:highlightedColumn];
     }
 }
-
-//- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-//{
-//    PrettyLog;
-//}
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
@@ -405,6 +465,10 @@
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     PrettyLog;
+    
+    if (!decelerate) {
+        [self hideColumns:YES animated:YES];
+    }
 }
 
 - (void)scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
@@ -429,18 +493,22 @@
         {
             // Assign new value
             _selectedColumn = selectedColumn;
+            _selectedColumnView = _columns[_selectedColumn];
             
             // Notify delegate
             if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)])
                 [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
         }
     }
+
+    [self hideColumns:YES animated:YES];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     PrettyLog;
+    
+    [self hideColumns:YES animated:YES];
 }
-
 
 @end

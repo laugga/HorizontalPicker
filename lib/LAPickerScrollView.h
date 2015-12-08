@@ -11,3 +11,12 @@
 @interface LAPickerScrollView : UIScrollView
 
 @end
+
+@protocol LAPickerScrollViewDelegate <NSObject>
+
+@optional
+
+- (void)scrollViewTouchesDidBegin:(UIScrollView *)scrollView;
+- (void)scrollViewTouchesDidEnd:(UIScrollView *)scrollView;
+
+@end
