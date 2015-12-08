@@ -42,6 +42,7 @@
 #define kSelectedColumnOpacity 1.0
 
 #define kSelectionAlignmentAnimationDuration 0.25
+#define kHiddenColumnsAnimationDuration 0.07
 
 #pragma mark -
 #pragma mark Initialization
@@ -66,7 +67,7 @@
         _component = component;
         _selectedColumn = -1; // none selected, default
         _selectedColumnView = nil;
-        _hiddenColumns = NO;
+        _hiddenColumns = YES;
         _highlightedColumn = -1; // none highlighted, default
         
         // View
@@ -232,7 +233,7 @@
             UILabel * previousHighlightedColumn = [_columns objectAtIndex:_highlightedColumn];
             UILabel * nextHighlightedColumn = [_columns objectAtIndex:highlightedColumn];
             
-            previousHighlightedColumn.layer.opacity = kShownColumnOpacity;
+            previousHighlightedColumn.layer.opacity = _hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
             nextHighlightedColumn.layer.opacity = kSelectedColumnOpacity;
         }
         else // No previous selection
@@ -332,8 +333,6 @@
             _selectedColumnView = _columns[_selectedColumn];
             
             [self setSelectionAlignment:_selectionAlignment animated:NO];
-            [self hideColumns:YES animated:NO];
-
         }
     }
 }
@@ -368,12 +367,12 @@
     if (_hiddenColumns != hiddenColumns) {
         _hiddenColumns = hiddenColumns;
         
-        CGFloat alpha = hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
+        CGFloat opacity = hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
         
         if (animated) {
             [UIView beginAnimations:@"hideColumns" context:nil];
-            [UIView setAnimationDuration:0.1f];
-            [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
+            [UIView setAnimationDuration:kHiddenColumnsAnimationDuration];
+            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
         }
         
         for (UIView * column in _columns) {
@@ -383,7 +382,7 @@
                 continue;
             }
             
-            column.alpha = alpha;
+            column.layer.opacity = opacity;
         }
         
         if (animated) {
