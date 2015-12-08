@@ -410,23 +410,50 @@
 #pragma mark -
 #pragma mark LAPickerScrollViewDelegate
 
-- (void)scrollViewTouchesDidBegin:(UIScrollView *)scrollView
+- (BOOL)doesTouchHitSelectedColumn:(UITouch *)touch
+{
+    UIView * selectedColumnView = [self viewForColumn:_selectedColumn];
+    
+    CGPoint touchLocation = [touch locationInView:self];
+    CGRect touchHitArea = CGRectMake(CGRectGetWidth(self.frame)-CGRectGetWidth(selectedColumnView.frame)-30, 0, CGRectGetWidth(selectedColumnView.frame)+60, CGRectGetHeight(selectedColumnView.frame));
+    
+    return CGRectContainsPoint(touchHitArea, touchLocation);
+}
+
+- (void)scrollViewTouchesDidBegin:(UIScrollView *)scrollView withTouch:(UITouch *)touch
 {
     PrettyLog;
     
-    [self hideColumns:NO animated:YES];
+    
+    if ([self doesTouchHitSelectedColumn:touch]) {
+        
+        [self hideColumns:NO animated:YES];
+        
+    } else {
+        
+        // Empty touch up
+    }
 }
 
-- (void)scrollViewTouchesDidEnd:(UIScrollView *)scrollView
+- (void)scrollViewTouchesDidEnd:(UIScrollView *)scrollView withTouch:(UITouch *)touch
 {
     PrettyLog;
     
     if (!scrollView.isDecelerating && !scrollView.isDragging) {
         [self hideColumns:YES animated:YES];
         
-        // Notify delegate
-        if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didTouchUpColumn:inComponent:)])
-            [_delegate pickerTableView:self didTouchUpColumn:_selectedColumn inComponent:_component];
+        if ([self doesTouchHitSelectedColumn:touch]) {
+            
+            // Column touch up
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didTouchUpColumn:inComponent:)])
+                [_delegate pickerTableView:self didTouchUpColumn:_selectedColumn inComponent:_component];
+            
+        } else {
+            
+            // Empty touch up
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didTouchUp:inComponent:)])
+                [_delegate pickerTableView:self didTouchUp:touch inComponent:_component];
+        }
     }
 }
 

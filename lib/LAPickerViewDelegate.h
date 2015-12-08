@@ -57,5 +57,6 @@
  */
 - (void)pickerView:(LAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
 - (void)pickerView:(LAPickerView *)pickerView didTouchUpColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)pickerView:(LAPickerView *)pickerView didTouchUp:(UITouch *)touch inComponent:(NSInteger)component;
 
 @end

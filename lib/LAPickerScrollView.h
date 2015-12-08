@@ -16,7 +16,7 @@
 
 @optional
 
-- (void)scrollViewTouchesDidBegin:(UIScrollView *)scrollView;
-- (void)scrollViewTouchesDidEnd:(UIScrollView *)scrollView;
+- (void)scrollViewTouchesDidBegin:(UIScrollView *)scrollView  withTouch:(UITouch *)touch;
+- (void)scrollViewTouchesDidEnd:(UIScrollView *)scrollView withTouch:(UITouch *)touch;
 
 @end

@@ -322,4 +322,12 @@
     }
 }
 
+- (void)pickerTableView:(LAPickerTableView *)pickerView didTouchUp:(UITouch *)touch inComponent:(NSInteger)component
+{
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didTouchUp:inComponent:)])
+    {
+        return [_delegate pickerView:self didTouchUp:touch inComponent:component];
+    }
+}
+
 @end
