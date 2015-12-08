@@ -130,7 +130,7 @@
 {
     Log(@"setSelectedColumn: %d", column);
     
-    if(_numberOfColumns)
+    if(_numberOfColumns && _selectedColumn != column)
     {
         // Range is [0, numberOfColumns]
         if(column > -1 && column < _numberOfColumns)
@@ -380,30 +380,32 @@
 
 - (void)hideColumns:(BOOL)hiddenColumns animated:(BOOL)animated
 {
-    if (_hiddenColumns != hiddenColumns) {
-        _hiddenColumns = hiddenColumns;
+    if (!hiddenColumns && !(_isTouched || _scrollView.isDragging)) {
+        return;
+    }
+    
+    _hiddenColumns = hiddenColumns;
+    
+    CGFloat opacity = hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
+    
+    if (animated) {
+        [UIView beginAnimations:@"hideColumns" context:nil];
+        [UIView setAnimationDuration:kHiddenColumnsAnimationDuration];
+        [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+    }
+    
+    for (UIView * column in _columns) {
         
-        CGFloat opacity = hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
-        
-        if (animated) {
-            [UIView beginAnimations:@"hideColumns" context:nil];
-            [UIView setAnimationDuration:kHiddenColumnsAnimationDuration];
-            [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
+        // Skip selected column
+        if (column == _selectedColumnView) {
+            continue;
         }
         
-        for (UIView * column in _columns) {
-            
-            // Skip selected column
-            if (column == _selectedColumnView) {
-                continue;
-            }
-            
-            column.layer.opacity = opacity;
-        }
-        
-        if (animated) {
-            [UIView commitAnimations];
-        }
+        column.layer.opacity = opacity;
+    }
+    
+    if (animated) {
+        [UIView commitAnimations];
     }
 }
 
@@ -424,10 +426,13 @@
 {
     PrettyLog;
     
+    _isTouched = YES;
     
     if ([self doesTouchHitSelectedColumn:touch]) {
         
-        [self hideColumns:NO animated:YES];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self hideColumns:NO animated:YES];
+        });
         
     } else {
         
@@ -438,6 +443,8 @@
 - (void)scrollViewTouchesDidEnd:(UIScrollView *)scrollView withTouch:(UITouch *)touch
 {
     PrettyLog;
+    
+    _isTouched = NO;
     
     if (!scrollView.isDecelerating && !scrollView.isDragging) {
         [self hideColumns:YES animated:YES];

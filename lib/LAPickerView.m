@@ -215,6 +215,7 @@
                 CGFloat shownAnimationScale = CGRectGetHeight(shownPickerTableView.frame) / CGRectGetHeight(hiddenPickerTableView.frame);
                 CGFloat hiddenAnimationScale = 1.0 / shownAnimationScale;
                 CGFloat hiddenAnimationTranslate = hiddenAnimationScale > 1.0 ? -50.0 : 70.0;
+                CGFloat shownAnimationTranslate = shownAnimationScale > 1.0 ? 60.0 : 240.0;
                 
                 shownPickerTableView.transform = CGAffineTransformScale(CGAffineTransformIdentity, hiddenAnimationScale, hiddenAnimationScale);
                 shownPickerTableView.transform = CGAffineTransformTranslate(shownPickerTableView.transform, hiddenAnimationTranslate, 0);
@@ -225,7 +226,7 @@
                     shownPickerTableView.alpha = 1.0;
                     
                     hiddenPickerTableView.transform = CGAffineTransformScale(CGAffineTransformIdentity, shownAnimationScale/2.0, shownAnimationScale/2.0);
-                    hiddenPickerTableView.transform = CGAffineTransformTranslate(hiddenPickerTableView.transform, -hiddenAnimationTranslate, 0);
+                    hiddenPickerTableView.transform = CGAffineTransformTranslate(hiddenPickerTableView.transform, shownAnimationTranslate, 0);
                     hiddenPickerTableView.alpha = 0.0;
                     
                 } completion:^(BOOL finished) {

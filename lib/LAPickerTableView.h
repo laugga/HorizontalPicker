@@ -64,6 +64,7 @@ typedef enum {
 
     // State
     BOOL _hiddenColumns;
+    BOOL _isTouched;
     
     // Subviews
     LAPickerScrollView * _scrollView;
