@@ -221,6 +221,8 @@
 
 - (void)setHighlightedColumn:(NSInteger)highlightedColumn
 {
+    PrettyLog;
+    
     // Range is [0, _numberOfColumns-1]
     highlightedColumn = MIN(highlightedColumn, _maxSelectionRange);
     highlightedColumn = MAX(0, highlightedColumn);
@@ -380,6 +382,13 @@
 
 - (void)hideColumns:(BOOL)hiddenColumns animated:(BOOL)animated
 {
+    PrettyLog;
+    NSLog(@"Selected column %d %@", _selectedColumn, _selectedColumnView);
+    
+    if (hiddenColumns == _hiddenColumns) {
+        return;
+    }
+    
     if (!hiddenColumns && !(_isTouched || _scrollView.isDragging)) {
         return;
     }
@@ -398,6 +407,7 @@
         
         // Skip selected column
         if (column == _selectedColumnView) {
+            column.layer.opacity = 1.0;
             continue;
         }
         
