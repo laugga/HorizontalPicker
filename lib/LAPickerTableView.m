@@ -341,7 +341,7 @@
                 //targetOffsetView.backgroundColor = [UIColor grayColor];
                 //[_scrollView addSubview:targetOffsetView];
                 
-                _contentSize += viewWidth;
+                _contentSize += (viewWidth + _interColumnSpacing);
             }
             
             // content size
