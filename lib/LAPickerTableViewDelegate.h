@@ -41,7 +41,7 @@
 - (UIView *)pickerTableView:(LAPickerTableView *)pickerTableView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view;
 
 - (void)pickerTableView:(LAPickerTableView *)pickerView willSelectColumnInComponent:(NSInteger)component;
-- (void)pickerTableView:(LAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)pickerTableView:(LAPickerTableView *)pickerView didChangeColumn:(NSInteger)column inComponent:(NSInteger)component;
 - (void)pickerTableView:(LAPickerTableView *)pickerView didTouchUpColumn:(NSInteger)column inComponent:(NSInteger)component;
 - (void)pickerTableView:(LAPickerTableView *)pickerView didTouchUp:(UITouch *)touch inComponent:(NSInteger)component;
 

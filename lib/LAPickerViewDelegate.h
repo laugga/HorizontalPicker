@@ -55,7 +55,7 @@
  @discussion
  To determine what value the user selected, the delegate uses the column index to access the value at the corresponding position in the array used to construct the component.
  */
-- (void)pickerView:(LAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)pickerView:(LAPickerView *)pickerView didChangeColumn:(NSInteger)column inComponent:(NSInteger)component;
 - (void)pickerView:(LAPickerView *)pickerView didTouchUpColumn:(NSInteger)column inComponent:(NSInteger)component;
 - (void)pickerView:(LAPickerView *)pickerView didTouchUp:(UITouch *)touch inComponent:(NSInteger)component;
 

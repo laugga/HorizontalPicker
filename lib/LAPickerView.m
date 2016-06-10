@@ -305,13 +305,13 @@
     _selectingTable = pickerTableView;
 }
 
-- (void)pickerTableView:(LAPickerTableView *)pickerTableView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+- (void)pickerTableView:(LAPickerTableView *)pickerTableView didChangeColumn:(NSInteger)column inComponent:(NSInteger)component
 {
     _selectingTable = nil;
     
-    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didSelectColumn:inComponent:)])
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerView:didChangeColumn:inComponent:)])
     {
-        return [_delegate pickerView:self didSelectColumn:column inComponent:component];
+        return [_delegate pickerView:self didChangeColumn:column inComponent:component];
     }
 }
 

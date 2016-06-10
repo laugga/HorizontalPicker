@@ -221,7 +221,7 @@
 
 - (void)setHighlightedColumn:(NSInteger)highlightedColumn
 {
-    PrettyLog;
+    //PrettyLog;
     
     // Range is [0, _numberOfColumns-1]
     highlightedColumn = MIN(highlightedColumn, _maxSelectionRange);
@@ -559,8 +559,8 @@
             _selectedColumnView = _columns[_selectedColumn];
             
             // Notify delegate
-            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didSelectColumn:inComponent:)])
-                [_delegate pickerTableView:self didSelectColumn:_selectedColumn inComponent:_component];
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:didChangeColumn:inComponent:)])
+                [_delegate pickerTableView:self didChangeColumn:_selectedColumn inComponent:_component];
         }
     }
 
