@@ -130,27 +130,24 @@
 {
     Log(@"setSelectedColumn: %d", column);
     
-    if(_numberOfColumns && _selectedColumn != column)
-    {
-        // Range is [0, numberOfColumns]
-        if(column > -1 && column < _numberOfColumns)
-        {
-            _contentOffset = [_columnsOffset[column] floatValue];
-            CGPoint selectedColumnContentOffset = CGPointMake(-_firstColumnOffset+_contentOffset+_interColumnSpacing, 0);
-            
-            _selectedColumn = column;
-            _selectedColumnView = _columns[_selectedColumn];
-            
-            if (animated)
-            {
-                [self hideColumns:NO animated:animated];
-                [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
-            }
-            else {
-                _scrollView.contentOffset = selectedColumnContentOffset;
-            }
-        }
+    // there are no columns, nothing to be done
+    if (_numberOfColumns == 0) {
+        return;
     }
+    
+    // Range is [0, numberOfColumns[
+    if (column < 0 || column >= _numberOfColumns) {
+        return;
+    }
+    
+    _contentOffset = [_columnsOffset[column] floatValue];
+    CGPoint selectedColumnContentOffset = CGPointMake(-_firstColumnOffset+_contentOffset+_interColumnSpacing, 0);
+    
+    _selectedColumn = column;
+    _selectedColumnView = _columns[_selectedColumn];
+    
+    [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
+    [self hideColumns:NO animated:animated];
 }
 
 - (void)setSelectedColumnHighlighted:(BOOL)highlighted animated:(BOOL)animated;
