@@ -1,7 +1,7 @@
 /*
  
  AppDelegate.m
- LAPickerView Overview Example
+ LAUPickerView Overview Example
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.

@@ -1,7 +1,7 @@
 /*
  
- LAPickerViewDelegate.h
- LAPickerView
+ LAUPickerTableInputSound.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -26,21 +26,15 @@
 */
 
 #import <Foundation/Foundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 
-@class LAPickerTableView;
+@interface LAUPickerTableInputSound : NSObject
+{
+    SystemSoundID _inputSoundId;
+}
 
-@protocol LAPickerTableViewDelegate <NSObject>
++ (LAUPickerTableInputSound *)sharedPickerTableInputSound;
 
-@required
-
-- (void)pickerTableView:(LAPickerTableView *)pickerView didHighlightColumn:(NSInteger)column inComponent:(NSInteger)component;
-
-@optional
-
-- (NSString *)pickerTableView:(LAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
-- (UIView *)pickerTableView:(LAPickerTableView *)pickerTableView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view;
-
-- (void)pickerTableView:(LAPickerTableView *)pickerView willSelectColumnInComponent:(NSInteger)component;
-- (void)pickerTableView:(LAPickerTableView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)play;
 
 @end

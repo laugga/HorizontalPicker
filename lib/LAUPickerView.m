@@ -1,7 +1,7 @@
 /*
  
- LAPickerView.h
- LAPickerView
+ LAUPickerView.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -25,11 +25,11 @@
  
 */
 
-#import "LAPickerView.h"
+#import "LAUPickerView.h"
 
-#import "LAPickerTableInputSound.h"
+#import "LAUPickerTableInputSound.h"
 
-@implementation LAPickerView
+@implementation LAUPickerView
 
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
@@ -56,13 +56,13 @@
         _tables = [[NSMutableArray alloc] init];
         _selectingTable = nil;
         
-        _selectionAlignment = LAPickerSelectionAlignmentCenter; // default is center
+        _selectionAlignment = LAUPickerSelectionAlignmentCenter; // default is center
         _pickerViewFlags.soundsEnabled = 1; // default is enabled	
     }
     return self;
 }
 
-- (void)setDelegate:(id<LAPickerViewDelegate>)delegate
+- (void)setDelegate:(id<LAUPickerViewDelegate>)delegate
 {
     _delegate = delegate;
 
@@ -86,23 +86,23 @@
     }
 }
 
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment
 {
     // Assign
     _selectionAlignment = selectionAlignment;
     
     // Set to all tables
-    for(LAPickerTableView * table in _tables)
+    for(LAUPickerTableView * table in _tables)
         table.selectionAlignment = selectionAlignment;
 }
 
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
 {
     // Assign
     _selectionAlignment = selectionAlignment;
     
     // Set to all tables
-    for(LAPickerTableView * table in _tables)
+    for(LAUPickerTableView * table in _tables)
         [table setSelectionAlignment:selectionAlignment animated:animated];
 }
 
@@ -128,7 +128,7 @@
         for(int component=0; component<_numberOfComponents; ++component)
         {
             CGRect tableViewRect = CGRectMake(0, component*tableViewRectSizeHeight, tableViewRectSizeWidth, tableViewRectSizeHeight);
-            LAPickerTableView * tableView = [[LAPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
+            LAUPickerTableView * tableView = [[LAUPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
             tableView.dataSource = self;
             tableView.delegate = self;
             tableView.selectionAlignment = _selectionAlignment;
@@ -148,7 +148,7 @@
     
     if(component < [_tables count])
     {
-        LAPickerTableView * pickerTableView = [_tables objectAtIndex:component];
+        LAUPickerTableView * pickerTableView = [_tables objectAtIndex:component];
         selectedColumnInComponent = pickerTableView.selectedColumn;
     }
     
@@ -159,7 +159,7 @@
 {
     if(component < [_tables count])
     {
-        LAPickerTableView * pickerTableView = [_tables objectAtIndex:component];
+        LAUPickerTableView * pickerTableView = [_tables objectAtIndex:component];
         [pickerTableView setSelectedColumn:column animated:animated];
     }
 }
@@ -178,9 +178,9 @@
 }
 
 #pragma mark -
-#pragma mark LAPickerTableViewDataSource
+#pragma mark LAUPickerTableViewDataSource
 
-- (NSInteger)pickerTableView:(LAPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component
+- (NSInteger)pickerTableView:(LAUPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component
 {
     if(_dataSource)
     {
@@ -191,15 +191,15 @@
 }
 
 #pragma mark -
-#pragma mark LAPickerTableViewDelegate
+#pragma mark LAUPickerTableViewDelegate
 
-- (void)pickerTableView:(LAPickerTableView *)pickerView didHighlightColumn:(NSInteger)column inComponent:(NSInteger)component
+- (void)pickerTableView:(LAUPickerTableView *)pickerView didHighlightColumn:(NSInteger)column inComponent:(NSInteger)component
 {
     if(_pickerViewFlags.soundsEnabled)
-        [[LAPickerTableInputSound sharedPickerTableInputSound] play]; // Play sound when highlighted column changes
+        [[LAUPickerTableInputSound sharedPickerTableInputSound] play]; // Play sound when highlighted column changes
 }
 
-- (NSString *)pickerTableView:(LAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
+- (NSString *)pickerTableView:(LAUPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
 {
     if(_pickerViewFlags.delegateRespondsToTitleForColumn)
     {
@@ -209,7 +209,7 @@
     return nil;
 }
 
-- (UIView *)pickerTableView:(LAPickerTableView *)pickerTableView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view
+- (UIView *)pickerTableView:(LAUPickerTableView *)pickerTableView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view
 {
     if(_pickerViewFlags.delegateRespondsToViewForColumn)
     {
@@ -219,12 +219,12 @@
     return nil;
 }
 
-- (void)pickerTableView:(LAPickerTableView *)pickerTableView willSelectColumnInComponent:(NSInteger)component
+- (void)pickerTableView:(LAUPickerTableView *)pickerTableView willSelectColumnInComponent:(NSInteger)component
 {
     _selectingTable = pickerTableView;
 }
 
-- (void)pickerTableView:(LAPickerTableView *)pickerTableView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+- (void)pickerTableView:(LAUPickerTableView *)pickerTableView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
 {
     _selectingTable = nil;
     

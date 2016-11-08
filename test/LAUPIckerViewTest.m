@@ -1,7 +1,7 @@
 /*
  
- LAPickerViewTest.m
- LAPickerView
+ LAUPickerViewTest.m
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -20,15 +20,15 @@
  
 */
 
-#import "LAPickerViewTest.h"
+#import "LAUPickerViewTest.h"
 
-@implementation LAPickerViewTest
+@implementation LAUPickerViewTest
 
 - (void)setUp
 {
     [super setUp];
     
-    _pickerView = [[LAPickerView alloc] initWithFrame:CGRectZero];
+    _pickerView = [[LAUPickerView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)tearDown
@@ -43,7 +43,7 @@
     STAssertNil(_pickerView.delegate, @"");
     STAssertNil(_pickerView.dataSource, @"");
     
-    STAssertEquals(LAPickerSelectionAlignmentCenter, _pickerView.selectionAlignment, @"Alignment center set by default");
+    STAssertEquals(LAUPickerSelectionAlignmentCenter, _pickerView.selectionAlignment, @"Alignment center set by default");
     STAssertTrue(_pickerView.soundsEnabled, @"Input sounds enabled by default");
 }
 

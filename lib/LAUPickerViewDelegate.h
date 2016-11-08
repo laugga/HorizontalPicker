@@ -1,7 +1,7 @@
 /*
  
- LAPickerViewDelegate.h
- LAPickerView
+ LAUPickerViewDelegate.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -27,24 +27,24 @@
 
 #import <Foundation/Foundation.h>
 
-@class LAPickerView;
+@class LAUPickerView;
 
-@protocol LAPickerViewDelegate <NSObject>
+@protocol LAUPickerViewDelegate <NSObject>
 @optional
 
 /*!
  returns width of column and height of row for each component.
  */
-- (CGFloat)pickerView:(LAPickerView *)pickerView widthForComponent:(NSInteger)component;
-- (CGFloat)pickerView:(LAPickerView *)pickerView rowHeightForComponent:(NSInteger)component;
+- (CGFloat)pickerView:(LAUPickerView *)pickerView widthForComponent:(NSInteger)component;
+- (CGFloat)pickerView:(LAUPickerView *)pickerView rowHeightForComponent:(NSInteger)component;
 
 /*!
  these methods return either a plain NSString, a NSAttributedString, or a view (e.g UILabel) to display the row for the component.
  for the view versions, we cache any hidden and thus unused views and pass them back for reuse.
  If you return back a different object, the old one will be released. the view will be centered in the row rect
  */
-- (NSString *)pickerView:(LAPickerView *)pickerView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
-- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view;
+- (NSString *)pickerView:(LAUPickerView *)pickerView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
+- (UIView *)pickerView:(LAUPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view;
 
 /*!
  Called by the picker view when the user selects a column in a component.
@@ -54,6 +54,6 @@
  @discussion
  To determine what value the user selected, the delegate uses the column index to access the value at the corresponding position in the array used to construct the component.
  */
-- (void)pickerView:(LAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)pickerView:(LAUPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component;
 
 @end

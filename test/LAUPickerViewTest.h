@@ -1,7 +1,7 @@
 /*
  
- LAPickerViewTest.h
- LAPickerView
+ LAUPickerViewTest.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -22,10 +22,10 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-#import "LAPickerView.h"
+#import "LAUPickerView.h"
 
-@interface LAPickerViewTest : SenTestCase
+@interface LAUPickerViewTest : SenTestCase
 {
-    LAPickerView * _pickerView;
+    LAUPickerView * _pickerView;
 }
 @end

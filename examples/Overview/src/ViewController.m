@@ -1,7 +1,7 @@
 /*
  
  ViewController.m
- LAPickerViewOverview
+ LAUPickerViewOverview
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -62,13 +62,13 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.title = @"LAPickerView Overview";
+    self.navigationItem.title = @"LAUPickerView Overview";
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"Toggle Sounds" style:UIBarButtonItemStylePlain target:self action:@selector(togglePickerViewSoundsEnabled)];
     
     self.view.autoresizesSubviews = YES;
     
-    _horizontalPickerView = [[LAPickerView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height/3)];
-    _horizontalPickerView.selectionAlignment = LAPickerSelectionAlignmentCenter;
+    _horizontalPickerView = [[LAUPickerView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height/3)];
+    _horizontalPickerView.selectionAlignment = LAUPickerSelectionAlignmentCenter;
     _horizontalPickerView.dataSource = self;
     _horizontalPickerView.delegate = self;
     
@@ -87,37 +87,37 @@
 //    double delayInSeconds = 5.0;
 //    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        _horizontalPickerView.selectionAlignment = LAPickerSelectionAlignmentLeft;
+//        _horizontalPickerView.selectionAlignment = LAUPickerSelectionAlignmentLeft;
 //    });
 //    
 //    delayInSeconds = 10.0;
 //    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        _horizontalPickerView.selectionAlignment = LAPickerSelectionAlignmentRight;
+//        _horizontalPickerView.selectionAlignment = LAUPickerSelectionAlignmentRight;
 //    });
 //    
 //    delayInSeconds = 15.0;
 //    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        _horizontalPickerView.selectionAlignment = LAPickerSelectionAlignmentCenter;
+//        _horizontalPickerView.selectionAlignment = LAUPickerSelectionAlignmentCenter;
 //    });
 //    
 //    delayInSeconds = 20.0;
 //    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [_horizontalPickerView setSelectionAlignment:LAPickerSelectionAlignmentLeft animated:YES];
+//        [_horizontalPickerView setSelectionAlignment:LAUPickerSelectionAlignmentLeft animated:YES];
 //    });
 //    
 //    delayInSeconds = 25.0;
 //    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [_horizontalPickerView setSelectionAlignment:LAPickerSelectionAlignmentRight animated:YES];
+//        [_horizontalPickerView setSelectionAlignment:LAUPickerSelectionAlignmentRight animated:YES];
 //    });
 //    
 //    delayInSeconds = 30.0;
 //    popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
 //    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-//        [_horizontalPickerView setSelectionAlignment:LAPickerSelectionAlignmentCenter animated:YES];
+//        [_horizontalPickerView setSelectionAlignment:LAUPickerSelectionAlignmentCenter animated:YES];
 //    });
 }
 
@@ -154,14 +154,14 @@
 }
 
 #pragma mark -
-#pragma mark LAPickerViewDataSource and UIPickerViewDataSource
+#pragma mark LAUPickerViewDataSource and UIPickerViewDataSource
 
 - (NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView
 {
-    return kLAPickerViewOverviewNumberOfComponents;
+    return kLAUPickerViewOverviewNumberOfComponents;
 }
 
-- (NSInteger)pickerView:(LAPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component
+- (NSInteger)pickerView:(LAUPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component
 {
     switch (component)
     {
@@ -198,7 +198,7 @@
 }
 
 #pragma mark -
-#pragma mark LAPickerViewDelegate and UIPickerViewDelegate
+#pragma mark LAUPickerViewDelegate and UIPickerViewDelegate
 
 - (NSString *)pickerView:(UIPickerView *)pickerView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
 {
@@ -234,7 +234,7 @@
     }
 }
 
-- (UIView *)pickerView:(LAPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component     (UIView *)view
+- (UIView *)pickerView:(LAUPickerView *)pickerView viewForColumn:(NSInteger)column forComponent:(NSInteger)component
 {
     UIView * viewForColumn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 100, 40)];
     viewForColumn.backgroundColor = [UIColor grayColor];
@@ -258,7 +258,7 @@
     [_horizontalPickerView selectColumn:row inComponent:component animated:YES];
 }
 
-- (void)pickerView:(LAPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
+- (void)pickerView:(LAUPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
 {
     Log(@"pickerView: horizontal didSelectColumn: %d/%d inComponent: %d", column, [pickerView selectedColumnInComponent:component], component);
     

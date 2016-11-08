@@ -1,7 +1,7 @@
 /*
  
  ViewController.h
- LAPickerView Overview Example
+ LAUPickerView Overview Example
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -27,12 +27,12 @@
 
 #import <UIKit/UIKit.h>
 
-#import <LAPickerView/LAPickerView.h>
+#import <LAUPickerView/LAUPickerView.h>
 
-@interface ViewController : UIViewController <LAPickerViewDataSource, LAPickerViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
+@interface ViewController : UIViewController <LAUPickerViewDataSource, LAUPickerViewDelegate, UIPickerViewDataSource, UIPickerViewDelegate>
 {
     UIPickerView * _verticalPickerView;
-    LAPickerView * _horizontalPickerView;
+    LAUPickerView * _horizontalPickerView;
 }
 
 @end

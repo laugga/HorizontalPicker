@@ -1,7 +1,7 @@
 /*
  
- LAPickerTableInputSound.m
- LAPickerView
+ LAUPickerTableInputSound.m
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -25,27 +25,27 @@
  
 */
 
-#import "LAPickerTableInputSound.h"
+#import "LAUPickerTableInputSound.h"
 
-@implementation LAPickerTableInputSound
+@implementation LAUPickerTableInputSound
 
-static LAPickerTableInputSound * _defaultInputSound;
+static LAUPickerTableInputSound * _defaultInputSound;
 
 - (id)init
 {
     self = [super init];
     if(self)
     {
-        NSURL * soundPath = [NSURL fileURLWithPath:@"/System/Library/Audio/UISounds/Tock.caf"]; // TODO add sound to LAPickerView.bundle
+        NSURL * soundPath = [NSURL fileURLWithPath:@"/System/Library/Audio/UISounds/Tock.caf"]; // TODO add sound to LAUPickerView.bundle
         AudioServicesCreateSystemSoundID((CFURLRef)soundPath, &_inputSoundId);
     }
     return self;
 }
 
-+ (LAPickerTableInputSound *)sharedPickerTableInputSound
++ (LAUPickerTableInputSound *)sharedPickerTableInputSound
 {
     if(_defaultInputSound == nil)
-        _defaultInputSound = [[LAPickerTableInputSound alloc] init]; // singleton object
+        _defaultInputSound = [[LAUPickerTableInputSound alloc] init]; // singleton object
     
     return _defaultInputSound;
 }

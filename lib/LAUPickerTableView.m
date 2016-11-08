@@ -1,7 +1,7 @@
 /*
  
- LAPickerTableView.m
- LAPickerView
+ LAUPickerTableView.m
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -25,9 +25,9 @@
  
  */
 
-#import "LAPickerTableView.h"
+#import "LAUPickerTableView.h"
 
-@implementation LAPickerTableView
+@implementation LAUPickerTableView
 
 @synthesize selectedColumn=_selectedColumn;
 
@@ -136,12 +136,12 @@
     }
 }
 
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment
 {
     [self setSelectionAlignment:selectionAlignment animated:NO];
 }
 
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
 {
     // Assign
     _selectionAlignment = selectionAlignment;
@@ -149,20 +149,20 @@
     // Update layout
     switch (_selectionAlignment)
     {
-        case LAPickerSelectionAlignmentLeft:
+        case LAUPickerSelectionAlignmentLeft:
         {
             _selectionEdgeInset = 0.0;
             _contentSizePadding = _scrollView.frame.size.width-_columnSize.width;
             
         }
             break;
-        case LAPickerSelectionAlignmentRight:
+        case LAUPickerSelectionAlignmentRight:
         {
             _selectionEdgeInset = self.frame.size.width-_columnSize.width;
             _contentSizePadding = 0.0;
         }
             break;
-        case LAPickerSelectionAlignmentCenter:
+        case LAUPickerSelectionAlignmentCenter:
         default:
         {
             _selectionEdgeInset = self.frame.size.width/2.0f-_columnSize.width/2.0;

@@ -1,7 +1,7 @@
 /*
  
  Constants.h
- LAPickerView Overview Example
+ LAUPickerView Overview Example
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -25,8 +25,8 @@
  
 */
 
-#ifndef LAPickerViewOverview_Constants_h
-#define LAPickerViewOverview_Constants_h
+#ifndef LAUPickerViewOverview_Constants_h
+#define LAUPickerViewOverview_Constants_h
 
 const unsigned int aperturesCount = 28;
 const float apertures[] = { 1.0, 1.1, 1.2, 1.4, 1.6,	1.8, 2, 2.2, 2.5, 2.8, 3.2, 3.5, 4, 4.5,4.7, 5.0, 5.6, 6.3, 7.1, 8, 9, 10, 11, 13, 14, 16, 18, 20, 22 };
@@ -37,6 +37,6 @@ const float shutterSpeeds[] = { 1, 1.3, 1.6, 2, 2.5, 3, 4, 5, 6, 8, 10, 13, 15, 
 const unsigned int isoSpeedsCount = 18;
 const float isoSpeeds[] = { 50, 64, 80, 100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1250, 1600, 2000, 2500 };
 
-#define kLAPickerViewOverviewNumberOfComponents 3
+#define kLAUPickerViewOverviewNumberOfComponents 3
 
 #endif

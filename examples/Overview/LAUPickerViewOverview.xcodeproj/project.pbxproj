@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		A01822BC187625DB00E38975 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01822BB187625DB00E38975 /* QuartzCore.framework */; };
-		A0445E161874826A007BC506 /* libLAPickerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BCA05D1874744D00FC20CE /* libLAPickerView.a */; };
+		A0445E161874826A007BC506 /* libLAUPickerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BCA05D1874744D00FC20CE /* libLAUPickerView.a */; };
 		A06ACB2A1608B2C300E20441 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB291608B2C300E20441 /* UIKit.framework */; };
 		A06ACB2C1608B2C300E20441 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2B1608B2C300E20441 /* Foundation.framework */; };
 		A06ACB2E1608B2C300E20441 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */; };
@@ -35,28 +35,28 @@
 /* Begin PBXContainerItemProxy section */
 		A0445E1318748222007BC506 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
+			containerPortal = A0BCA0531874744D00FC20CE /* LAUPickerView.xcodeproj */;
 			proxyType = 1;
 			remoteGlobalIDString = A01C02111620D8B4003DA76F;
 			remoteInfo = "Static Library";
 		};
 		A0BCA05A1874744D00FC20CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
+			containerPortal = A0BCA0531874744D00FC20CE /* LAUPickerView.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A039A768161F8C08009E4C10;
 			remoteInfo = Test;
 		};
 		A0BCA05C1874744D00FC20CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
+			containerPortal = A0BCA0531874744D00FC20CE /* LAUPickerView.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A01C02121620D8B4003DA76F;
 			remoteInfo = "Static Library";
 		};
 		A0BCA05E1874744D00FC20CE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
+			containerPortal = A0BCA0531874744D00FC20CE /* LAUPickerView.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = A01C02401620D9BA003DA76F;
 			remoteInfo = "Resources Bundle";
@@ -64,16 +64,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3807FF841DD2133700C4FC1F /* LAUPickerViewOverview-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "LAUPickerViewOverview-Prefix.pch"; path = "support/LAUPickerViewOverview-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		3807FF851DD2133E00C4FC1F /* LAUPickerViewOverview-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "LAUPickerViewOverview-Info.plist"; path = "support/LAUPickerViewOverview-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A01822BB187625DB00E38975 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A01C02411620D9BA003DA76F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		A039A769161F8C08009E4C10 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		A06ACB251608B2C300E20441 /* LAPickerViewOverview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAPickerViewOverview.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A06ACB251608B2C300E20441 /* LAUPickerViewOverview.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAUPickerViewOverview.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A06ACB291608B2C300E20441 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A06ACB2B1608B2C300E20441 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A06ACB6A160A0FF300E20441 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		A0A09B471877067900855DD5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LAPickerView.xcodeproj; path = ../../LAPickerView.xcodeproj; sourceTree = "<group>"; };
+		A0BCA0531874744D00FC20CE /* LAUPickerView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LAUPickerView.xcodeproj; path = ../../LAUPickerView.xcodeproj; sourceTree = "<group>"; };
 		A0C5194C1880585600FE03D2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "resources/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		A0C5194D1880585600FE03D2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = resources/Default.png; sourceTree = SOURCE_ROOT; };
 		A0C5194E1880585600FE03D2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "resources/Default@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -93,8 +95,6 @@
 		A0C5196D1880589F00FE03D2 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/main.m; sourceTree = SOURCE_ROOT; };
 		A0C5196E1880589F00FE03D2 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = src/ViewController.h; sourceTree = SOURCE_ROOT; };
 		A0C5196F1880589F00FE03D2 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = src/ViewController.m; sourceTree = SOURCE_ROOT; };
-		A0C51973188058B700FE03D2 /* LAPickerViewOverview-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "LAPickerViewOverview-Info.plist"; path = "support/LAPickerViewOverview-Info.plist"; sourceTree = SOURCE_ROOT; };
-		A0C51974188058B700FE03D2 /* LAPickerViewOverview-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LAPickerViewOverview-Prefix.pch"; path = "support/LAPickerViewOverview-Prefix.pch"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,7 +104,7 @@
 			files = (
 				A0A09B481877067900855DD5 /* AudioToolbox.framework in Frameworks */,
 				A01822BC187625DB00E38975 /* QuartzCore.framework in Frameworks */,
-				A0445E161874826A007BC506 /* libLAPickerView.a in Frameworks */,
+				A0445E161874826A007BC506 /* libLAUPickerView.a in Frameworks */,
 				A06ACB6B160A0FF300E20441 /* CoreText.framework in Frameworks */,
 				A06ACB2A1608B2C300E20441 /* UIKit.framework in Frameworks */,
 				A06ACB2C1608B2C300E20441 /* Foundation.framework in Frameworks */,
@@ -131,7 +131,7 @@
 		A06ACB261608B2C300E20441 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A06ACB251608B2C300E20441 /* LAPickerViewOverview.app */,
+				A06ACB251608B2C300E20441 /* LAUPickerViewOverview.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -154,7 +154,7 @@
 		A07AD46917E07F1900A3F735 /* Dependencies */ = {
 			isa = PBXGroup;
 			children = (
-				A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */,
+				A0BCA0531874744D00FC20CE /* LAUPickerView.xcodeproj */,
 			);
 			name = Dependencies;
 			sourceTree = "<group>";
@@ -163,8 +163,8 @@
 			isa = PBXGroup;
 			children = (
 				A0BCA05B1874744D00FC20CE /* Test.octest */,
-				A0BCA05D1874744D00FC20CE /* libLAPickerView.a */,
-				A0BCA05F1874744D00FC20CE /* LAPickerView.bundle */,
+				A0BCA05D1874744D00FC20CE /* libLAUPickerView.a */,
+				A0BCA05F1874744D00FC20CE /* LAUPickerView.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -172,10 +172,10 @@
 		A0C51945188057B700FE03D2 /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				A0C51973188058B700FE03D2 /* LAPickerViewOverview-Info.plist */,
+				3807FF851DD2133E00C4FC1F /* LAUPickerViewOverview-Info.plist */,
 			);
 			name = Support;
-			path = LAPickerView;
+			path = LAUPickerView;
 			sourceTree = "<group>";
 		};
 		A0C5194A188057DA00FE03D2 /* Icon files */ = {
@@ -223,17 +223,17 @@
 				A0C5196F1880589F00FE03D2 /* ViewController.m */,
 			);
 			name = Classes;
-			path = LAPickerView;
+			path = LAUPickerView;
 			sourceTree = "<group>";
 		};
 		A0F1A4F516302ECA002E6BE5 /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
 				A0C5196D1880589F00FE03D2 /* main.m */,
-				A0C51974188058B700FE03D2 /* LAPickerViewOverview-Prefix.pch */,
+				3807FF841DD2133700C4FC1F /* LAUPickerViewOverview-Prefix.pch */,
 			);
 			name = "Other Sources";
-			path = LAPickerView;
+			path = LAUPickerView;
 			sourceTree = "<group>";
 		};
 		A0F1A4F616302EE4002E6BE5 /* Resources */ = {
@@ -244,15 +244,15 @@
 				A0C5194F1880585600FE03D2 /* en.lproj */,
 			);
 			name = Resources;
-			path = LAPickerView;
+			path = LAUPickerView;
 			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		A06ACB241608B2C300E20441 /* LAPickerViewOverview */ = {
+		A06ACB241608B2C300E20441 /* LAUPickerViewOverview */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A06ACB461608B2C300E20441 /* Build configuration list for PBXNativeTarget "LAPickerViewOverview" */;
+			buildConfigurationList = A06ACB461608B2C300E20441 /* Build configuration list for PBXNativeTarget "LAUPickerViewOverview" */;
 			buildPhases = (
 				A06ACB211608B2C300E20441 /* Sources */,
 				A06ACB221608B2C300E20441 /* Frameworks */,
@@ -263,9 +263,9 @@
 			dependencies = (
 				A0445E1418748222007BC506 /* PBXTargetDependency */,
 			);
-			name = LAPickerViewOverview;
-			productName = LAPickerViewOverview;
-			productReference = A06ACB251608B2C300E20441 /* LAPickerViewOverview.app */;
+			name = LAUPickerViewOverview;
+			productName = LAUPickerViewOverview;
+			productReference = A06ACB251608B2C300E20441 /* LAUPickerViewOverview.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -277,7 +277,7 @@
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Luis Laugga";
 			};
-			buildConfigurationList = A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "GAPickerViewOverview" */;
+			buildConfigurationList = A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "LAUPickerViewOverview" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -290,12 +290,12 @@
 			projectReferences = (
 				{
 					ProductGroup = A0BCA0541874744D00FC20CE /* Products */;
-					ProjectRef = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
+					ProjectRef = A0BCA0531874744D00FC20CE /* LAUPickerView.xcodeproj */;
 				},
 			);
 			projectRoot = "";
 			targets = (
-				A06ACB241608B2C300E20441 /* LAPickerViewOverview */,
+				A06ACB241608B2C300E20441 /* LAUPickerViewOverview */,
 			);
 		};
 /* End PBXProject section */
@@ -308,17 +308,17 @@
 			remoteRef = A0BCA05A1874744D00FC20CE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		A0BCA05D1874744D00FC20CE /* libLAPickerView.a */ = {
+		A0BCA05D1874744D00FC20CE /* libLAUPickerView.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libLAPickerView.a;
+			path = libLAUPickerView.a;
 			remoteRef = A0BCA05C1874744D00FC20CE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		A0BCA05F1874744D00FC20CE /* LAPickerView.bundle */ = {
+		A0BCA05F1874744D00FC20CE /* LAUPickerView.bundle */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
-			path = LAPickerView.bundle;
+			path = LAUPickerView.bundle;
 			remoteRef = A0BCA05E1874744D00FC20CE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
@@ -424,10 +424,9 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Debug;
 		};
@@ -452,11 +451,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Release;
 		};
@@ -468,13 +467,12 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "support/LAPickerViewOverview-Prefix.pch";
+				GCC_PREFIX_HEADER = "support/LAUPickerViewOverview-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "support/LAPickerViewOverview-Info.plist";
+				INFOPLIST_FILE = "support/LAUPickerViewOverview-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = LAPickerViewOverview;
-				VALID_ARCHS = "armv7 armv7s";
+				PRODUCT_NAME = LAUPickerViewOverview;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -488,14 +486,13 @@
 					"\"$(SRCROOT)\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "support/LAPickerViewOverview-Prefix.pch";
+				GCC_PREFIX_HEADER = "support/LAUPickerViewOverview-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_FILE = "support/LAPickerViewOverview-Info.plist";
+				INFOPLIST_FILE = "support/LAUPickerViewOverview-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_NAME = LAPickerViewOverview;
+				PRODUCT_NAME = LAUPickerViewOverview;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -503,7 +500,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "GAPickerViewOverview" */ = {
+		A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "LAUPickerViewOverview" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A06ACB441608B2C300E20441 /* Debug */,
@@ -512,7 +509,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A06ACB461608B2C300E20441 /* Build configuration list for PBXNativeTarget "LAPickerViewOverview" */ = {
+		A06ACB461608B2C300E20441 /* Build configuration list for PBXNativeTarget "LAUPickerViewOverview" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A06ACB471608B2C300E20441 /* Debug */,

@@ -1,4 +1,4 @@
-# LAPickerView Features
+# LAUPickerView Features
 
 * Vertical Picker View
 * Horizontal Picker View
