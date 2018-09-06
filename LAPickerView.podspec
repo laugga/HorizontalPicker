@@ -12,11 +12,11 @@ Pod::Spec.new do |s|
   s.author       = { 'Luis Laugga' => 'luis@laugga.com' }
   s.source       = { :git => 'https://github.com/laugga/LAPickerView.git', :tag => s.version.to_s }
 
-  s.platform     = :ios, '7.0'
-  s.ios.deployment_target = '5.1'
+  s.platform     = :ios, '8.0'
   s.requires_arc = false
 
   s.source_files = 'lib/*'
+  s.resources = "resources/*.{png,jpeg,jpg,storyboard,xib,xcassets,caf}"
 
   s.public_header_files = 'lib/*.h'
   s.prefix_header_file = 'support/LAPickerView-Prefix.pch'

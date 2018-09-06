@@ -24,6 +24,7 @@
 
 /* Begin PBXBuildFile section */
 		389641E61C16DC12002CE923 /* LAPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 389641E51C16DC12002CE923 /* LAPickerScrollView.m */; };
+		38DA0CF52140B01E006AEE5F /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = 38DA0CF42140B01E006AEE5F /* tick.caf */; };
 		38DBA1BE1BA8C7EB008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
 		38DBA1BF1BA8C7F1008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
 		A01822AB1876058D00E38975 /* LAPickerViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -70,6 +71,7 @@
 /* Begin PBXFileReference section */
 		389641E41C16DC12002CE923 /* LAPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerScrollView.h; sourceTree = "<group>"; };
 		389641E51C16DC12002CE923 /* LAPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerScrollView.m; sourceTree = "<group>"; };
+		38DA0CF42140B01E006AEE5F /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = tick.caf; path = resources/tick.caf; sourceTree = "<group>"; };
 		38DBA1BC1BA8C7EB008F9EEF /* LAPickerViewLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewLabel.h; sourceTree = "<group>"; };
 		38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerViewLabel.m; sourceTree = "<group>"; };
 		A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDelegate.h; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 		A01C026A1620DF64003DA76F /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				38DA0CF42140B01E006AEE5F /* tick.caf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -278,7 +281,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastTestingUpgradeCheck = 0610;
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Luis Laugga";
 			};
 			buildConfigurationList = A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "LAPickerView" */;
@@ -314,6 +317,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A01C02C01620E286003DA76F /* LAPickerView-Info.plist in Resources */,
+				38DA0CF52140B01E006AEE5F /* tick.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -435,6 +439,7 @@
 		A01C021A1620D8B4003DA76F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/Static_Library.dst;
@@ -443,12 +448,13 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = "support/LAPickerView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_PrivateHeaders";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LAPickerView;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_Headers";
 				SKIP_INSTALL = YES;
@@ -460,6 +466,7 @@
 		A01C021B1620D8B4003DA76F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/Static_Library.dst;
@@ -468,12 +475,13 @@
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_FILE = "support/LAPickerView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				MACH_O_TYPE = staticlib;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				PRIVATE_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_PrivateHeaders";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LAPickerView;
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_Headers";
 				SKIP_INSTALL = YES;
@@ -485,6 +493,7 @@
 		A01C024B1620D9BA003DA76F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Resources Bundle/Resources Bundle-Prefix.pch";
@@ -493,6 +502,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LAPickerView;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -503,6 +513,7 @@
 		A01C024C1620D9BA003DA76F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -512,6 +523,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LAPickerView;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -522,7 +534,8 @@
 		A01C02511620DA06003DA76F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = LAPickerView;
 				VALID_ARCHS = "armv7 armv7s i386";
@@ -532,7 +545,8 @@
 		A01C02521620DA06003DA76F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = LAPickerView;
 				VALID_ARCHS = "armv7 armv7s i386";
@@ -542,6 +556,7 @@
 		A039A778161F8C08009E4C10 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -549,7 +564,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "support/LAPickerView-Prefix.pch";
 				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -558,6 +573,7 @@
 		A039A779161F8C08009E4C10 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
@@ -565,7 +581,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "support/LAPickerView-Prefix.pch";
 				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};
@@ -575,18 +591,30 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -602,7 +630,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
 				SDKROOT = iphoneos;
@@ -615,17 +643,28 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -635,7 +674,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
 				INFOPLIST_OUTPUT_FORMAT = "same-as-input";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PLIST_FILE_OUTPUT_FORMAT = "same-as-input";
