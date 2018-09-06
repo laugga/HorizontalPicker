@@ -146,6 +146,8 @@
             
             if(_delegate && [_delegate respondsToSelector:@selector(pickerView:topSpaceForComponent:)]) {
                 tableViewRectSizeTop = [_delegate pickerView:self topSpaceForComponent:component];
+            } else {
+                tableViewRectSizeTop = tableViewRectSizeHeight * (CGFloat)component;
             }
 
             CGRect tableViewRect = CGRectMake(0, tableViewRectSizeTop, tableViewRectSizeWidth, tableViewRectSizeHeight);
