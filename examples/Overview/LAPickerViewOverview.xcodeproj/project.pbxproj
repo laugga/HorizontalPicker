@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		A01822BC187625DB00E38975 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01822BB187625DB00E38975 /* QuartzCore.framework */; };
-		A0445E161874826A007BC506 /* libLAPickerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A0BCA05D1874744D00FC20CE /* libLAPickerView.a */; };
 		A06ACB2A1608B2C300E20441 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB291608B2C300E20441 /* UIKit.framework */; };
 		A06ACB2C1608B2C300E20441 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2B1608B2C300E20441 /* Foundation.framework */; };
 		A06ACB2E1608B2C300E20441 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */; };
@@ -30,40 +29,12 @@
 		A0C519701880589F00FE03D2 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5196B1880589F00FE03D2 /* AppDelegate.m */; };
 		A0C519711880589F00FE03D2 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5196D1880589F00FE03D2 /* main.m */; };
 		A0C519721880589F00FE03D2 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A0C5196F1880589F00FE03D2 /* ViewController.m */; };
+		C513F87DC8E44E1294912B74 /* libPods-LAPickerViewOverview.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2C8CE965EC163F235710E4BF /* libPods-LAPickerViewOverview.a */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		A0445E1318748222007BC506 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A01C02111620D8B4003DA76F;
-			remoteInfo = "Static Library";
-		};
-		A0BCA05A1874744D00FC20CE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A039A768161F8C08009E4C10;
-			remoteInfo = Test;
-		};
-		A0BCA05C1874744D00FC20CE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A01C02121620D8B4003DA76F;
-			remoteInfo = "Static Library";
-		};
-		A0BCA05E1874744D00FC20CE /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = A01C02401620D9BA003DA76F;
-			remoteInfo = "Resources Bundle";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXFileReference section */
+		2C8CE965EC163F235710E4BF /* libPods-LAPickerViewOverview.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-LAPickerViewOverview.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		4BE61526DB7885895AE98CCE /* Pods-LAPickerViewOverview.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LAPickerViewOverview.debug.xcconfig"; path = "Pods/Target Support Files/Pods-LAPickerViewOverview/Pods-LAPickerViewOverview.debug.xcconfig"; sourceTree = "<group>"; };
 		A01822BB187625DB00E38975 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A01C02411620D9BA003DA76F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		A039A769161F8C08009E4C10 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
@@ -73,7 +44,6 @@
 		A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A06ACB6A160A0FF300E20441 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		A0A09B471877067900855DD5 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = LAPickerView.xcodeproj; path = ../../LAPickerView.xcodeproj; sourceTree = "<group>"; };
 		A0C5194C1880585600FE03D2 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-568h@2x.png"; path = "resources/Default-568h@2x.png"; sourceTree = SOURCE_ROOT; };
 		A0C5194D1880585600FE03D2 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = resources/Default.png; sourceTree = SOURCE_ROOT; };
 		A0C5194E1880585600FE03D2 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "resources/Default@2x.png"; sourceTree = SOURCE_ROOT; };
@@ -95,6 +65,7 @@
 		A0C5196F1880589F00FE03D2 /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = src/ViewController.m; sourceTree = SOURCE_ROOT; };
 		A0C51973188058B700FE03D2 /* LAPickerViewOverview-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "LAPickerViewOverview-Info.plist"; path = "support/LAPickerViewOverview-Info.plist"; sourceTree = SOURCE_ROOT; };
 		A0C51974188058B700FE03D2 /* LAPickerViewOverview-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LAPickerViewOverview-Prefix.pch"; path = "support/LAPickerViewOverview-Prefix.pch"; sourceTree = SOURCE_ROOT; };
+		ED10E5AD85D6E54B5FFF2ADF /* Pods-LAPickerViewOverview.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LAPickerViewOverview.release.xcconfig"; path = "Pods/Target Support Files/Pods-LAPickerViewOverview/Pods-LAPickerViewOverview.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,17 +75,26 @@
 			files = (
 				A0A09B481877067900855DD5 /* AudioToolbox.framework in Frameworks */,
 				A01822BC187625DB00E38975 /* QuartzCore.framework in Frameworks */,
-				A0445E161874826A007BC506 /* libLAPickerView.a in Frameworks */,
 				A06ACB6B160A0FF300E20441 /* CoreText.framework in Frameworks */,
 				A06ACB2A1608B2C300E20441 /* UIKit.framework in Frameworks */,
 				A06ACB2C1608B2C300E20441 /* Foundation.framework in Frameworks */,
 				A06ACB2E1608B2C300E20441 /* CoreGraphics.framework in Frameworks */,
+				C513F87DC8E44E1294912B74 /* libPods-LAPickerViewOverview.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		08A07773931B981B1E264F46 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4BE61526DB7885895AE98CCE /* Pods-LAPickerViewOverview.debug.xcconfig */,
+				ED10E5AD85D6E54B5FFF2ADF /* Pods-LAPickerViewOverview.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		A06ACB1A1608B2C200E20441 = {
 			isa = PBXGroup;
 			children = (
@@ -122,9 +102,9 @@
 				A0F1A4F516302ECA002E6BE5 /* Other Sources */,
 				A0F1A4F616302EE4002E6BE5 /* Resources */,
 				A0C51945188057B700FE03D2 /* Support */,
-				A07AD46917E07F1900A3F735 /* Dependencies */,
 				A06ACB281608B2C300E20441 /* Frameworks */,
 				A06ACB261608B2C300E20441 /* Products */,
+				08A07773931B981B1E264F46 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -147,26 +127,9 @@
 				A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */,
 				A039A769161F8C08009E4C10 /* SenTestingKit.framework */,
 				A01C02411620D9BA003DA76F /* CoreFoundation.framework */,
+				2C8CE965EC163F235710E4BF /* libPods-LAPickerViewOverview.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		A07AD46917E07F1900A3F735 /* Dependencies */ = {
-			isa = PBXGroup;
-			children = (
-				A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */,
-			);
-			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		A0BCA0541874744D00FC20CE /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				A0BCA05B1874744D00FC20CE /* Test.octest */,
-				A0BCA05D1874744D00FC20CE /* libLAPickerView.a */,
-				A0BCA05F1874744D00FC20CE /* LAPickerView.bundle */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		A0C51945188057B700FE03D2 /* Support */ = {
@@ -254,14 +217,16 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = A06ACB461608B2C300E20441 /* Build configuration list for PBXNativeTarget "LAPickerViewOverview" */;
 			buildPhases = (
+				B192E2F4E10D5803C04BC4C8 /* [CP] Check Pods Manifest.lock */,
 				A06ACB211608B2C300E20441 /* Sources */,
 				A06ACB221608B2C300E20441 /* Frameworks */,
 				A06ACB231608B2C300E20441 /* Resources */,
+				54415D4FDDF94ADC9D7190FE /* [CP] Embed Pods Frameworks */,
+				CB18C33B3955C69616799399 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				A0445E1418748222007BC506 /* PBXTargetDependency */,
 			);
 			name = LAPickerViewOverview;
 			productName = LAPickerViewOverview;
@@ -274,8 +239,13 @@
 		A06ACB1C1608B2C200E20441 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Luis Laugga";
+				TargetAttributes = {
+					A06ACB241608B2C300E20441 = {
+						DevelopmentTeam = JJC3QT2D2L;
+					};
+				};
 			};
 			buildConfigurationList = A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "LAPickerViewOverview" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -287,42 +257,12 @@
 			mainGroup = A06ACB1A1608B2C200E20441;
 			productRefGroup = A06ACB261608B2C300E20441 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = A0BCA0541874744D00FC20CE /* Products */;
-					ProjectRef = A0BCA0531874744D00FC20CE /* LAPickerView.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				A06ACB241608B2C300E20441 /* LAPickerViewOverview */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		A0BCA05B1874744D00FC20CE /* Test.octest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = Test.octest;
-			remoteRef = A0BCA05A1874744D00FC20CE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A0BCA05D1874744D00FC20CE /* libLAPickerView.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libLAPickerView.a;
-			remoteRef = A0BCA05C1874744D00FC20CE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		A0BCA05F1874744D00FC20CE /* LAPickerView.bundle */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = LAPickerView.bundle;
-			remoteRef = A0BCA05E1874744D00FC20CE /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		A06ACB231608B2C300E20441 /* Resources */ = {
@@ -347,6 +287,72 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		54415D4FDDF94ADC9D7190FE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LAPickerViewOverview/Pods-LAPickerViewOverview-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B192E2F4E10D5803C04BC4C8 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-LAPickerViewOverview-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CB18C33B3955C69616799399 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-LAPickerViewOverview/Pods-LAPickerViewOverview-resources.sh",
+				"${PODS_ROOT}/../../../resources/tick.caf",
+				"${PODS_ROOT}/../../../resources/tick_low.caf",
+				"${PODS_ROOT}/../../../resources/tick_low2.caf",
+				"${PODS_ROOT}/../../../resources/tick_low3.caf",
+				"${PODS_ROOT}/../../../resources/tick_low4.caf",
+				"${PODS_ROOT}/../../../resources/tick_low5.caf",
+				"${PODS_ROOT}/../../../resources/tick_old.caf",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tick.caf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tick_low.caf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tick_low2.caf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tick_low3.caf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tick_low4.caf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tick_low5.caf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/tick_old.caf",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-LAPickerViewOverview/Pods-LAPickerViewOverview-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		A06ACB211608B2C300E20441 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -359,14 +365,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		A0445E1418748222007BC506 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "Static Library";
-			targetProxy = A0445E1318748222007BC506 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		A0C519501880585600FE03D2 /* InfoPlist.strings */ = {
@@ -399,19 +397,30 @@
 		A06ACB441608B2C300E20441 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -425,29 +434,37 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Debug;
 		};
 		A06ACB451608B2C300E20441 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -455,52 +472,50 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				ONLY_ACTIVE_ARCH = NO;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = "armv7 armv7s armv6";
 			};
 			name = Release;
 		};
 		A06ACB471608B2C300E20441 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4BE61526DB7885895AE98CCE /* Pods-LAPickerViewOverview.debug.xcconfig */;
 			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				DEVELOPMENT_TEAM = JJC3QT2D2L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "support/LAPickerViewOverview-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "support/LAPickerViewOverview-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_LDFLAGS = "-ObjC";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.universal.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LAPickerViewOverview;
-				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		A06ACB481608B2C300E20441 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ED10E5AD85D6E54B5FFF2ADF /* Pods-LAPickerViewOverview.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"\"$(SRCROOT)\"",
-				);
+				DEVELOPMENT_TEAM = JJC3QT2D2L;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "support/LAPickerViewOverview-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "support/LAPickerViewOverview-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				OTHER_LDFLAGS = "-ObjC";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "$(inherited)";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.universal.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = LAPickerViewOverview;
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
-				VALID_ARCHS = "armv7 armv7s";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

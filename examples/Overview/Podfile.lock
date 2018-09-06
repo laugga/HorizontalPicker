@@ -1,0 +1,16 @@
+PODS:
+  - LAPickerView (0.2.0)
+
+DEPENDENCIES:
+  - LAPickerView (from `../..`)
+
+EXTERNAL SOURCES:
+  LAPickerView:
+    :path: ../..
+
+SPEC CHECKSUMS:
+  LAPickerView: 87c8f23e95506f4782b27bde4a8df1d797f92e02
+
+PODFILE CHECKSUM: d16f12cfa9fbedd53aabd3525512d8dd0ba2bac9
+
+COCOAPODS: 1.4.0

@@ -1,3 +1,6 @@
-platform :ios, '5.1'
+platform :ios, '8.0'
 
-pod "LAPickerView", '~> 0.1.0'
+project 'LAPickerViewOverview.xcodeproj'
+target 'LAPickerViewOverview' do
+  pod "LAPickerView", :path => '../..'
+end

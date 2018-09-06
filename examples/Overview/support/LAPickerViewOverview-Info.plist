@@ -8,8 +8,18 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>icon-57</string>
+		<string>icon-72</string>
+		<string>icon-76</string>
+		<string>icon-114</string>
+		<string>icon-120</string>
+		<string>icon-144</string>
+		<string>icon-152</string>
+	</array>
 	<key>CFBundleIdentifier</key>
-	<string>com.laugga.universal.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,6 +34,8 @@
 	<string>1.0</string>
 	<key>LSRequiresIPhoneOS</key>
 	<false/>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -36,18 +48,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIPrerenderedIcon</key>
-	<true/>
-	<key>CFBundleIconFiles</key>
-	<array>
-		<string>icon-57</string>
-		<string>icon-72</string>
-		<string>icon-76</string>
-		<string>icon-114</string>
-		<string>icon-120</string>
-		<string>icon-144</string>
-		<string>icon-152</string>
 	</array>
 </dict>
 </plist>
