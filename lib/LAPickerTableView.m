@@ -247,8 +247,11 @@
         // Assign new value
         _highlightedColumn = highlightedColumn;
         
-        // Notify delegate
-        [_delegate pickerTableView:self didHighlightColumn:highlightedColumn inComponent:_component];
+        // Notify delegate only if due to user interaction
+        if (_scrollView.tracking || _scrollView.dragging || _scrollView.decelerating)
+        {
+            [_delegate pickerTableView:self didHighlightColumn:highlightedColumn inComponent:_component];
+        }
     }
 }
 
