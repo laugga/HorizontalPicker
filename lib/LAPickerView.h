@@ -53,6 +53,9 @@
     id<LAPickerViewDataSource> _dataSource;
     id<LAPickerViewDelegate> _delegate;
     
+    // Haptic Feedback
+    UISelectionFeedbackGenerator * _feedbackGenerator;
+    
 //    UIView *_topFrame;
 //    NSMutableArray *_dividers;
 //    NSMutableArray *_selectionBars;

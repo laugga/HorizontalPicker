@@ -57,7 +57,11 @@
         _selectingTable = nil;
         
         _selectionAlignment = LAPickerSelectionAlignmentCenter; // default is center
+        
+        // Haptic and Sound Feedback
         _pickerViewFlags.soundsEnabled = 1; // default is enabled
+        _feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
+        [_feedbackGenerator prepare];
     }
     return self;
 }
@@ -279,7 +283,12 @@
 - (void)pickerTableView:(LAPickerTableView *)pickerView didHighlightColumn:(NSInteger)column inComponent:(NSInteger)component
 {
     if(_pickerViewFlags.soundsEnabled)
+    {
+        [_feedbackGenerator selectionChanged];
+        [_feedbackGenerator prepare];
+        
         [[LAPickerTableInputSound sharedPickerTableInputSound] play]; // Play sound when highlighted column changes
+    }
 }
 
 - (NSString *)pickerTableView:(LAPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
