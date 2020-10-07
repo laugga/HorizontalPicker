@@ -132,7 +132,9 @@
     
     // Clean up
     [_tables removeAllObjects];
-    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    for (UIView * view in self.subviews) {
+        [view removeFromSuperview];
+    }
     
     if(_dataSource)
     {

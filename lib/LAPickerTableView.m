@@ -126,28 +126,33 @@
     }
 }
 
+- (CGPoint)scrollViewContentOffsetForColumn:(NSInteger)column
+{
+    _contentOffset = [_columnsOffset[column] floatValue];
+    CGPoint contentOffset = CGPointMake(-_firstColumnOffset+_contentOffset+_interColumnSpacing, 0);
+ 
+    return contentOffset;
+}
+
 - (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated
 {
     Log(@"setSelectedColumn: %d", column);
     
-    if(_numberOfColumns && _selectedColumn != column)
+    if(_numberOfColumns)
     {
         // Range is [0, numberOfColumns]
         if(column > -1 && column < _numberOfColumns)
         {
-            _contentOffset = [_columnsOffset[column] floatValue];
-            CGPoint selectedColumnContentOffset = CGPointMake(-_firstColumnOffset+_contentOffset+_interColumnSpacing, 0);
-            
             _selectedColumn = column;
             _selectedColumnView = _columns[_selectedColumn];
             
             if (animated)
             {
                 [self hideColumns:NO animated:animated];
-                [_scrollView setContentOffset:selectedColumnContentOffset animated:animated];
+                [_scrollView setContentOffset:[self scrollViewContentOffsetForColumn:_selectedColumn] animated:animated];
             }
             else {
-                _scrollView.contentOffset = selectedColumnContentOffset;
+                _scrollView.contentOffset = [self scrollViewContentOffsetForColumn:_selectedColumn];
             }
         }
     }
@@ -347,12 +352,13 @@
                 _contentSize += (viewWidth + _interColumnSpacing);
             }
             
-            // content size
-            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, CGRectGetHeight(self.bounds));
-        
             _selectedColumn = 0;
             _selectedColumnView = _columns[_selectedColumn];
             
+            // content size
+            _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, CGRectGetHeight(self.bounds));
+            _scrollView.contentOffset = [self scrollViewContentOffsetForColumn:_selectedColumn];
+
             [self setSelectionAlignment:_selectionAlignment animated:NO];
         }
     }
