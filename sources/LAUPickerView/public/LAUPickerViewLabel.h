@@ -1,5 +1,5 @@
 //
-//  LAPickerViewLabel.h
+//  LAUPickerViewLabel.h
 //  m-ios
 //
 //  Created by Luis Laugga on 15.09.15.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LAPickerViewLabel : UILabel
+@interface LAUPickerViewLabel : UILabel
 
 @property (nonatomic, copy) UIFont * highlightedFont;
 

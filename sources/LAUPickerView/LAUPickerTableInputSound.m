@@ -1,7 +1,7 @@
 /*
  
- LAPickerViewDataSource.h
- LAPickerView
+ LAUPickerTableInputSound.m
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -25,21 +25,39 @@
  
 */
 
-#import <Foundation/Foundation.h>
+#import "LAUPickerTableInputSound.h"
 
-@class LAPickerView;
+@implementation LAUPickerTableInputSound
 
-@protocol LAPickerViewDataSource <NSObject>
-@required
+static LAUPickerTableInputSound * _defaultInputSound;
 
-/*!
- returns the number of 'columns' to display.
- */
-- (NSInteger)numberOfComponentsInPickerView:(LAPickerView *)pickerView;
+- (id)init
+{
+    self = [super init];
+    if(self)
+    {
+#ifdef SWIFTPM_MODULE_BUNDLE
+        NSString * soundPath = [SWIFTPM_MODULE_BUNDLE pathForResource:@"tick" ofType:@"caf"];
+        if (soundPath != nil) {
+            NSURL * soundURL = [NSURL fileURLWithPath:soundPath];
+            AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &_inputSoundId);
+        }
+#endif 
+    }
+    return self;
+}
 
-/*!
- returns the number of columns in each component.
- */
-- (NSInteger)pickerView:(LAPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component;
++ (LAUPickerTableInputSound *)sharedPickerTableInputSound
+{
+    if(_defaultInputSound == nil)
+        _defaultInputSound = [[LAUPickerTableInputSound alloc] init]; // singleton object
+    
+    return _defaultInputSound;
+}
+
+- (void)play
+{
+    AudioServicesPlaySystemSound(_inputSoundId);
+}
 
 @end

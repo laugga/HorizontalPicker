@@ -1,14 +1,14 @@
 //
-//  LAPickerViewLabel.m
+//  LAUPickerViewLabel.m
 //  m-ios
 //
 //  Created by Luis Laugga on 15.09.15.
 //  Copyright (c) 2015 Centralway Switzerland AG. All rights reserved.
 //
 
-#import "LAPickerViewLabel.h"
+#import "LAUPickerViewLabel.h"
 
-@interface LAPickerViewLabel ()
+@interface LAUPickerViewLabel ()
 
 @property (nonatomic, assign) CGAffineTransform toHighlightedTransform;
 @property (nonatomic, assign) CGAffineTransform fromHighlightedTransform;
@@ -16,7 +16,7 @@
 
 @end
 
-@implementation LAPickerViewLabel
+@implementation LAUPickerViewLabel
 
 - (void)layoutSubviews
 {

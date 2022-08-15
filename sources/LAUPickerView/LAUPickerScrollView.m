@@ -1,14 +1,14 @@
 //
-//  LAPickerScrollView.m
+//  LAUPickerScrollView.m
 //  Pods
 //
 //  Created by Luis Laugga on 12/5/15.
 //
 //
 
-#import "LAPickerScrollView.h"
+#import "LAUPickerScrollView.h"
 
-@implementation LAPickerScrollView
+@implementation LAUPickerScrollView
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
 {

@@ -13,11 +13,12 @@
 		BD9FA64328A50B7A0051DA21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9FA64128A50B7A0051DA21 /* Main.storyboard */; };
 		BD9FA64528A50B7D0051DA21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9FA64428A50B7D0051DA21 /* Assets.xcassets */; };
 		BD9FA64828A50B7D0051DA21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9FA64628A50B7D0051DA21 /* LaunchScreen.storyboard */; };
-		BDFD300428A53409002FE0C1 /* LAPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = BDFD300328A53409002FE0C1 /* LAPickerView */; };
+		BDFD300428A53409002FE0C1 /* LAUPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = BDFD300328A53409002FE0C1 /* LAUPickerView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BD9FA63828A50B7A0051DA21 /* LAPickerViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAPickerViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		38EF6B7928AADD5C008AB056 /* LAUPickerView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LAUPickerView; path = ../..; sourceTree = "<group>"; };
+		BD9FA63828A50B7A0051DA21 /* LAUPickerViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAUPickerViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9FA63B28A50B7A0051DA21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD9FA63D28A50B7A0051DA21 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		BD9FA63F28A50B7A0051DA21 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -25,7 +26,7 @@
 		BD9FA64428A50B7D0051DA21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD9FA64728A50B7D0051DA21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD9FA64928A50B7D0051DA21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BDFD300228A533F8002FE0C1 /* LAPickerView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LAPickerView; path = ../..; sourceTree = "<group>"; };
+		BDFD300228A533F8002FE0C1 /* LAUPickerView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LAUPickerView; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,7 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDFD300428A53409002FE0C1 /* LAPickerView in Frameworks */,
+				BDFD300428A53409002FE0C1 /* LAUPickerView in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +52,7 @@
 			isa = PBXGroup;
 			children = (
 				BDFD300128A533F8002FE0C1 /* Packages */,
-				BD9FA63A28A50B7A0051DA21 /* LAPickerViewExample */,
+				BD9FA63A28A50B7A0051DA21 /* LAUPickerViewExample */,
 				BD9FA63928A50B7A0051DA21 /* Products */,
 				BD6E2A8C28A51EE700292729 /* Frameworks */,
 			);
@@ -60,12 +61,12 @@
 		BD9FA63928A50B7A0051DA21 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BD9FA63828A50B7A0051DA21 /* LAPickerViewExample.app */,
+				BD9FA63828A50B7A0051DA21 /* LAUPickerViewExample.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		BD9FA63A28A50B7A0051DA21 /* LAPickerViewExample */ = {
+		BD9FA63A28A50B7A0051DA21 /* LAUPickerViewExample */ = {
 			isa = PBXGroup;
 			children = (
 				BD9FA63B28A50B7A0051DA21 /* AppDelegate.swift */,
@@ -76,13 +77,14 @@
 				BD9FA64628A50B7D0051DA21 /* LaunchScreen.storyboard */,
 				BD9FA64928A50B7D0051DA21 /* Info.plist */,
 			);
-			path = LAPickerViewExample;
+			path = LAUPickerViewExample;
 			sourceTree = "<group>";
 		};
 		BDFD300128A533F8002FE0C1 /* Packages */ = {
 			isa = PBXGroup;
 			children = (
-				BDFD300228A533F8002FE0C1 /* LAPickerView */,
+				BDFD300228A533F8002FE0C1 /* LAUPickerView */,
+				38EF6B7928AADD5C008AB056 /* LAUPickerView */,
 			);
 			name = Packages;
 			sourceTree = "<group>";
@@ -90,9 +92,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		BD9FA63728A50B7A0051DA21 /* LAPickerViewExample */ = {
+		BD9FA63728A50B7A0051DA21 /* LAUPickerViewExample */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BD9FA64C28A50B7D0051DA21 /* Build configuration list for PBXNativeTarget "LAPickerViewExample" */;
+			buildConfigurationList = BD9FA64C28A50B7D0051DA21 /* Build configuration list for PBXNativeTarget "LAUPickerViewExample" */;
 			buildPhases = (
 				BD9FA63428A50B7A0051DA21 /* Sources */,
 				BD9FA63528A50B7A0051DA21 /* Frameworks */,
@@ -102,12 +104,12 @@
 			);
 			dependencies = (
 			);
-			name = LAPickerViewExample;
+			name = LAUPickerViewExample;
 			packageProductDependencies = (
-				BDFD300328A53409002FE0C1 /* LAPickerView */,
+				BDFD300328A53409002FE0C1 /* LAUPickerView */,
 			);
-			productName = LAPickerViewExample;
-			productReference = BD9FA63828A50B7A0051DA21 /* LAPickerViewExample.app */;
+			productName = LAUPickerViewExample;
+			productReference = BD9FA63828A50B7A0051DA21 /* LAUPickerViewExample.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -125,7 +127,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BD9FA63328A50B7A0051DA21 /* Build configuration list for PBXProject "LAPickerViewExample" */;
+			buildConfigurationList = BD9FA63328A50B7A0051DA21 /* Build configuration list for PBXProject "LAUPickerViewExample" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -138,7 +140,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BD9FA63728A50B7A0051DA21 /* LAPickerViewExample */,
+				BD9FA63728A50B7A0051DA21 /* LAUPickerViewExample */,
 			);
 		};
 /* End PBXProject section */
@@ -311,7 +313,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LAPickerViewExample/Info.plist;
+				INFOPLIST_FILE = LAUPickerViewExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -322,7 +324,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.laugga.LAPickerViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laugga.LAUPickerViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -338,7 +340,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = LAPickerViewExample/Info.plist;
+				INFOPLIST_FILE = LAUPickerViewExample/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -349,7 +351,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.laugga.LAPickerViewExample;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laugga.LAUPickerViewExample;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -360,7 +362,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BD9FA63328A50B7A0051DA21 /* Build configuration list for PBXProject "LAPickerViewExample" */ = {
+		BD9FA63328A50B7A0051DA21 /* Build configuration list for PBXProject "LAUPickerViewExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD9FA64A28A50B7D0051DA21 /* Debug */,
@@ -369,7 +371,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BD9FA64C28A50B7D0051DA21 /* Build configuration list for PBXNativeTarget "LAPickerViewExample" */ = {
+		BD9FA64C28A50B7D0051DA21 /* Build configuration list for PBXNativeTarget "LAUPickerViewExample" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BD9FA64D28A50B7D0051DA21 /* Debug */,
@@ -381,9 +383,9 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		BDFD300328A53409002FE0C1 /* LAPickerView */ = {
+		BDFD300328A53409002FE0C1 /* LAUPickerView */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = LAPickerView;
+			productName = LAUPickerView;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

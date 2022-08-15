@@ -1,7 +1,7 @@
 /*
  
- LAPickerTableView.m
- LAPickerView
+ LAUPickerTableView.m
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -25,13 +25,13 @@
  
  */
 
-#import "LAPickerTableView.h"
-#import "LAPickerViewLabel.h"
+#import "LAUPickerTableView.h"
+#import "LAUPickerViewLabel.h"
 
-#import "LAPickerScrollView.h"
-#import "LAPickerViewLog.h"
+#import "LAUPickerScrollView.h"
+#import "LAUPickerViewLog.h"
 
-@implementation LAPickerTableView
+@implementation LAUPickerTableView
 
 @synthesize selectedColumn=_selectedColumn;
 
@@ -72,7 +72,7 @@
         _highlightedColumn = -1; // none highlighted, default
         
         // View
-        _scrollView = [[LAPickerScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _scrollView = [[LAUPickerScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
@@ -163,20 +163,20 @@
 {
     if(_selectedColumn > -1 && _selectedColumn < _numberOfColumns)
     {
-        LAPickerViewLabel * view = (LAPickerViewLabel *)_columns[_selectedColumn];
-        if ([view isKindOfClass:[LAPickerViewLabel class]])
+        LAUPickerViewLabel * view = (LAUPickerViewLabel *)_columns[_selectedColumn];
+        if ([view isKindOfClass:[LAUPickerViewLabel class]])
         {
             [view setHighlighted:highlighted animated:YES];
         }
     }
 }
 
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment
 {
     [self setSelectionAlignment:selectionAlignment animated:NO];
 }
 
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated
 {
     // Assign
     _selectionAlignment = selectionAlignment;
@@ -190,7 +190,7 @@
         // Update layout
         switch (_selectionAlignment)
         {
-            case LAPickerSelectionAlignmentLeft:
+            case LAUPickerSelectionAlignmentLeft:
             {
                 _selectionEdgeInset = 0.0f;
                 _firstColumnOffset = 0.0f;
@@ -198,14 +198,14 @@
                 
             }
                 break;
-            case LAPickerSelectionAlignmentRight:
+            case LAUPickerSelectionAlignmentRight:
             {
                 _selectionEdgeInset = self.frame.size.width - firstColumnWidth;
                 _firstColumnOffset = self.frame.size.width;
                 _contentSizePadding = 0.0f;
             }
                 break;
-            case LAPickerSelectionAlignmentCenter:
+            case LAUPickerSelectionAlignmentCenter:
             default:
             {
                 _selectionEdgeInset = self.frame.size.width/2.0f - firstColumnWidth/2.0f;
@@ -316,13 +316,13 @@
                 
                 if(view == nil)
                 {
-                    LAPickerViewLabel * label = [[LAPickerViewLabel alloc] init];
+                    LAUPickerViewLabel * label = [[LAUPickerViewLabel alloc] init];
                     label.textColor = [UIColor blackColor];
                     label.text = title;
                     label.textAlignment = UITextAlignmentCenter;
                     label.backgroundColor = [UIColor clearColor];
                     
-                    // TODO expose in the LAPickerView interface
+                    // TODO expose in the LAUPickerView interface
                     label.highlightedFont = [UIFont boldSystemFontOfSize:20.0];
                     
                     [label sizeToFit];
@@ -435,7 +435,7 @@
 }
 
 #pragma mark -
-#pragma mark LAPickerScrollViewDelegate
+#pragma mark LAUPickerScrollViewDelegate
 
 - (BOOL)doesTouchHitSelectedColumn:(UITouch *)touch
 {

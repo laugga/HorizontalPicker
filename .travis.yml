@@ -1,4 +1,4 @@
 language: objective-c
-xcode_project: LAPickerView.xcodeproj
+xcode_project: LAUPickerView.xcodeproj
 xcode_scheme: Test
-script: xcodebuild test -project LAPickerView.xcodeproj -scheme Test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+script: xcodebuild test -project LAUPickerView.xcodeproj -scheme Test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO

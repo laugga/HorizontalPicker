@@ -1,7 +1,7 @@
 /*
  
- LAPickerTableInputSound.h
- LAPickerView
+ LAUPickerViewDataSource.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -26,15 +26,20 @@
 */
 
 #import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
 
-@interface LAPickerTableInputSound : NSObject
-{
-    SystemSoundID _inputSoundId;
-}
+@class LAUPickerView;
 
-+ (LAPickerTableInputSound *)sharedPickerTableInputSound;
+@protocol LAUPickerViewDataSource <NSObject>
+@required
 
-- (void)play;
+/*!
+ returns the number of 'columns' to display.
+ */
+- (NSInteger)numberOfComponentsInPickerView:(LAUPickerView *)pickerView;
+
+/*!
+ returns the number of columns in each component.
+ */
+- (NSInteger)pickerView:(LAUPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component;
 
 @end

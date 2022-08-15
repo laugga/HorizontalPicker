@@ -19,7 +19,7 @@
                BlueprintIdentifier = "BDFD301528A536D4002FE0C1"
                BuildableName = "Unit Tests.xctest"
                BlueprintName = "Unit Tests"
-               ReferencedContainer = "container:LAPickerView.xcodeproj">
+               ReferencedContainer = "container:LAUPickerView.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

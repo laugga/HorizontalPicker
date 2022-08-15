@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  LAPickerViewExample
+//  LAUPickerViewExample
 //
 //  Created by Ferreira Luis (Cembra Money Bank) on 11.08.22.
 //

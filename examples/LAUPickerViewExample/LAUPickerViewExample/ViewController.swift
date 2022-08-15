@@ -1,12 +1,12 @@
 //
 //  ViewController.swift
-//  LAPickerViewExample
+//  LAUPickerViewExample
 //
 //  Created by Ferreira Luis (Cembra Money Bank) on 11.08.22.
 //
 
 import UIKit
-import LAPickerView
+import LAUPickerView
 
 enum PickerComponents: CaseIterable {
     case aperture, shutterSpeed, isoSpeed
@@ -23,11 +23,11 @@ enum PickerComponents: CaseIterable {
     }
 }
 
-class ViewController: UIViewController, LAPickerViewDelegate, LAPickerViewDataSource {
+class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewDataSource {
     
     // Picker View
-    @IBOutlet var horizontalPickerView: LAPickerView?
-    @IBOutlet var verticalPickerView: LAPickerView?
+    @IBOutlet var horizontalPickerView: LAUPickerView?
+    @IBOutlet var verticalPickerView: LAUPickerView?
     
     private var highlightedComponent: Int = 0 {
         didSet {
@@ -55,13 +55,13 @@ class ViewController: UIViewController, LAPickerViewDelegate, LAPickerViewDataSo
         verticalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: false)
     }
     
-    // MARK: - LAPickerViewDataSource
+    // MARK: - LAUPickerViewDataSource
     
-    func numberOfComponents(in pickerView: LAPickerView!) -> Int {
+    func numberOfComponents(in pickerView: LAUPickerView!) -> Int {
         return PickerComponents.allCases.count
     }
     
-    func pickerView(_ pickerView: LAPickerView!, numberOfColumnsInComponent component: Int) -> Int {
+    func pickerView(_ pickerView: LAUPickerView!, numberOfColumnsInComponent component: Int) -> Int {
         switch component {
         case 0: // aperture
             return PickerComponents.aperture.values.count
@@ -74,7 +74,7 @@ class ViewController: UIViewController, LAPickerViewDelegate, LAPickerViewDataSo
         }
     }
     
-    func pickerView(_ pickerView: LAPickerView!, numberOfRowsInCompoment component: Int) -> Int {
+    func pickerView(_ pickerView: LAUPickerView!, numberOfRowsInCompoment component: Int) -> Int {
         switch component {
         case 0: // aperture
             return PickerComponents.aperture.values.count
@@ -87,11 +87,11 @@ class ViewController: UIViewController, LAPickerViewDelegate, LAPickerViewDataSo
         }
     }
     
-    func pickerView(_ pickerView: LAPickerView!, heightForComponent component: Int) -> CGFloat {
+    func pickerView(_ pickerView: LAUPickerView!, heightForComponent component: Int) -> CGFloat {
         return 50.0
     }
 
-    func pickerView(_ pickerView: LAPickerView!, titleForColumn column: Int, forComponent component: Int) -> String! {
+    func pickerView(_ pickerView: LAUPickerView!, titleForColumn column: Int, forComponent component: Int) -> String! {
         switch component {
         case 0: // aperture
             return String(format: "%.1f", PickerComponents.aperture.values[column])
@@ -104,9 +104,9 @@ class ViewController: UIViewController, LAPickerViewDelegate, LAPickerViewDataSo
         }
     }
 
-    // MARK: - LAPickerViewDelegate
+    // MARK: - LAUPickerViewDelegate
     
-    func pickerView(_ pickerView: LAPickerView!, didChangeColumn column: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: LAUPickerView!, didChangeColumn column: Int, inComponent component: Int) {
         
         if pickerView == horizontalPickerView {
             verticalPickerView?.selectColumn(column, inComponent: component, animated: true)
@@ -117,11 +117,11 @@ class ViewController: UIViewController, LAPickerViewDelegate, LAPickerViewDataSo
         highlightedComponent = component
     }
     
-    func pickerView(_ pickerView: LAPickerView!, didTouchUpColumn column: Int, inComponent component: Int) {
+    func pickerView(_ pickerView: LAUPickerView!, didTouchUpColumn column: Int, inComponent component: Int) {
         highlightedComponent = component
     }
     
-    func pickerView(_ pickerView: LAPickerView!, didTouchUp touch: UITouch!, inComponent component: Int) {
+    func pickerView(_ pickerView: LAUPickerView!, didTouchUp touch: UITouch!, inComponent component: Int) {
         highlightedComponent = component
     }
 }

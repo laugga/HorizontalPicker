@@ -1,15 +1,15 @@
 //
-//  LAPickerViewTests.swift
-//  LAPickerViewTests
+//  LAUPickerViewTests.swift
+//  LAUPickerViewTests
 //
 //  Created by Ferreira Luis (Cembra Money Bank) on 11.08.22.
 //  Copyright © 2022 Luis Laugga. All rights reserved.
 //
 
 import XCTest
-import LAPickerView
+import LAUPickerView
 
-class LAPickerViewTests: XCTestCase {
+class LAUPickerViewTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

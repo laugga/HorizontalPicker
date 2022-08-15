@@ -1,7 +1,7 @@
 /*
  
- LAPickerTableViewDataSource.h
- LAPickerView
+ LAUPickerTableViewDataSource.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -27,11 +27,11 @@
 
 #import <Foundation/Foundation.h>
 
-@class LAPickerTableView;
+@class LAUPickerTableView;
 
-@protocol LAPickerTableViewDataSource <NSObject>
+@protocol LAUPickerTableViewDataSource <NSObject>
 @required
 
-- (NSInteger)pickerTableView:(LAPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component;
+- (NSInteger)pickerTableView:(LAUPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component;
 
 @end

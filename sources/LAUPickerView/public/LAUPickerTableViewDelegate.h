@@ -1,7 +1,7 @@
 /*
  
- LAPickerTableInputSound.m
- LAPickerView
+ LAUPickerViewDelegate.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -25,39 +25,24 @@
  
 */
 
-#import "LAPickerTableInputSound.h"
+#import <Foundation/Foundation.h>
 
-@implementation LAPickerTableInputSound
+@class LAUPickerTableView;
 
-static LAPickerTableInputSound * _defaultInputSound;
+@protocol LAUPickerTableViewDelegate <NSObject>
 
-- (id)init
-{
-    self = [super init];
-    if(self)
-    {
-#ifdef SWIFTPM_MODULE_BUNDLE
-        NSString * soundPath = [SWIFTPM_MODULE_BUNDLE pathForResource:@"tick" ofType:@"caf"];
-        if (soundPath != nil) {
-            NSURL * soundURL = [NSURL fileURLWithPath:soundPath];
-            AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &_inputSoundId);
-        }
-#endif 
-    }
-    return self;
-}
+@required
 
-+ (LAPickerTableInputSound *)sharedPickerTableInputSound
-{
-    if(_defaultInputSound == nil)
-        _defaultInputSound = [[LAPickerTableInputSound alloc] init]; // singleton object
-    
-    return _defaultInputSound;
-}
+- (void)pickerTableView:(LAUPickerTableView *)pickerView didHighlightColumn:(NSInteger)column inComponent:(NSInteger)component;
 
-- (void)play
-{
-    AudioServicesPlaySystemSound(_inputSoundId);
-}
+@optional
+
+- (NSString *)pickerTableView:(LAUPickerTableView *)pickerTableView titleForColumn:(NSInteger)column forComponent:(NSInteger)component;
+- (UIView *)pickerTableView:(LAUPickerTableView *)pickerTableView viewForColumn:(NSInteger)column forComponent:(NSInteger)component reusingView:(UIView *)view;
+
+- (void)pickerTableView:(LAUPickerTableView *)pickerView willSelectColumnInComponent:(NSInteger)component;
+- (void)pickerTableView:(LAUPickerTableView *)pickerView didChangeColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)pickerTableView:(LAUPickerTableView *)pickerView didTouchUpColumn:(NSInteger)column inComponent:(NSInteger)component;
+- (void)pickerTableView:(LAUPickerTableView *)pickerView didTouchUp:(UITouch *)touch inComponent:(NSInteger)component;
 
 @end

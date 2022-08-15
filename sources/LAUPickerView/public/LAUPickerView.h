@@ -1,7 +1,7 @@
 /*
  
- LAPickerView.h
- LAPickerView
+ LAUPickerView.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -30,34 +30,34 @@
 #import <Availability.h>
 #import <TargetConditionals.h>
 
-#ifndef _LAPickerView_
-    #define _LAPickerView_
+#ifndef _LAUPickerView_
+    #define _LAUPickerView_
 
-#import "LAPickerViewDataSource.h"
-#import "LAPickerViewDelegate.h"
+#import "LAUPickerViewDataSource.h"
+#import "LAUPickerViewDelegate.h"
 
-#import "LAPickerTableView.h"
+#import "LAUPickerTableView.h"
 
 /*!
  @abstract Picker View
  @discussion
- The LAPickerView class implements objects, called picker views, that use an horizontal slider to show one or more sets of values. Users select values by dragging the slider so that the desired column of values aligns with a selection indicator.
+ The LAUPickerView class implements objects, called picker views, that use an horizontal slider to show one or more sets of values. Users select values by dragging the slider so that the desired column of values aligns with a selection indicator.
  The user interface provided by a picker view consists of components and columns. A component is a slider, which has a series of items (columns) at indexed locations on the slider. Each component also has an indexed location (left to right) in a picker view. Each column on a component has content, which is either a string or a view object such as a label (UILabel) or an image (UIImageView).
  */
-@interface LAPickerView : UIView <LAPickerTableViewDataSource, LAPickerTableViewDelegate/*, NSCoding*/>
+@interface LAUPickerView : UIView <LAUPickerTableViewDataSource, LAUPickerTableViewDelegate/*, NSCoding*/>
 {
     // Components
     NSInteger _numberOfComponents;
     NSMutableArray * _tables;
     
     // Layout
-    LAPickerSelectionAlignment _selectionAlignment;
+    LAUPickerSelectionAlignment _selectionAlignment;
     
     // Selection
-    LAPickerTableView * _selectingTable; // table being changed
+    LAUPickerTableView * _selectingTable; // table being changed
     
-    __unsafe_unretained id<LAPickerViewDataSource> _dataSource;
-    __unsafe_unretained id<LAPickerViewDelegate> _delegate;
+    __unsafe_unretained id<LAUPickerViewDataSource> _dataSource;
+    __unsafe_unretained id<LAUPickerViewDelegate> _delegate;
     
     // Haptic Feedback
     UISelectionFeedbackGenerator * _feedbackGenerator;
@@ -99,23 +99,23 @@
 /*!
  The data source for the picker view.
  @discussion
- The data source must adopt the LAPickerViewDataSource protocol and implement the required methods to return the number of components and the number of columns in each component.
+ The data source must adopt the LAUPickerViewDataSource protocol and implement the required methods to return the number of components and the number of columns in each component.
  */
-@property (nonatomic, assign) id<LAPickerViewDataSource> dataSource;
+@property (nonatomic, assign) id<LAUPickerViewDataSource> dataSource;
 
 /*!
  The delegate for the picker view.
  @discussion
- The delegate must adopt the LAPickerViewDelegate protocol and implement the required methods to return the drawing rectangle for column in each component. It also provides the content for each component’s column, either as a string or a view, and it typically responds to new selections or deselections.
+ The delegate must adopt the LAUPickerViewDelegate protocol and implement the required methods to return the drawing rectangle for column in each component. It also provides the content for each component’s column, either as a string or a view, and it typically responds to new selections or deselections.
  */
-@property (nonatomic, assign) id<LAPickerViewDelegate> delegate;
+@property (nonatomic, assign) id<LAUPickerViewDelegate> delegate;
 
 /*!
  The alignment of the picker view selection indicator.
  @discussion
- The default value is LAPickerSelectionAlignmentCenter.
+ The default value is LAUPickerSelectionAlignmentCenter.
  */
-@property (nonatomic) LAPickerSelectionAlignment selectionAlignment;
+@property (nonatomic) LAUPickerSelectionAlignment selectionAlignment;
 
 /*!
  The input sounds of the picker view are played when the selection changes.
@@ -129,7 +129,7 @@
  @param selectionAlignment The alignment, can be aligned along the left edge, center of view (default) or right edge of view.
  @param animated YES to animate the selection alignment change; if you specify NO, the new selection alignment is shown immediately.
  */
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;
 
 /*!
  Returns the index of the selected row in a given component.
@@ -277,4 +277,4 @@
 
 @end
 
-#endif /* _LAPickerView_ */
+#endif /* _LAUPickerView_ */

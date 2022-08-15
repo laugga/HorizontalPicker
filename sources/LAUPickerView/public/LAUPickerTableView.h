@@ -1,7 +1,7 @@
 /*
  
- LAPickerTableView.h
- LAPickerView
+ LAUPickerTableView.h
+ LAUPickerView
  
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
@@ -27,30 +27,30 @@
 
 #import <UIKit/UIKit.h>
 
-#import "LAPickerTableViewDataSource.h"
-#import "LAPickerTableViewDelegate.h"
+#import "LAUPickerTableViewDataSource.h"
+#import "LAUPickerTableViewDelegate.h"
 
-#import "LAPickerScrollView.h"
+#import "LAUPickerScrollView.h"
 
 /*!
  @abstract Options for the picker selection alignment, in relation to the view.
  
- @constant LAPickerSelectionAlignmentLeft
+ @constant LAUPickerSelectionAlignmentLeft
  Align selection along the left edge of the view.
  
- @constant LAPickerSelectionAlignmentCenter
+ @constant LAUPickerSelectionAlignmentCenter
  Align selection equally along both sides of the view. This is the default selection.
  
  @constant APickerSelectionAlignmentRight
  Align selection along the right edge of the view.
  */
 typedef enum {
-    LAPickerSelectionAlignmentLeft,
-    LAPickerSelectionAlignmentCenter,
-    LAPickerSelectionAlignmentRight
-} LAPickerSelectionAlignment;
+    LAUPickerSelectionAlignmentLeft,
+    LAUPickerSelectionAlignmentCenter,
+    LAUPickerSelectionAlignmentRight
+} LAUPickerSelectionAlignment;
 
-@interface LAPickerTableView : UIView <UIScrollViewDelegate, LAPickerScrollViewDelegate>
+@interface LAUPickerTableView : UIView <UIScrollViewDelegate, LAUPickerScrollViewDelegate>
 {
     // Columns
     NSInteger _component;
@@ -67,12 +67,12 @@ typedef enum {
     BOOL _isTouched;
     
     // Subviews
-    LAPickerScrollView * _scrollView;
+    LAUPickerScrollView * _scrollView;
     NSMutableArray * _columns;
     NSMutableArray * _columnsOffset;
     
     // Layout
-    LAPickerSelectionAlignment _selectionAlignment;
+    LAUPickerSelectionAlignment _selectionAlignment;
     CGFloat _interColumnSpacing;
     CGFloat _selectionEdgeInset; // inset from left edge
     CGFloat _firstColumnOffset;
@@ -81,8 +81,8 @@ typedef enum {
     CGFloat _contentSizePadding; // padding for the content size
     CGFloat _contentOffset;
     
-    __unsafe_unretained id<LAPickerTableViewDataSource> _dataSource;
-    __unsafe_unretained id<LAPickerTableViewDelegate> _delegate;
+    __unsafe_unretained id<LAUPickerTableViewDataSource> _dataSource;
+    __unsafe_unretained id<LAUPickerTableViewDelegate> _delegate;
 }
 
 @property (nonatomic, readonly) NSInteger selectedColumn;
@@ -90,14 +90,14 @@ typedef enum {
 /*!
  Sets the selection to the left edge, center or right edge
  */
-@property (nonatomic) LAPickerSelectionAlignment selectionAlignment;
+@property (nonatomic) LAUPickerSelectionAlignment selectionAlignment;
 
-@property (nonatomic, assign) id<LAPickerTableViewDataSource> dataSource;
-@property (nonatomic, assign) id<LAPickerTableViewDelegate> delegate;
+@property (nonatomic, assign) id<LAUPickerTableViewDataSource> dataSource;
+@property (nonatomic, assign) id<LAUPickerTableViewDelegate> delegate;
 
 - (id)initWithFrame:(CGRect)frame andComponent:(NSInteger)component;
 
-- (void)setSelectionAlignment:(LAPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;
+- (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;
 - (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated;
 
 - (void)setSelectedColumnHighlighted:(BOOL)highlighted animated:(BOOL)animated;

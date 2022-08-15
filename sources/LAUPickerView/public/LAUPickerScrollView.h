@@ -1,5 +1,5 @@
 //
-//  LAPickerScrollView.h
+//  LAUPickerScrollView.h
 //  Pods
 //
 //  Created by Luis Laugga on 12/5/15.
@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface LAPickerScrollView : UIScrollView
+@interface LAUPickerScrollView : UIScrollView
 
 @end
 
-@protocol LAPickerScrollViewDelegate <NSObject>
+@protocol LAUPickerScrollViewDelegate <NSObject>
 
 @optional
 
