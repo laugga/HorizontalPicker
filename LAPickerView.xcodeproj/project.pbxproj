@@ -6,112 +6,82 @@
 	objectVersion = 46;
 	objects = {
 
-/* Begin PBXAggregateTarget section */
-		A01C024F1620DA06003DA76F /* Framework */ = {
-			isa = PBXAggregateTarget;
-			buildConfigurationList = A01C02501620DA06003DA76F /* Build configuration list for PBXAggregateTarget "Framework" */;
-			buildPhases = (
-				A01C02591620DA95003DA76F /* Run Build Framework */,
-			);
-			dependencies = (
-				A01C02541620DA13003DA76F /* PBXTargetDependency */,
-				A01C02561620DA15003DA76F /* PBXTargetDependency */,
-			);
-			name = Framework;
-			productName = "Framework Debug";
-		};
-/* End PBXAggregateTarget section */
-
 /* Begin PBXBuildFile section */
-		389641E61C16DC12002CE923 /* LAPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 389641E51C16DC12002CE923 /* LAPickerScrollView.m */; };
-		38DA0CF52140B01E006AEE5F /* tick.caf in Resources */ = {isa = PBXBuildFile; fileRef = 38DA0CF42140B01E006AEE5F /* tick.caf */; };
-		38DBA1BE1BA8C7EB008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
-		38DBA1BF1BA8C7F1008F9EEF /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */; };
-		A01822AB1876058D00E38975 /* LAPickerViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A01822AD187605A400E38975 /* LAPickerViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822AC187605A400E38975 /* LAPickerViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A01822B41876147000E38975 /* LAPickerTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822B21876147000E38975 /* LAPickerTableView.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A01822B51876147000E38975 /* LAPickerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01822B31876147000E38975 /* LAPickerTableView.m */; };
-		A01822B61876147000E38975 /* LAPickerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = A01822B31876147000E38975 /* LAPickerTableView.m */; };
-		A01822B9187614E700E38975 /* LAPickerTableViewDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822B7187614E700E38975 /* LAPickerTableViewDataSource.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A01822BA187614E700E38975 /* LAPickerTableViewDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = A01822B8187614E700E38975 /* LAPickerTableViewDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A01C02C01620E286003DA76F /* LAPickerView-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = A01C02BF1620E286003DA76F /* LAPickerView-Info.plist */; };
-		A01C02C71620E7A5003DA76F /* LAPIckerViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A01C02C61620E7A5003DA76F /* LAPIckerViewTest.m */; };
-		A01C02C81620E7E7003DA76F /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB6A160A0FF300E20441 /* CoreText.framework */; };
-		A01C02C91620E7E7003DA76F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */; };
-		A01C02CA1620E7E7003DA76F /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A01C02411620D9BA003DA76F /* CoreFoundation.framework */; };
-		A039A76A161F8C08009E4C10 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A039A769161F8C08009E4C10 /* SenTestingKit.framework */; };
-		A039A76B161F8C08009E4C10 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB291608B2C300E20441 /* UIKit.framework */; };
-		A039A76C161F8C08009E4C10 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06ACB2B1608B2C300E20441 /* Foundation.framework */; };
-		A0445E0E18747BCC007BC506 /* LAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0445E0D18747BCC007BC506 /* LAPickerView.m */; };
-		A0445E0F18747BCC007BC506 /* LAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = A0445E0D18747BCC007BC506 /* LAPickerView.m */; };
-		A071D9D218905FE200358EF9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A071D9D118905FE200358EF9 /* AudioToolbox.framework */; };
-		A0A09B441876FB2A00855DD5 /* LAPickerTableInputSound.h in Headers */ = {isa = PBXBuildFile; fileRef = A0A09B421876FB2A00855DD5 /* LAPickerTableInputSound.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A0A09B451876FB2A00855DD5 /* LAPickerTableInputSound.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A09B431876FB2A00855DD5 /* LAPickerTableInputSound.m */; };
-		A0A09B461876FB2A00855DD5 /* LAPickerTableInputSound.m in Sources */ = {isa = PBXBuildFile; fileRef = A0A09B431876FB2A00855DD5 /* LAPickerTableInputSound.m */; };
-		A0BCA0511874722600FC20CE /* LAPickerView.h in Headers */ = {isa = PBXBuildFile; fileRef = A0BCA0501874722600FC20CE /* LAPickerView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BDFD301928A536D4002FE0C1 /* LAPickerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BDFD301828A536D4002FE0C1 /* LAPickerViewTests.swift */; };
+		BDFD302D28A53793002FE0C1 /* LAPickerViewLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA60E28A50A690051DA21 /* LAPickerViewLabel.m */; };
+		BDFD302E28A53793002FE0C1 /* LAPickerScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA60B28A50A690051DA21 /* LAPickerScrollView.m */; };
+		BDFD302F28A53793002FE0C1 /* LAPickerTableInputSound.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA60C28A50A690051DA21 /* LAPickerTableInputSound.m */; };
+		BDFD303028A53793002FE0C1 /* LAPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA61328A50A690051DA21 /* LAPickerView.m */; };
+		BDFD303128A53793002FE0C1 /* LAPickerTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA60A28A50A690051DA21 /* LAPickerTableView.m */; };
+		BDFD303528A5393A002FE0C1 /* libLAPickerView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BDFD302428A53784002FE0C1 /* libLAPickerView.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		A01C02531620DA13003DA76F /* PBXContainerItemProxy */ = {
+		BDFD303328A538B9002FE0C1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A06ACB1C1608B2C200E20441 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = A01C02111620D8B4003DA76F;
-			remoteInfo = "Static Library";
-		};
-		A01C02551620DA15003DA76F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A06ACB1C1608B2C200E20441 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A01C023F1620D9BA003DA76F;
-			remoteInfo = "Resources Bundle";
+			remoteGlobalIDString = BDFD302328A53784002FE0C1;
+			remoteInfo = LAPickerView;
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		BDFD302228A53784002FE0C1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
-		389641E41C16DC12002CE923 /* LAPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerScrollView.h; sourceTree = "<group>"; };
-		389641E51C16DC12002CE923 /* LAPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerScrollView.m; sourceTree = "<group>"; };
-		38DA0CF42140B01E006AEE5F /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = tick.caf; path = resources/tick.caf; sourceTree = "<group>"; };
-		38DBA1BC1BA8C7EB008F9EEF /* LAPickerViewLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewLabel.h; sourceTree = "<group>"; };
-		38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerViewLabel.m; sourceTree = "<group>"; };
-		A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDelegate.h; sourceTree = "<group>"; };
-		A01822AC187605A400E38975 /* LAPickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDataSource.h; sourceTree = "<group>"; };
-		A01822B21876147000E38975 /* LAPickerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableView.h; sourceTree = "<group>"; };
-		A01822B31876147000E38975 /* LAPickerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerTableView.m; sourceTree = "<group>"; };
-		A01822B7187614E700E38975 /* LAPickerTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableViewDataSource.h; sourceTree = "<group>"; };
-		A01822B8187614E700E38975 /* LAPickerTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableViewDelegate.h; sourceTree = "<group>"; };
-		A01C02121620D8B4003DA76F /* libLAPickerView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLAPickerView.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		A01C02401620D9BA003DA76F /* LAPickerView.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LAPickerView.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01C02411620D9BA003DA76F /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		A01C02941620E015003DA76F /* LAPickerView-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "LAPickerView-Prefix.pch"; path = "Support/LAPickerView-Prefix.pch"; sourceTree = "<group>"; };
 		A01C02BF1620E286003DA76F /* LAPickerView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "LAPickerView-Info.plist"; path = "Support/LAPickerView-Info.plist"; sourceTree = "<group>"; };
-		A01C02C51620E7A5003DA76F /* LAPickerViewTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewTest.h; sourceTree = "<group>"; };
-		A01C02C61620E7A5003DA76F /* LAPIckerViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPIckerViewTest.m; sourceTree = "<group>"; };
-		A039A768161F8C08009E4C10 /* Test.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Test.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A039A769161F8C08009E4C10 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
-		A0445E0D18747BCC007BC506 /* LAPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerView.m; sourceTree = "<group>"; };
 		A06ACB291608B2C300E20441 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		A06ACB2B1608B2C300E20441 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A06ACB2D1608B2C300E20441 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		A06ACB6A160A0FF300E20441 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		A071D9D118905FE200358EF9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		A0A09B421876FB2A00855DD5 /* LAPickerTableInputSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LAPickerTableInputSound.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		A0A09B431876FB2A00855DD5 /* LAPickerTableInputSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LAPickerTableInputSound.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		A0BCA0501874722600FC20CE /* LAPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerView.h; sourceTree = "<group>"; };
+		BD6E2A8928A51CEC00292729 /* tick.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = tick.caf; sourceTree = "<group>"; };
+		BD9FA60A28A50A690051DA21 /* LAPickerTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerTableView.m; sourceTree = "<group>"; };
+		BD9FA60B28A50A690051DA21 /* LAPickerScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerScrollView.m; sourceTree = "<group>"; };
+		BD9FA60C28A50A690051DA21 /* LAPickerTableInputSound.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerTableInputSound.m; sourceTree = "<group>"; };
+		BD9FA60E28A50A690051DA21 /* LAPickerViewLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerViewLabel.m; sourceTree = "<group>"; };
+		BD9FA61328A50A690051DA21 /* LAPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LAPickerView.m; sourceTree = "<group>"; };
+		BDFD300628A5362B002FE0C1 /* LAPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerView.h; sourceTree = "<group>"; };
+		BDFD300728A5362B002FE0C1 /* LAPickerTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableView.h; sourceTree = "<group>"; };
+		BDFD300828A5362B002FE0C1 /* LAPickerTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableViewDelegate.h; sourceTree = "<group>"; };
+		BDFD300928A5362B002FE0C1 /* LAPickerTableInputSound.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableInputSound.h; sourceTree = "<group>"; };
+		BDFD300A28A5362B002FE0C1 /* LAPickerTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerTableViewDataSource.h; sourceTree = "<group>"; };
+		BDFD300B28A5362B002FE0C1 /* LAPickerViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDataSource.h; sourceTree = "<group>"; };
+		BDFD300C28A5362B002FE0C1 /* LAPickerViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewDelegate.h; sourceTree = "<group>"; };
+		BDFD300D28A5362B002FE0C1 /* LAPickerViewLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerViewLabel.h; sourceTree = "<group>"; };
+		BDFD300E28A5362B002FE0C1 /* LAPickerScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LAPickerScrollView.h; sourceTree = "<group>"; };
+		BDFD300F28A53699002FE0C1 /* Test-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Test-Bridging-Header.h"; sourceTree = "<group>"; };
+		BDFD301628A536D4002FE0C1 /* Unit Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Unit Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BDFD301828A536D4002FE0C1 /* LAPickerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LAPickerViewTests.swift; sourceTree = "<group>"; };
+		BDFD302428A53784002FE0C1 /* libLAPickerView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libLAPickerView.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		A039A764161F8C08009E4C10 /* Frameworks */ = {
+		BDFD301328A536D4002FE0C1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A071D9D218905FE200358EF9 /* AudioToolbox.framework in Frameworks */,
-				A01C02C81620E7E7003DA76F /* CoreText.framework in Frameworks */,
-				A039A76B161F8C08009E4C10 /* UIKit.framework in Frameworks */,
-				A039A76C161F8C08009E4C10 /* Foundation.framework in Frameworks */,
-				A01C02C91620E7E7003DA76F /* CoreGraphics.framework in Frameworks */,
-				A039A76A161F8C08009E4C10 /* SenTestingKit.framework in Frameworks */,
-				A01C02CA1620E7E7003DA76F /* CoreFoundation.framework in Frameworks */,
+				BDFD303528A5393A002FE0C1 /* libLAPickerView.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		BDFD302128A53784002FE0C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,30 +97,21 @@
 			name = Support;
 			sourceTree = "<group>";
 		};
-		A01C026A1620DF64003DA76F /* Resources */ = {
+		A039A76D161F8C08009E4C10 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				38DA0CF42140B01E006AEE5F /* tick.caf */,
+				BDFD301828A536D4002FE0C1 /* LAPickerViewTests.swift */,
+				BDFD300F28A53699002FE0C1 /* Test-Bridging-Header.h */,
 			);
-			name = Resources;
-			sourceTree = "<group>";
-		};
-		A039A76D161F8C08009E4C10 /* Test */ = {
-			isa = PBXGroup;
-			children = (
-				A01C02C51620E7A5003DA76F /* LAPickerViewTest.h */,
-				A01C02C61620E7A5003DA76F /* LAPIckerViewTest.m */,
-			);
-			path = Test;
+			path = Tests;
 			sourceTree = "<group>";
 		};
 		A06ACB1A1608B2C200E20441 = {
 			isa = PBXGroup;
 			children = (
-				A0F0BE0516388E050017AEC3 /* Library */,
-				A01C026A1620DF64003DA76F /* Resources */,
+				A0F0BE0516388E050017AEC3 /* Sources */,
 				A01C02691620DF5E003DA76F /* Support */,
-				A039A76D161F8C08009E4C10 /* Test */,
+				A039A76D161F8C08009E4C10 /* Tests */,
 				A06ACB281608B2C300E20441 /* Frameworks */,
 				A06ACB261608B2C300E20441 /* Products */,
 			);
@@ -159,9 +120,8 @@
 		A06ACB261608B2C300E20441 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A039A768161F8C08009E4C10 /* Test.octest */,
-				A01C02121620D8B4003DA76F /* libLAPickerView.a */,
-				A01C02401620D9BA003DA76F /* LAPickerView.bundle */,
+				BDFD301628A536D4002FE0C1 /* Unit Tests.xctest */,
+				BDFD302428A53784002FE0C1 /* libLAPickerView.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -180,99 +140,89 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A0F0BE0516388E050017AEC3 /* Library */ = {
+		A0F0BE0516388E050017AEC3 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				38DBA1BC1BA8C7EB008F9EEF /* LAPickerViewLabel.h */,
-				38DBA1BD1BA8C7EB008F9EEF /* LAPickerViewLabel.m */,
-				A01822AC187605A400E38975 /* LAPickerViewDataSource.h */,
-				A01822AA1876058D00E38975 /* LAPickerViewDelegate.h */,
-				A0BCA0501874722600FC20CE /* LAPickerView.h */,
-				A0445E0D18747BCC007BC506 /* LAPickerView.m */,
-				389641E41C16DC12002CE923 /* LAPickerScrollView.h */,
-				389641E51C16DC12002CE923 /* LAPickerScrollView.m */,
-				A01822B7187614E700E38975 /* LAPickerTableViewDataSource.h */,
-				A01822B8187614E700E38975 /* LAPickerTableViewDelegate.h */,
-				A01822B21876147000E38975 /* LAPickerTableView.h */,
-				A01822B31876147000E38975 /* LAPickerTableView.m */,
-				A0A09B421876FB2A00855DD5 /* LAPickerTableInputSound.h */,
-				A0A09B431876FB2A00855DD5 /* LAPickerTableInputSound.m */,
+				BD9FA60928A509E70051DA21 /* LAPickerView */,
 			);
-			name = Library;
-			path = lib;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		BD6E2A8828A51CEC00292729 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				BD6E2A8928A51CEC00292729 /* tick.caf */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		BD9FA60928A509E70051DA21 /* LAPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				BDFD300528A53615002FE0C1 /* Public */,
+				BD6E2A8828A51CEC00292729 /* Resources */,
+				BD9FA60B28A50A690051DA21 /* LAPickerScrollView.m */,
+				BD9FA60C28A50A690051DA21 /* LAPickerTableInputSound.m */,
+				BD9FA60A28A50A690051DA21 /* LAPickerTableView.m */,
+				BD9FA61328A50A690051DA21 /* LAPickerView.m */,
+				BD9FA60E28A50A690051DA21 /* LAPickerViewLabel.m */,
+			);
+			path = LAPickerView;
+			sourceTree = "<group>";
+		};
+		BDFD300528A53615002FE0C1 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				BDFD300E28A5362B002FE0C1 /* LAPickerScrollView.h */,
+				BDFD300928A5362B002FE0C1 /* LAPickerTableInputSound.h */,
+				BDFD300728A5362B002FE0C1 /* LAPickerTableView.h */,
+				BDFD300A28A5362B002FE0C1 /* LAPickerTableViewDataSource.h */,
+				BDFD300828A5362B002FE0C1 /* LAPickerTableViewDelegate.h */,
+				BDFD300628A5362B002FE0C1 /* LAPickerView.h */,
+				BDFD300B28A5362B002FE0C1 /* LAPickerViewDataSource.h */,
+				BDFD300C28A5362B002FE0C1 /* LAPickerViewDelegate.h */,
+				BDFD300D28A5362B002FE0C1 /* LAPickerViewLabel.h */,
+			);
+			path = Public;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
-/* Begin PBXHeadersBuildPhase section */
-		A0F1A4C316301B49002E6BE5 /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A01822AB1876058D00E38975 /* LAPickerViewDelegate.h in Headers */,
-				A01822BA187614E700E38975 /* LAPickerTableViewDelegate.h in Headers */,
-				A0BCA0511874722600FC20CE /* LAPickerView.h in Headers */,
-				A01822B41876147000E38975 /* LAPickerTableView.h in Headers */,
-				A01822B9187614E700E38975 /* LAPickerTableViewDataSource.h in Headers */,
-				A0A09B441876FB2A00855DD5 /* LAPickerTableInputSound.h in Headers */,
-				A01822AD187605A400E38975 /* LAPickerViewDataSource.h in Headers */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXHeadersBuildPhase section */
-
 /* Begin PBXNativeTarget section */
-		A01C02111620D8B4003DA76F /* Static Library */ = {
+		BDFD301528A536D4002FE0C1 /* Unit Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A01C021C1620D8B4003DA76F /* Build configuration list for PBXNativeTarget "Static Library" */;
+			buildConfigurationList = BDFD301D28A536D4002FE0C1 /* Build configuration list for PBXNativeTarget "Unit Tests" */;
 			buildPhases = (
-				A01C020E1620D8B4003DA76F /* Sources */,
-				A0F1A4C316301B49002E6BE5 /* Headers */,
-				A0F1A4E816301CBC002E6BE5 /* Run Copy Framework Headers */,
+				BDFD301228A536D4002FE0C1 /* Sources */,
+				BDFD301328A536D4002FE0C1 /* Frameworks */,
+				BDFD301428A536D4002FE0C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				BDFD303428A538B9002FE0C1 /* PBXTargetDependency */,
+			);
+			name = "Unit Tests";
+			productName = LAPickerViewTests;
+			productReference = BDFD301628A536D4002FE0C1 /* Unit Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		BDFD302328A53784002FE0C1 /* LAPickerView */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BDFD302A28A53784002FE0C1 /* Build configuration list for PBXNativeTarget "LAPickerView" */;
+			buildPhases = (
+				BDFD302028A53784002FE0C1 /* Sources */,
+				BDFD302128A53784002FE0C1 /* Frameworks */,
+				BDFD302228A53784002FE0C1 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
-			name = "Static Library";
-			productName = "Static Library";
-			productReference = A01C02121620D8B4003DA76F /* libLAPickerView.a */;
+			name = LAPickerView;
+			productName = LAPickerVIew;
+			productReference = BDFD302428A53784002FE0C1 /* libLAPickerView.a */;
 			productType = "com.apple.product-type.library.static";
-		};
-		A01C023F1620D9BA003DA76F /* Resources Bundle */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A01C024A1620D9BA003DA76F /* Build configuration list for PBXNativeTarget "Resources Bundle" */;
-			buildPhases = (
-				A0F1A4C016301A5D002E6BE5 /* Run Update Bundle Version */,
-				A01C023E1620D9BA003DA76F /* Resources */,
-				A0F1A4EA16301D15002E6BE5 /* Run Copy Framework Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Resources Bundle";
-			productName = "Resources Bundle";
-			productReference = A01C02401620D9BA003DA76F /* LAPickerView.bundle */;
-			productType = "com.apple.product-type.bundle";
-		};
-		A039A767161F8C08009E4C10 /* Test */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = A039A777161F8C08009E4C10 /* Build configuration list for PBXNativeTarget "Test" */;
-			buildPhases = (
-				A039A763161F8C08009E4C10 /* Sources */,
-				A039A764161F8C08009E4C10 /* Frameworks */,
-				A039A765161F8C08009E4C10 /* Resources */,
-				A039A766161F8C08009E4C10 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Test;
-			productName = Test;
-			productReference = A039A768161F8C08009E4C10 /* Test.octest */;
-			productType = "com.apple.product-type.bundle.ocunit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -280,15 +230,27 @@
 		A06ACB1C1608B2C200E20441 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1330;
 				LastTestingUpgradeCheck = 0610;
 				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Luis Laugga";
+				TargetAttributes = {
+					BDFD301528A536D4002FE0C1 = {
+						CreatedOnToolsVersion = 13.3.1;
+						ProvisioningStyle = Automatic;
+					};
+					BDFD302328A53784002FE0C1 = {
+						CreatedOnToolsVersion = 13.3.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
 			};
 			buildConfigurationList = A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "LAPickerView" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = A06ACB1A1608B2C200E20441;
@@ -296,293 +258,54 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A039A767161F8C08009E4C10 /* Test */,
-				A01C02111620D8B4003DA76F /* Static Library */,
-				A01C023F1620D9BA003DA76F /* Resources Bundle */,
-				A01C024F1620DA06003DA76F /* Framework */,
+				BDFD301528A536D4002FE0C1 /* Unit Tests */,
+				BDFD302328A53784002FE0C1 /* LAPickerView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		A01C023E1620D9BA003DA76F /* Resources */ = {
+		BDFD301428A536D4002FE0C1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		A039A765161F8C08009E4C10 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				A01C02C01620E286003DA76F /* LAPickerView-Info.plist in Resources */,
-				38DA0CF52140B01E006AEE5F /* tick.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		A01C02591620DA95003DA76F /* Run Build Framework */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Build Framework";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Scripts/build_framework.sh\"";
-		};
-		A039A766161F8C08009E4C10 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-		A0F1A4C016301A5D002E6BE5 /* Run Update Bundle Version */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Update Bundle Version";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Scripts/update_bundle_version.sh\"";
-		};
-		A0F1A4E816301CBC002E6BE5 /* Run Copy Framework Headers */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Copy Framework Headers";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/scripts/copy_framework_headers.sh\"";
-		};
-		A0F1A4EA16301D15002E6BE5 /* Run Copy Framework Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Copy Framework Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Scripts/copy_framework_resources.sh\"";
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		A01C020E1620D8B4003DA76F /* Sources */ = {
+		BDFD301228A536D4002FE0C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				38DBA1BF1BA8C7F1008F9EEF /* LAPickerViewLabel.m in Sources */,
-				A0445E0F18747BCC007BC506 /* LAPickerView.m in Sources */,
-				A01822B61876147000E38975 /* LAPickerTableView.m in Sources */,
-				A0A09B461876FB2A00855DD5 /* LAPickerTableInputSound.m in Sources */,
+				BDFD301928A536D4002FE0C1 /* LAPickerViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		A039A763161F8C08009E4C10 /* Sources */ = {
+		BDFD302028A53784002FE0C1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A0A09B451876FB2A00855DD5 /* LAPickerTableInputSound.m in Sources */,
-				A01822B51876147000E38975 /* LAPickerTableView.m in Sources */,
-				38DBA1BE1BA8C7EB008F9EEF /* LAPickerViewLabel.m in Sources */,
-				A0445E0E18747BCC007BC506 /* LAPickerView.m in Sources */,
-				389641E61C16DC12002CE923 /* LAPickerScrollView.m in Sources */,
-				A01C02C71620E7A5003DA76F /* LAPIckerViewTest.m in Sources */,
+				BDFD302F28A53793002FE0C1 /* LAPickerTableInputSound.m in Sources */,
+				BDFD302D28A53793002FE0C1 /* LAPickerViewLabel.m in Sources */,
+				BDFD303128A53793002FE0C1 /* LAPickerTableView.m in Sources */,
+				BDFD302E28A53793002FE0C1 /* LAPickerScrollView.m in Sources */,
+				BDFD303028A53793002FE0C1 /* LAPickerView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		A01C02541620DA13003DA76F /* PBXTargetDependency */ = {
+		BDFD303428A538B9002FE0C1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A01C02111620D8B4003DA76F /* Static Library */;
-			targetProxy = A01C02531620DA13003DA76F /* PBXContainerItemProxy */;
-		};
-		A01C02561620DA15003DA76F /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A01C023F1620D9BA003DA76F /* Resources Bundle */;
-			targetProxy = A01C02551620DA15003DA76F /* PBXContainerItemProxy */;
+			target = BDFD302328A53784002FE0C1 /* LAPickerView */;
+			targetProxy = BDFD303328A538B9002FE0C1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		A01C021A1620D8B4003DA76F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/Static_Library.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "support/LAPickerView-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
-				INFOPLIST_FILE = "support/LAPickerView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LINK_WITH_STANDARD_LIBRARIES = YES;
-				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRIVATE_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_PrivateHeaders";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = LAPickerView;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_Headers";
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 armv7s";
-			};
-			name = Debug;
-		};
-		A01C021B1620D8B4003DA76F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				DEAD_CODE_STRIPPING = NO;
-				DSTROOT = /tmp/Static_Library.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "support/LAPickerView-Prefix.pch";
-				GCC_THUMB_SUPPORT = NO;
-				INFOPLIST_EXPAND_BUILD_SETTINGS = YES;
-				INFOPLIST_FILE = "support/LAPickerView-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				LINK_WITH_STANDARD_LIBRARIES = YES;
-				MACH_O_TYPE = staticlib;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_LDFLAGS = "-ObjC";
-				PRIVATE_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_PrivateHeaders";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = LAPickerView;
-				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)_Headers";
-				SKIP_INSTALL = YES;
-				VALID_ARCHS = "armv7 armv7s";
-			};
-			name = Release;
-		};
-		A01C024B1620D9BA003DA76F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Resources Bundle/Resources Bundle-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "support/LAPickerView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = LAPickerView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Debug;
-		};
-		A01C024C1620D9BA003DA76F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "Resources Bundle/Resources Bundle-Prefix.pch";
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				INFOPLIST_FILE = "support/LAPickerView-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.laugga.${PRODUCT_NAME:rfc1034identifier}";
-				PRODUCT_NAME = LAPickerView;
-				SDKROOT = iphoneos;
-				SKIP_INSTALL = YES;
-				WRAPPER_EXTENSION = bundle;
-			};
-			name = Release;
-		};
-		A01C02511620DA06003DA76F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = LAPickerView;
-				VALID_ARCHS = "armv7 armv7s i386";
-			};
-			name = Debug;
-		};
-		A01C02521620DA06003DA76F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				ONLY_ACTIVE_ARCH = NO;
-				PRODUCT_NAME = LAPickerView;
-				VALID_ARCHS = "armv7 armv7s i386";
-			};
-			name = Release;
-		};
-		A039A778161F8C08009E4C10 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "support/LAPickerView-Prefix.pch";
-				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		A039A779161F8C08009E4C10 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_ENABLE_OBJC_WEAK = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(SDKROOT)/Developer/Library/Frameworks",
-					"$(DEVELOPER_LIBRARY_DIR)/Frameworks",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "support/LAPickerView-Prefix.pch";
-				INFOPLIST_EXPAND_BUILD_SETTINGS = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 		A06ACB441608B2C300E20441 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -672,50 +395,173 @@
 			};
 			name = Release;
 		};
+		BDFD301E28A536D4002FE0C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laugga.LAPickerViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BDFD301F28A536D4002FE0C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.laugga.LAPickerViewTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		BDFD302B28A53784002FE0C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MODULE_NAME = LAPickerView;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BDFD302C28A53784002FE0C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.4;
+				MODULE_NAME = LAPickerView;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A01C021C1620D8B4003DA76F /* Build configuration list for PBXNativeTarget "Static Library" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A01C021A1620D8B4003DA76F /* Debug */,
-				A01C021B1620D8B4003DA76F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A01C024A1620D9BA003DA76F /* Build configuration list for PBXNativeTarget "Resources Bundle" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A01C024B1620D9BA003DA76F /* Debug */,
-				A01C024C1620D9BA003DA76F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A01C02501620DA06003DA76F /* Build configuration list for PBXAggregateTarget "Framework" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A01C02511620DA06003DA76F /* Debug */,
-				A01C02521620DA06003DA76F /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		A039A777161F8C08009E4C10 /* Build configuration list for PBXNativeTarget "Test" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				A039A778161F8C08009E4C10 /* Debug */,
-				A039A779161F8C08009E4C10 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		A06ACB1F1608B2C200E20441 /* Build configuration list for PBXProject "LAPickerView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A06ACB441608B2C300E20441 /* Debug */,
 				A06ACB451608B2C300E20441 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDFD301D28A536D4002FE0C1 /* Build configuration list for PBXNativeTarget "Unit Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDFD301E28A536D4002FE0C1 /* Debug */,
+				BDFD301F28A536D4002FE0C1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		BDFD302A28A53784002FE0C1 /* Build configuration list for PBXNativeTarget "LAPickerView" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BDFD302B28A53784002FE0C1 /* Debug */,
+				BDFD302C28A53784002FE0C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

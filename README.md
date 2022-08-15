@@ -8,50 +8,20 @@ It is similar to UIPickerView, but the user interface provided consists of colum
 
 ## Requirements
 
-* iOS 5.1 or later
+* iOS 9.0 or later
 * Suported devices: iPhone/iPad (*)
 
 ## How to use LAPickerView in your project
 
-### CocoaPods
+### Swift Package Manager
 
-1. Create or edit an existing text file named Podfile in your Xcode project directory:
+TODO 
 
-```ruby
-platform :ios, '5.1'
+1. Use LAPickerView in your project:
 
-pod "LAPickerView", '~> 0.2.0'
+```swift
+import LAPickerView
 ```
-
-2. Install LAPickerView in your project:
-
-```bash
-$ pod install
-```
-
-3. Open the Xcode workspace instead of the project file when building your project:
-
-```bash
-$ open YourProject.xcworkspace
-```
-
-4. Use LAPickerView in your project:
-
-```obj-c
-#import <LAPickerView/LAPickerView.h>
-```
-
-### Framework
-
-1. Import the LAPickerView.framework to your project
-2. Add '-ObjC' to *Other Linker Flag* in *Build Settings* target section (in order to load Objective-C class categories) 
-3. Add LAPickerView.framework to *Link Binary with Libraries* in *Build Phases* target section
-
-You also need to add the following frameworks to your project:
-
-* QuartzCore.framework
-* CoreGraphics.framework
-* AudioToolbox.framework
 
 ## Overview Tutorial
 
