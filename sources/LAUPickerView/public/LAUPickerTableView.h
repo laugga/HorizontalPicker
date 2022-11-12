@@ -95,6 +95,8 @@ typedef enum {
 @property (nonatomic, assign) id<LAUPickerTableViewDataSource> dataSource;
 @property (nonatomic, assign) id<LAUPickerTableViewDelegate> delegate;
 
+@property (nonatomic, readonly) BOOL isScrolling;
+
 - (id)initWithFrame:(CGRect)frame andComponent:(NSInteger)component;
 
 - (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment animated:(BOOL)animated;

@@ -36,6 +36,7 @@
 
 @synthesize selectionAlignment=_selectionAlignment;
 @dynamic soundsEnabled;
+@dynamic hapticsEnabled;
 
 #pragma mark -
 #pragma mark Initialization
@@ -73,10 +74,12 @@
     _tables = [[NSMutableArray alloc] init];
     _selectingTable = nil;
     
-    _selectionAlignment = LAUPickerSelectionAlignmentCenter; // Default is center
+    _selectionAlignment = LAUPickerSelectionAlignmentCenter; // default is center
     
     // Haptic and Sound Feedback
     _pickerViewFlags.soundsEnabled = 1; // default is enabled
+    _pickerViewFlags.hapticsEnabled = 1; // default is enabled
+
     _feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
     [_feedbackGenerator prepare];
 }
@@ -90,18 +93,23 @@
     
     if(_delegate && [_delegate respondsToSelector:@selector(pickerView:viewForColumn:forComponent:reusingView:)])
         _pickerViewFlags.delegateRespondsToViewForColumn = 1;
+    
+    if (_delegate && _dataSource) {
+        [self reloadDataIfNeeded];
+    }
+}
+
+- (void)setDataSource:(id<LAUPickerViewDataSource>)dataSource
+{
+    _dataSource = dataSource;
+
+    if (_delegate && _dataSource) {
+        [self reloadDataIfNeeded];
+    }
 }
 
 #pragma mark -
 #pragma mark Layout
-
-- (void)layoutSubviews
-{
-    if(_numberOfComponents == 0)
-    {
-        [self reloadData];
-    }
-}
 
 - (void)setSelectionAlignment:(LAUPickerSelectionAlignment)selectionAlignment
 {
@@ -126,6 +134,14 @@
 #pragma mark -
 #pragma mark Data
 
+- (void)reloadDataIfNeeded
+{
+    if(_numberOfComponents == 0)
+    {
+        [self reloadData];
+    }
+}
+
 - (void)reloadData
 {
     // Set number of components to 0
@@ -137,7 +153,7 @@
         [view removeFromSuperview];
     }
     
-    if(_dataSource)
+    if(_dataSource && _delegate)
     {
         _numberOfComponents = [_dataSource numberOfComponentsInPickerView:self];
         
@@ -156,15 +172,18 @@
             } else {
                 tableViewRectSizeTop = tableViewRectSizeHeight * (CGFloat)component;
             }
-
+            
             CGRect tableViewRect = CGRectMake(0, tableViewRectSizeTop, tableViewRectSizeWidth, tableViewRectSizeHeight);
             LAUPickerTableView * tableView = [[LAUPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
-            tableView.selectionAlignment = _selectionAlignment;
             tableView.dataSource = self;
             tableView.delegate = self;
+            tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
             [tableView reloadData];
             [_tables addObject:tableView];
             [self addSubview:tableView];
+            
+            tableView.selectionAlignment = _selectionAlignment;
+            
 #if !__has_feature(objc_arc)
             [tableView release];
 #endif
@@ -211,6 +230,7 @@
 
 - (void)showComponent:(NSInteger)shownComponent andHideComponent:(NSInteger)hiddenComponent animated:(BOOL)animated
 {
+    
     if (shownComponent < [_tables count] && hiddenComponent < [_tables count]) {
         LAUPickerTableView * shownPickerTableView = [_tables objectAtIndex:shownComponent];
         LAUPickerTableView * hiddenPickerTableView = [_tables objectAtIndex:hiddenComponent];
@@ -218,9 +238,11 @@
 //        UIView * shownPickerTableViewColumn = [shownPickerTableView viewForColumn:shownPickerTableView.selectedColumn];
 //        UIView * hiddenPickerTableViewColumn = [hiddenPickerTableView viewForColumn:hiddenPickerTableView.selectedColumn];
         
+        double delayMilliseconds = 0.1;
+        
         if (animated) {
             
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayMilliseconds * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 shownPickerTableView.alpha = 0.0;
                 
                 CGFloat shownAnimationScale = CGRectGetHeight(shownPickerTableView.frame) / CGRectGetHeight(hiddenPickerTableView.frame);
@@ -243,21 +265,25 @@
                 } completion:^(BOOL finished) {
                     
                     hiddenPickerTableView.transform = CGAffineTransformIdentity;
+                    
+                    [shownPickerTableView hideColumns:YES animated:animated];
+                    [hiddenPickerTableView hideColumns:YES animated:animated];
                 }];
             });
             
         } else {
             shownPickerTableView.alpha = 1.0;
             hiddenPickerTableView.alpha = 0.0;
+            
+            [shownPickerTableView hideColumns:YES animated:animated];
+            [hiddenPickerTableView hideColumns:YES animated:animated];
         }
-        
-        [shownPickerTableView hideColumns:YES animated:animated];
-        [hiddenPickerTableView hideColumns:YES animated:animated];
+
     }
 }
 
 #pragma mark -
-#pragma mark Sounds
+#pragma mark Sounds and Haptics
 
 - (BOOL)soundsEnabled
 {
@@ -267,6 +293,16 @@
 - (void)setSoundsEnabled:(BOOL)soundsEnabled
 {
     _pickerViewFlags.soundsEnabled = (soundsEnabled ? 1 : 0);
+}
+
+- (BOOL)hapticsEnabled
+{
+    return (_pickerViewFlags.hapticsEnabled == 1);
+}
+
+- (void)setHapticsEnabled:(BOOL)hapticsEnabled
+{
+    _pickerViewFlags.hapticsEnabled = (hapticsEnabled ? 1 : 0);
 }
 
 #pragma mark -
@@ -289,10 +325,13 @@
 {
     if(_pickerViewFlags.soundsEnabled)
     {
+        [[LAUPickerTableInputSound sharedPickerTableInputSound] play]; // Play sound when highlighted column changes
+    }
+    
+    if(_pickerViewFlags.hapticsEnabled)
+    {
         [_feedbackGenerator selectionChanged];
         [_feedbackGenerator prepare];
-        
-        [[LAUPickerTableInputSound sharedPickerTableInputSound] play]; // Play sound when highlighted column changes
     }
 }
 
