@@ -45,4 +45,6 @@
 - (void)pickerTableView:(LAUPickerTableView *)pickerView didTouchUpColumn:(NSInteger)column inComponent:(NSInteger)component;
 - (void)pickerTableView:(LAUPickerTableView *)pickerView didTouchUp:(UITouch *)touch inComponent:(NSInteger)component;
 
+- (BOOL)pickerTableView:(LAUPickerTableView *)pickerView shouldHideUnselectedColumnsInComponent:(NSInteger)component;
+
 @end

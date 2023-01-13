@@ -37,6 +37,7 @@
 @synthesize selectionAlignment=_selectionAlignment;
 @dynamic soundsEnabled;
 @dynamic hapticsEnabled;
+@dynamic hidesUnselectedColumns;
 
 #pragma mark -
 #pragma mark Initialization
@@ -79,6 +80,10 @@
     // Haptic and Sound Feedback
     _pickerViewFlags.soundsEnabled = 1; // default is enabled
     _pickerViewFlags.hapticsEnabled = 1; // default is enabled
+    
+    // Other options
+    _pickerViewFlags.hidesUnselectedColumns = 1; // default is enabled
+    
     _feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
     [_feedbackGenerator prepare];
 }
@@ -305,6 +310,22 @@
 }
 
 #pragma mark -
+#pragma mark Other Options
+
+- (BOOL)hidesUnselectedColumns
+{
+    return (_pickerViewFlags.hidesUnselectedColumns == 1);
+}
+
+- (void)setHidesUnselectedColumns:(BOOL)hidesUnselectedColumns
+{
+    _pickerViewFlags.hidesUnselectedColumns = (hidesUnselectedColumns ? 1 : 0);
+    for(LAUPickerTableView * table in _tables) {
+        [table hideColumns:hidesUnselectedColumns animated:NO];
+    }
+}
+
+#pragma mark -
 #pragma mark LAUPickerTableViewDataSource
 
 - (NSInteger)pickerTableView:(LAUPickerTableView *)pickerTableView numberOfColumnsInComponent:(NSInteger)component
@@ -383,6 +404,11 @@
     {
         return [_delegate pickerView:self didTouchUp:touch inComponent:component];
     }
+}
+
+- (BOOL)pickerTableView:(LAUPickerTableView *)pickerView shouldHideUnselectedColumnsInComponent:(NSInteger)component
+{
+    return _pickerViewFlags.hidesUnselectedColumns;
 }
 
 @end
