@@ -207,8 +207,8 @@
             case LAUPickerSelectionAlignmentCenter:
             default:
             {
-                _selectionEdgeInset = self.frame.size.width/2.0f - firstColumnWidth/2.0f;
-                _firstColumnOffset = self.frame.size.width/2.0f;
+                _selectionEdgeInset = self.bounds.size.width/2.0f + firstColumnWidth/2.0f;
+                _firstColumnOffset = self.bounds.size.width/2.0f + firstColumnWidth/2.0f;
                 _contentSizePadding = _selectionEdgeInset;
             }
                 break;
@@ -409,7 +409,17 @@
 - (void)hideColumns:(BOOL)hiddenColumns animated:(BOOL)animated
 {
     PrettyLog;
-    
+   
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:shouldHideUnselectedColumnsInComponent:)]) {
+        if (![_delegate pickerTableView:self shouldHideUnselectedColumnsInComponent:_component]) {
+            if (_hiddenColumns) {
+                [self updateColumnsOpacity:kShownColumnOpacity];
+                _hiddenColumns = false;
+            }
+            return;
+        }
+    }
+        
     if (hiddenColumns == _hiddenColumns) {
         return;
     }
