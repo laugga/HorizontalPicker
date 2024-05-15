@@ -53,15 +53,7 @@
     self = [super initWithCoder:aDecoder];
     if(self)
     {
-        _tables = [[NSMutableArray alloc] init];
-        _selectingTable = nil;
-        
-        _selectionAlignment = LAUPickerSelectionAlignmentCenter; // default is center
-        
-        // Haptic and Sound Feedback
-        _pickerViewFlags.soundsEnabled = 1; // default is enabled
-        _feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
-        [_feedbackGenerator prepare];
+        [self setup];
     }
     return self;
 }
@@ -71,13 +63,22 @@
     self = [super initWithFrame:frame];
     if(self)
     {
-        _tables = [[NSMutableArray alloc] init];
-        _selectingTable = nil;
-        
-        _selectionAlignment = LAUPickerSelectionAlignmentCenter; // default is center
-        _pickerViewFlags.soundsEnabled = 1; // default is enabled	
+        [self setup];
     }
     return self;
+}
+
+- (void)setup
+{
+    _tables = [[NSMutableArray alloc] init];
+    _selectingTable = nil;
+    
+    _selectionAlignment = LAUPickerSelectionAlignmentCenter; // Default is center
+    
+    // Haptic and Sound Feedback
+    _pickerViewFlags.soundsEnabled = 1; // default is enabled
+    _feedbackGenerator = [[UISelectionFeedbackGenerator alloc] init];
+    [_feedbackGenerator prepare];
 }
 
 - (void)setDelegate:(id<LAUPickerViewDelegate>)delegate
