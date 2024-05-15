@@ -4,18 +4,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "LAUPickerView",
+    name: "HorizontalPicker",
     platforms: [
         .iOS(.v9)
     ],
     products: [
         .library(
-            name: "LAUPickerView",
-            targets: ["LAUPickerView"])
+            name: "HorizontalPicker",
+            targets: ["HorizontalPicker"])
     ],
     targets: [
         .target(
-            name: "LAUPickerView",
+            name: "HorizontalPicker",
             path: "sources/LAUPickerView",
             resources: [
                 .copy("resources/tick.caf")
