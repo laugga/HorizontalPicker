@@ -53,6 +53,8 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
         
         horizontalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: false)
         verticalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: false)
+        
+        horizontalPickerView?.hidesUnselectedColumns = false
     }
     
     // MARK: - LAUPickerViewDataSource

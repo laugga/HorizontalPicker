@@ -86,6 +86,8 @@
 //        unsigned int allowsMultipleSelection : 1;
 //        unsigned int allowSelectingCells : 1;
         unsigned int soundsEnabled : 1;
+        unsigned int hapticsEnabled : 1;
+        unsigned int hidesUnselectedColumns: 1;
 //        unsigned int usesCheckedSelection : 1;
 //        unsigned int skipsBackground : 1;
     } _pickerViewFlags;
@@ -123,6 +125,20 @@
  The default value is YES.
  */
 @property (nonatomic, readwrite) BOOL soundsEnabled;
+
+/*!
+ The input haptic patterns of the picker view are played when the selection changes.
+ @discussion
+ The default value is YES.
+ */
+@property (nonatomic, readwrite) BOOL hapticsEnabled;
+
+/*!
+ Hides unselected columns when the picker is not being scrolled.
+ @discussion
+ The default value is YES.
+ */
+@property (nonatomic, readwrite) BOOL hidesUnselectedColumns;
 
 /*!
  Sets the alignment of the picker view selection indicator.

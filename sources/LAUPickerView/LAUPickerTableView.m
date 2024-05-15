@@ -37,6 +37,7 @@
 
 @synthesize dataSource=_dataSource;
 @synthesize delegate=_delegate;
+@dynamic isScrolling;
 
 #define kHiddenColumnOpacity 0.0
 #define kShownColumnOpacity 0.5
@@ -64,6 +65,8 @@
     self = [super initWithFrame:frame];
     if(self)
     {
+        self.autoresizesSubviews = YES;
+        
         // State
         _component = component;
         _selectedColumn = -1; // none selected, default
@@ -73,6 +76,7 @@
         
         // View
         _scrollView = [[LAUPickerScrollView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _scrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _scrollView.showsHorizontalScrollIndicator = NO;
         _scrollView.showsVerticalScrollIndicator = NO;
         _scrollView.delegate = self;
@@ -86,12 +90,7 @@
 
 - (void)layoutSubviews
 {
-    PrettyLog;
-    
-    if(_columns == nil)
-    {
-        [self reloadData];
-    }
+    [self setSelectionAlignment:_selectionAlignment animated:NO];
 }
 
 - (void)updateScrollViewAnimated:(BOOL)animated
@@ -137,8 +136,6 @@
 
 - (void)setSelectedColumn:(NSInteger)column animated:(BOOL)animated
 {
-    Log(@"setSelectedColumn: %d", column);
-    
     if(_numberOfColumns)
     {
         // Range is [0, numberOfColumns]
@@ -152,7 +149,9 @@
                 [self hideColumns:NO animated:animated];
                 [_scrollView setContentOffset:[self scrollViewContentOffsetForColumn:_selectedColumn] animated:animated];
             }
-            else {
+            else
+            {
+                //[self updateColumnsOpacity:kHiddenColumnOpacity];
                 _scrollView.contentOffset = [self scrollViewContentOffsetForColumn:_selectedColumn];
             }
         }
@@ -192,9 +191,9 @@
         {
             case LAUPickerSelectionAlignmentLeft:
             {
-                _selectionEdgeInset = 0.0f;
-                _firstColumnOffset = 0.0f;
-                _contentSizePadding = _scrollView.frame.size.width - firstColumnWidth;
+                _selectionEdgeInset = self.frame.size.width - firstColumnWidth;
+                _firstColumnOffset = firstColumnWidth;
+                _contentSizePadding = 0.0f;
                 
             }
                 break;
@@ -208,8 +207,8 @@
             case LAUPickerSelectionAlignmentCenter:
             default:
             {
-                _selectionEdgeInset = self.frame.size.width/2.0f - firstColumnWidth/2.0f;
-                _firstColumnOffset = self.frame.size.width/2.0f;
+                _selectionEdgeInset = self.bounds.size.width/2.0f + firstColumnWidth/2.0f;
+                _firstColumnOffset = self.bounds.size.width/2.0f + firstColumnWidth/2.0f;
                 _contentSizePadding = _selectionEdgeInset;
             }
                 break;
@@ -299,7 +298,7 @@
         
         _interColumnSpacing = 5.5f;
 
-        if(_delegate)
+        if(_delegate && _numberOfColumns > 0)
         {
             CGSize columnSize = CGSizeZero;
             CGFloat cumulativeViewOffset = 0.0;
@@ -364,8 +363,6 @@
             // content size
             _scrollView.contentSize = CGSizeMake(_contentSize+_contentSizePadding, CGRectGetHeight(self.bounds));
             _scrollView.contentOffset = [self scrollViewContentOffsetForColumn:_selectedColumn];
-
-            [self setSelectionAlignment:_selectionAlignment animated:NO];
         }
     }
 }
@@ -395,11 +392,34 @@
 #pragma mark -
 #pragma mark Show/Hide with Animation
 
+- (void)updateColumnsOpacity:(CGFloat)opacity
+{
+    for (UIView * column in _columns) {
+        
+        // Skip selected column
+        if (column == _selectedColumnView) {
+            column.layer.opacity = kSelectedColumnOpacity;
+            continue;
+        }
+        
+        column.layer.opacity = opacity;
+    }
+}
+
 - (void)hideColumns:(BOOL)hiddenColumns animated:(BOOL)animated
 {
     PrettyLog;
-    NSLog(@"Selected column %d %@", _selectedColumn, _selectedColumnView);
-    
+   
+    if(_delegate && [_delegate respondsToSelector:@selector(pickerTableView:shouldHideUnselectedColumnsInComponent:)]) {
+        if (![_delegate pickerTableView:self shouldHideUnselectedColumnsInComponent:_component]) {
+            if (_hiddenColumns) {
+                [self updateColumnsOpacity:kShownColumnOpacity];
+                _hiddenColumns = false;
+            }
+            return;
+        }
+    }
+        
     if (hiddenColumns == _hiddenColumns) {
         return;
     }
@@ -410,24 +430,14 @@
     
     _hiddenColumns = hiddenColumns;
     
-    CGFloat opacity = hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
-    
     if (animated) {
         [UIView beginAnimations:@"hideColumns" context:nil];
         [UIView setAnimationDuration:kHiddenColumnsAnimationDuration];
         [UIView setAnimationCurve:UIViewAnimationCurveEaseIn];
     }
     
-    for (UIView * column in _columns) {
-        
-        // Skip selected column
-        if (column == _selectedColumnView) {
-            column.layer.opacity = 1.0;
-            continue;
-        }
-        
-        column.layer.opacity = opacity;
-    }
+    CGFloat opacity = hiddenColumns ? kHiddenColumnOpacity : kShownColumnOpacity;
+    [self updateColumnsOpacity:opacity];
     
     if (animated) {
         [UIView commitAnimations];

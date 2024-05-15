@@ -13,6 +13,7 @@ class LAUPickerViewTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        var pickerView = LAUPickerView(frame: .zero)
     }
 
     override func tearDownWithError() throws {
