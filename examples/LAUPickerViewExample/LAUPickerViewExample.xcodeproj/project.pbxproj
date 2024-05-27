@@ -3,21 +3,20 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 55;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		386022EE2C04D2E40027C796 /* HorizontalPicker in Frameworks */ = {isa = PBXBuildFile; productRef = 386022ED2C04D2E40027C796 /* HorizontalPicker */; };
 		BD9FA63C28A50B7A0051DA21 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA63B28A50B7A0051DA21 /* AppDelegate.swift */; };
 		BD9FA63E28A50B7A0051DA21 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA63D28A50B7A0051DA21 /* SceneDelegate.swift */; };
 		BD9FA64028A50B7A0051DA21 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD9FA63F28A50B7A0051DA21 /* ViewController.swift */; };
 		BD9FA64328A50B7A0051DA21 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9FA64128A50B7A0051DA21 /* Main.storyboard */; };
 		BD9FA64528A50B7D0051DA21 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BD9FA64428A50B7D0051DA21 /* Assets.xcassets */; };
 		BD9FA64828A50B7D0051DA21 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9FA64628A50B7D0051DA21 /* LaunchScreen.storyboard */; };
-		BDFD300428A53409002FE0C1 /* LAUPickerView in Frameworks */ = {isa = PBXBuildFile; productRef = BDFD300328A53409002FE0C1 /* LAUPickerView */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		38EF6B7928AADD5C008AB056 /* LAUPickerView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LAUPickerView; path = ../..; sourceTree = "<group>"; };
 		BD9FA63828A50B7A0051DA21 /* LAUPickerViewExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LAUPickerViewExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BD9FA63B28A50B7A0051DA21 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BD9FA63D28A50B7A0051DA21 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,7 +25,6 @@
 		BD9FA64428A50B7D0051DA21 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BD9FA64728A50B7D0051DA21 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BD9FA64928A50B7D0051DA21 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BDFD300228A533F8002FE0C1 /* LAUPickerView */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = LAUPickerView; path = ../..; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -34,7 +32,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BDFD300428A53409002FE0C1 /* LAUPickerView in Frameworks */,
+				386022EE2C04D2E40027C796 /* HorizontalPicker in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -51,7 +49,6 @@
 		BD9FA62F28A50B7A0051DA21 = {
 			isa = PBXGroup;
 			children = (
-				BDFD300128A533F8002FE0C1 /* Packages */,
 				BD9FA63A28A50B7A0051DA21 /* LAUPickerViewExample */,
 				BD9FA63928A50B7A0051DA21 /* Products */,
 				BD6E2A8C28A51EE700292729 /* Frameworks */,
@@ -80,15 +77,6 @@
 			path = LAUPickerViewExample;
 			sourceTree = "<group>";
 		};
-		BDFD300128A533F8002FE0C1 /* Packages */ = {
-			isa = PBXGroup;
-			children = (
-				BDFD300228A533F8002FE0C1 /* LAUPickerView */,
-				38EF6B7928AADD5C008AB056 /* LAUPickerView */,
-			);
-			name = Packages;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -106,7 +94,7 @@
 			);
 			name = LAUPickerViewExample;
 			packageProductDependencies = (
-				BDFD300328A53409002FE0C1 /* LAUPickerView */,
+				386022ED2C04D2E40027C796 /* HorizontalPicker */,
 			);
 			productName = LAUPickerViewExample;
 			productReference = BD9FA63828A50B7A0051DA21 /* LAUPickerViewExample.app */;
@@ -136,6 +124,9 @@
 				Base,
 			);
 			mainGroup = BD9FA62F28A50B7A0051DA21;
+			packageReferences = (
+				386022EC2C04D2E40027C796 /* XCLocalSwiftPackageReference "../.." */,
+			);
 			productRefGroup = BD9FA63928A50B7A0051DA21 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -384,10 +375,17 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		386022EC2C04D2E40027C796 /* XCLocalSwiftPackageReference "../.." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		BDFD300328A53409002FE0C1 /* LAUPickerView */ = {
+		386022ED2C04D2E40027C796 /* HorizontalPicker */ = {
 			isa = XCSwiftPackageProductDependency;
-			productName = LAUPickerView;
+			productName = HorizontalPicker;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

@@ -32,6 +32,8 @@
 @protocol LAUPickerViewDelegate <NSObject>
 @optional
 
+- (NSString *)pickerView:(LAUPickerView *)pickerView accessibilityIdentifierForComponent:(NSInteger)component;
+
 /*!
  returns width of column and height of row for each component.
  */

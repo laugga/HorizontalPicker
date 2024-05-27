@@ -161,12 +161,18 @@
     {
         _numberOfComponents = [_dataSource numberOfComponentsInPickerView:self];
         
+        NSString * tableViewAccessibilityIdentifier = @"";
+        
         CGFloat tableViewRectSizeWidth = self.frame.size.width;
         CGFloat tableViewRectSizeHeight = floorf(self.frame.size.height/_numberOfComponents);
         CGFloat tableViewRectSizeTop = 0;
         
         for(int component=0; component<_numberOfComponents; ++component)
         {
+            if(_delegate && [_delegate respondsToSelector:@selector(pickerView:accessibilityIdentifierForComponent:)]) {
+                tableViewAccessibilityIdentifier = [_delegate pickerView:self accessibilityIdentifierForComponent:component];
+            }
+            
             if(_delegate && [_delegate respondsToSelector:@selector(pickerView:heightForComponent:)]) {
                 tableViewRectSizeHeight = [_delegate pickerView:self heightForComponent:component];
             }
@@ -179,6 +185,7 @@
             
             CGRect tableViewRect = CGRectMake(0, tableViewRectSizeTop, tableViewRectSizeWidth, tableViewRectSizeHeight);
             LAUPickerTableView * tableView = [[LAUPickerTableView alloc] initWithFrame:tableViewRect andComponent:component];
+            tableView.accessibilityIdentifier = tableViewAccessibilityIdentifier;
             tableView.dataSource = self;
             tableView.delegate = self;
             tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
