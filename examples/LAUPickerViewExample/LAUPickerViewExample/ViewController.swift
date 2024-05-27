@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import LAUPickerView
+import HorizontalPicker
 
 enum PickerComponents: CaseIterable {
     case aperture, shutterSpeed, isoSpeed

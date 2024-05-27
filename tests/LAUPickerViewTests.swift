@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import LAUPickerView
+import HorizontalPicker
 
 class LAUPickerViewTests: XCTestCase {
 
