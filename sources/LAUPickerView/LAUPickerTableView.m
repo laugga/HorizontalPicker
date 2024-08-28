@@ -226,7 +226,7 @@
 
 - (void)setHighlightedColumn:(NSInteger)highlightedColumn
 {
-    //PrettyLog;
+    PrettyLog;
     
     // Range is [0, _numberOfColumns-1]
     highlightedColumn = MIN(highlightedColumn, _maxSelectionRange);
