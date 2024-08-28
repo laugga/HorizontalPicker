@@ -1,4 +1,4 @@
-#ifdef DEBUG
+#ifdef DEBUG_LOG
 #define Log(format, ...) NSLog(@"%@",[NSString stringWithFormat:format, ## __VA_ARGS__])
 #define Logc(format, ...) printf((format "\n"), ## __VA_ARGS__)
 #define PrettyLog NSLog(@"%s", __PRETTY_FUNCTION__)
