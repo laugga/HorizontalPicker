@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "HorizontalPicker",
     platforms: [
-        .iOS(.v9)
+        .iOS(.v13)
     ],
     products: [
         .library(
@@ -16,10 +16,13 @@ let package = Package(
     targets: [
         .target(
             name: "HorizontalPicker",
-            path: "sources/LAUPickerView",
+            path: "sources/HorizontalPicker",
             resources: [
                 .copy("resources/tick.caf")
-            ],
-            publicHeadersPath: "public")
+            ]),
+        .testTarget(
+            name: "HorizontalPickerTests",
+            dependencies: ["HorizontalPicker"],
+            path: "tests")
     ]
 )

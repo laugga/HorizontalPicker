@@ -10,7 +10,7 @@ import HorizontalPicker
 
 enum PickerComponents: CaseIterable {
     case aperture, shutterSpeed, isoSpeed
-    
+
     var values: [Float] {
         switch self {
         case .aperture:
@@ -24,107 +24,96 @@ enum PickerComponents: CaseIterable {
 }
 
 class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewDataSource {
-    
+
     // Picker View
     @IBOutlet var horizontalPickerView: LAUPickerView?
     @IBOutlet var verticalPickerView: LAUPickerView?
-    
+
     private var highlightedComponent: Int = 0 {
         didSet {
             guard highlightedComponent != oldValue else {
                 return
             }
-            
+
             horizontalPickerView?.setSelectedColumnHighlighted(false, inComponent: oldValue, animated: true)
             verticalPickerView?.setSelectedColumnHighlighted(false, inComponent: oldValue, animated: true)
             horizontalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: true)
             verticalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: true)
         }
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         horizontalPickerView?.dataSource = self
         horizontalPickerView?.delegate = self
-        
+
         verticalPickerView?.dataSource = self
         verticalPickerView?.delegate = self
-        
+
         horizontalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: false)
         verticalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: false)
-        
+
         horizontalPickerView?.hidesUnselectedColumns = false
     }
-    
+
     // MARK: - LAUPickerViewDataSource
-    
-    func numberOfComponents(in pickerView: LAUPickerView!) -> Int {
+
+    func numberOfComponents(in pickerView: LAUPickerView) -> Int {
         return PickerComponents.allCases.count
     }
-    
-    func pickerView(_ pickerView: LAUPickerView!, numberOfColumnsInComponent component: Int) -> Int {
-        switch component {
-        case 0: // aperture
-            return PickerComponents.aperture.values.count
-        case 1: // shutter speed
-            return PickerComponents.shutterSpeed.values.count
-        case 2: // iso speed
-            return PickerComponents.isoSpeed.values.count
-        default:
-            return 0
-        }
-    }
-    
-    func pickerView(_ pickerView: LAUPickerView!, numberOfRowsInCompoment component: Int) -> Int {
-        switch component {
-        case 0: // aperture
-            return PickerComponents.aperture.values.count
-        case 1: // shutter speed
-            return PickerComponents.shutterSpeed.values.count
-        case 2: // iso speed
-            return PickerComponents.isoSpeed.values.count
-        default:
-            return 0
-        }
-    }
-    
-    func pickerView(_ pickerView: LAUPickerView!, heightForComponent component: Int) -> CGFloat {
-        return 50.0
-    }
 
-    func pickerView(_ pickerView: LAUPickerView!, titleForColumn column: Int, forComponent component: Int) -> String! {
-        switch component {
-        case 0: // aperture
-            return String(format: "%.1f", PickerComponents.aperture.values[column])
-        case 1: // shutter speed
-            return String(format: "%.1f", PickerComponents.shutterSpeed.values[column])
-        case 2: // iso speed
-            return String(format: "%.1f", PickerComponents.isoSpeed.values[column])
-        default:
-            return ""
-        }
+    func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent component: Int) -> Int {
+        return values(forComponent: component).count
     }
 
     // MARK: - LAUPickerViewDelegate
-    
-    func pickerView(_ pickerView: LAUPickerView!, didChangeColumn column: Int, inComponent component: Int) {
-        
+
+    func pickerView(_ pickerView: LAUPickerView, heightForComponent component: Int) -> CGFloat {
+        return 50.0
+    }
+
+    func pickerView(_ pickerView: LAUPickerView, titleForColumn column: Int, forComponent component: Int) -> String {
+        let values = self.values(forComponent: component)
+
+        guard column < values.count else {
+            return ""
+        }
+
+        return String(format: "%.1f", values[column])
+    }
+
+    func pickerView(_ pickerView: LAUPickerView, didChangeColumn column: Int, inComponent component: Int) {
+
         if pickerView == horizontalPickerView {
             verticalPickerView?.selectColumn(column, inComponent: component, animated: true)
         } else if pickerView == verticalPickerView {
             horizontalPickerView?.selectColumn(column, inComponent: component, animated: true)
         }
-        
+
         highlightedComponent = component
     }
-    
-    func pickerView(_ pickerView: LAUPickerView!, didTouchUpColumn column: Int, inComponent component: Int) {
+
+    func pickerView(_ pickerView: LAUPickerView, didTouchUpColumn column: Int, inComponent component: Int) {
         highlightedComponent = component
     }
-    
-    func pickerView(_ pickerView: LAUPickerView!, didTouchUp touch: UITouch!, inComponent component: Int) {
+
+    func pickerView(_ pickerView: LAUPickerView, didTouchUp touch: UITouch, inComponent component: Int) {
         highlightedComponent = component
+    }
+
+    // MARK: - Values
+
+    private func values(forComponent component: Int) -> [Float] {
+        switch component {
+        case 0: // aperture
+            return PickerComponents.aperture.values
+        case 1: // shutter speed
+            return PickerComponents.shutterSpeed.values
+        case 2: // iso speed
+            return PickerComponents.isoSpeed.values
+        default:
+            return []
+        }
     }
 }
-

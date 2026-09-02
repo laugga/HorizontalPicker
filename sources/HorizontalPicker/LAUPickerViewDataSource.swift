@@ -1,11 +1,11 @@
 /*
- 
- LAUPickerViewDataSource.h
- LAUPickerView
- 
+
+ LAUPickerViewDataSource.swift
+ HorizontalPicker
+
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy of
  this software and associated documentation files (the "Software"), to deal in
  the Software without restriction, including without limitation the rights to
@@ -22,24 +22,20 @@
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-*/
 
-#import <Foundation/Foundation.h>
-
-@class LAUPickerView;
-
-@protocol LAUPickerViewDataSource <NSObject>
-@required
-
-/*!
- returns the number of 'columns' to display.
  */
-- (NSInteger)numberOfComponentsInPickerView:(LAUPickerView *)pickerView;
 
-/*!
- returns the number of columns in each component.
- */
-- (NSInteger)pickerView:(LAUPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component;
+import Foundation
 
-@end
+/// Supplies the picker view with the number of components and the number of
+/// columns in each of them.
+@objc public protocol LAUPickerViewDataSource: NSObjectProtocol {
+
+    /// Returns the number of components (sliders) to display.
+    @objc(numberOfComponentsInPickerView:)
+    func numberOfComponents(in pickerView: LAUPickerView) -> Int
+
+    /// Returns the number of columns in the given component.
+    @objc(pickerView:numberOfColumnsInComponent:)
+    func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent component: Int) -> Int
+}

@@ -1,11 +1,11 @@
 /*
- 
- LAUPickerTableInputSound.m
- LAUPickerView
- 
+
+ LAUPickerSelectionAlignment.swift
+ HorizontalPicker
+
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy of
  this software and associated documentation files (the "Software"), to deal in
  the Software without restriction, including without limitation the rights to
@@ -22,42 +22,18 @@
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-*/
 
-#import "LAUPickerTableInputSound.h"
+ */
 
-@implementation LAUPickerTableInputSound
+import Foundation
 
-static LAUPickerTableInputSound * _defaultInputSound;
-
-- (id)init
-{
-    self = [super init];
-    if(self)
-    {
-#ifdef SWIFTPM_MODULE_BUNDLE
-        NSString * soundPath = [SWIFTPM_MODULE_BUNDLE pathForResource:@"tick" ofType:@"caf"];
-        if (soundPath != nil) {
-            NSURL * soundURL = [NSURL fileURLWithPath:soundPath];
-            AudioServicesCreateSystemSoundID((__bridge CFURLRef)soundURL, &_inputSoundId);
-        }
-#endif 
-    }
-    return self;
+/// Options for the picker selection alignment, in relation to the view.
+///
+/// - `left`: align selection along the left edge of the view.
+/// - `center`: align selection equally along both sides of the view. This is the default selection.
+/// - `right`: align selection along the right edge of the view.
+@objc public enum LAUPickerSelectionAlignment: Int {
+    case left = 0
+    case center = 1
+    case right = 2
 }
-
-+ (LAUPickerTableInputSound *)sharedPickerTableInputSound
-{
-    if(_defaultInputSound == nil)
-        _defaultInputSound = [[LAUPickerTableInputSound alloc] init]; // singleton object
-    
-    return _defaultInputSound;
-}
-
-- (void)play
-{
-    AudioServicesPlaySystemSound(_inputSoundId);
-}
-
-@end

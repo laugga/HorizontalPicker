@@ -1,11 +1,11 @@
 /*
- 
- LAUPickerTableInputSound.h
- LAUPickerView
- 
+
+ LAUPickerTableViewDataSource.swift
+ HorizontalPicker
+
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy of
  this software and associated documentation files (the "Software"), to deal in
  the Software without restriction, including without limitation the rights to
@@ -22,19 +22,14 @@
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-*/
 
-#import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
+ */
 
-@interface LAUPickerTableInputSound : NSObject
-{
-    SystemSoundID _inputSoundId;
+import Foundation
+
+/// Supplies one component (one slider) with its number of columns.
+@objc public protocol LAUPickerTableViewDataSource: NSObjectProtocol {
+
+    @objc(pickerTableView:numberOfColumnsInComponent:)
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, numberOfColumnsInComponent component: Int) -> Int
 }
-
-+ (LAUPickerTableInputSound *)sharedPickerTableInputSound;
-
-- (void)play;
-
-@end
