@@ -2,81 +2,104 @@
 
 ## Introduction
 
-LAUPickerView is an horizontal *spinning-wheel* picker control view for iOS. 
+LAUPickerView is an horizontal *spinning-wheel* picker control view for iOS.
 
 It is similar to UIPickerView, but the user interface provided consists of columns instead of rows. It also follows the same semantics used for the *data source* and *delegate* methods. Please read the __Overview__ section for more details about usage.
 
 ## Requirements
 
-* iOS 9.0 or later
+* iOS 13.0 or later
 * Suported devices: iPhone/iPad (*)
 
 ## How to use LAUPickerView in your project
 
 ### Swift Package Manager
 
-TODO 
-
-1. Use LAUPickerView in your project:
+Add the package to your `Package.swift`:
 
 ```swift
-import LAUPickerView
+dependencies: [
+    .package(url: "https://github.com/laugga/HorizontalPicker.git", from: "0.3.0")
+]
+```
+
+Or in Xcode, *File > Add Package Dependencies…* and enter the repository URL.
+
+Then import it:
+
+```swift
+import HorizontalPicker
 ```
 
 ## Overview Tutorial
 
 1. Add the LAUPickerView to an existing UIView (ie. inside UIViewController's *viewDidLoad* method).
 
-```obj-c
-LAUPickerView * pickerView = [[LAUPickerView alloc] initWithFrame:self.view.frame];
-pickerView.dataSource = self; // LAUPickerViewDataSource protocol
-pickerView.delegate = self;   // LAUPickerViewDelegate protocol
-[self.view addSubview:pickerView];
+```swift
+let pickerView = LAUPickerView(frame: view.frame)
+pickerView.dataSource = self // LAUPickerViewDataSource protocol
+pickerView.delegate = self   // LAUPickerViewDelegate protocol
+view.addSubview(pickerView)
 ```
 
 2. Implement the __LAUPickerViewDataSource__ protocol:
 
-```obj-c
-- (NSInteger)numberOfComponentsInPickerView:(LAUPickerView *)pickerView
-{
+```swift
+func numberOfComponents(in pickerView: LAUPickerView) -> Int {
     // return the number of components needed
 }
 
-- (NSInteger)pickerView:(LAUPickerView *)pickerView numberOfColumnsInComponent:(NSInteger)component
-{
+func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent component: Int) -> Int {
     // return the number of columns for each component
 }
 ```
 
 3. Implement the __LAUPickerViewDelegate__ protocol:
 
-```obj-c
-- (NSString *)pickerView:(LAUPickerView *)pickerView titleForColumn:(NSInteger)column forComponent:(NSInteger)component
-{
+```swift
+func pickerView(_ pickerView: LAUPickerView, titleForColumn column: Int, forComponent component: Int) -> String {
     // return the title for the specific column-component pair
 }
 
-- (void)pickerView:(LAUPickerView *)pickerView didSelectColumn:(NSInteger)column inComponent:(NSInteger)component
-{
+func pickerView(_ pickerView: LAUPickerView, didChangeColumn column: Int, inComponent component: Int) {
     // called when a new, different column is selected following a user touch-based input
 }
 ```
 
-4. Additionally you can change the selected column position to __left__, __center__ or __right__. 
+Every method of the delegate is optional. Return a view from `pickerView(_:viewForColumn:forComponent:reusingView:)` instead of a title to supply your own column views.
+
+4. The rows do not have to be known when the picker is created. Call `reloadData()` once the data source has them, and the picker rebuilds itself:
+
+```swift
+pickerView.reloadData()
+```
+
+5. Additionally you can change the selected column position to __left__, __center__ or __right__.
 
 ![Selection Alignment Options](https://raw.github.com/laugga/LAUPickerView/master/docs/figures/selection_alignment_options.png "Selection alignment options of LAUPickerView: left, center, right")
 
-```obj-c
-pickerView.selectionAlignment = LAPickerSelectionAlignmentLeft; // Change selected column position to left
+```swift
+pickerView.selectionAlignment = .left // Change selected column position to left
 ```
 
 # Examples
 
 ## LAUPickerViewOverview
 
-The *LAUPickerViewOverview* is a single-view example showing the LAUPickerView and UIPickerView side-by-side. The selection is linked, so changing the selected column in the LAUPickerView will trigger the UIPickerView to change to the corresponding row.
+The *LAUPickerViewOverview* is a single-view example showing two LAUPickerViews, one with the unselected columns shown and one with them hidden. The selection is linked, so changing the selected column in one will change the other to the corresponding column.
 
 ![LAUPickerView Overview Example Screenshot](https://raw.github.com/laugga/LAUPickerView/master/docs/figures/overview_example_screenshot.png "LAUPickerView Overview Example Screenshot")
+
+## Building and testing
+
+The package is pure Swift and iOS only, so it is built against a simulator rather than with `swift build`:
+
+```sh
+xcodebuild -scheme HorizontalPicker -destination 'generic/platform=iOS Simulator' build
+xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'
+```
+
+The example app lives in `examples/LAUPickerViewExample` and consumes the package from the repository root.
 
 ## Roadmap
 

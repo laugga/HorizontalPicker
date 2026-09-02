@@ -225,6 +225,57 @@ class LAUPickerViewTests: XCTestCase {
         }
     }
 
+    // MARK: - Scroll mechanics
+
+    func testEndingADragSnapsToTheNearestColumn() throws {
+        let source = PickerSource(components: [["1.0", "1.1", "1.2", "1.4", "1.6"]])
+        let pickerView = makePickerView(source)
+        let table = try firstTable(of: pickerView)
+        let scrollView = try self.scrollView(of: table)
+
+        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: scrollView)
+
+        for (column, offset) in offsets.enumerated() {
+            for drift in [CGFloat(-3.0), CGFloat(3.0)] {
+                var target = CGPoint(x: offset + drift, y: 0)
+                table.scrollViewWillEndDragging(scrollView, withVelocity: .zero, targetContentOffset: &target)
+
+                // Read back through the scroll view, the resting offset is quantised to the
+                // pixel grid; the snap itself is computed exactly.
+                XCTAssertEqual(target.x, offset, accuracy: 0.5, "column \(column) drifted by \(drift)")
+            }
+        }
+    }
+
+    func testADragPastTheLastColumnSnapsBackToIt() throws {
+        let source = PickerSource(components: [["1.0", "1.1", "1.2"]])
+        let pickerView = makePickerView(source)
+        let table = try firstTable(of: pickerView)
+        let scrollView = try self.scrollView(of: table)
+
+        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: scrollView)
+
+        var target = CGPoint(x: (offsets.last ?? 0) + 500.0, y: 0)
+        table.scrollViewWillEndDragging(scrollView, withVelocity: .zero, targetContentOffset: &target)
+
+        XCTAssertEqual(target.x, offsets.last ?? 0, accuracy: 0.5)
+    }
+
+    func testScrollingHighlightsTheColumnUnderTheIndicator() throws {
+        let source = PickerSource(components: [["1.0", "1.1", "1.2", "1.4", "1.6"]])
+        let pickerView = makePickerView(source)
+        let table = try firstTable(of: pickerView)
+        let scrollView = try self.scrollView(of: table)
+
+        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: scrollView)
+
+        scrollView.contentOffset = CGPoint(x: offsets[3], y: 0)
+
+        let opacities = columnLabels(of: pickerView).map { $0.layer.opacity }
+
+        XCTAssertEqual(opacities, [0.0, 0.0, 0.0, 1.0, 0.0])
+    }
+
     // MARK: - Unselected columns
 
     func testUnselectedColumnsAreHiddenByDefault() throws {
@@ -257,6 +308,23 @@ class LAUPickerViewTests: XCTestCase {
             .compactMap { $0 as? UIScrollView }
             .flatMap { $0.subviews }
             .compactMap { $0 as? UILabel }
+    }
+
+    private func firstTable(of pickerView: LAUPickerView) throws -> LAUPickerTableView {
+        return try XCTUnwrap(pickerView.subviews.compactMap { $0 as? LAUPickerTableView }.first)
+    }
+
+    private func scrollView(of table: LAUPickerTableView) throws -> UIScrollView {
+        return try XCTUnwrap(table.subviews.compactMap { $0 as? UIScrollView }.first)
+    }
+
+    /// The resting content offset of each column, read back from the scroll view
+    /// after selecting it.
+    private func contentOffsets(of pickerView: LAUPickerView, columns: Int, scrollView: UIScrollView) -> [CGFloat] {
+        return (0..<columns).map { column in
+            pickerView.selectColumn(column, inComponent: 0, animated: false)
+            return scrollView.contentOffset.x
+        }
     }
 
     private func scrollViewContentSizes(of pickerView: LAUPickerView) -> [CGSize] {

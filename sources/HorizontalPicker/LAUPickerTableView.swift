@@ -113,13 +113,7 @@ public class LAUPickerTableView: UIView {
 
         super.init(frame: frame)
 
-        autoresizesSubviews = true
-
-        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.delegate = self
-        addSubview(scrollView)
+        setup()
     }
 
     public required init?(coder: NSCoder) {
@@ -128,6 +122,10 @@ public class LAUPickerTableView: UIView {
 
         super.init(coder: coder)
 
+        setup()
+    }
+
+    private func setup() {
         autoresizesSubviews = true
 
         scrollView.frame = CGRect(origin: .zero, size: bounds.size)
@@ -178,7 +176,7 @@ public class LAUPickerTableView: UIView {
 
     @objc(setSelectedColumn:animated:)
     public func setSelectedColumn(_ column: Int, animated: Bool) {
-        guard numberOfColumns > 0, column > -1, column < numberOfColumns else {
+        guard columns.indices.contains(column) else {
             return
         }
 
@@ -195,7 +193,7 @@ public class LAUPickerTableView: UIView {
 
     @objc(setSelectedColumnHighlighted:animated:)
     public func setSelectedColumnHighlighted(_ highlighted: Bool, animated: Bool) {
-        guard selectedColumn > -1, selectedColumn < numberOfColumns else {
+        guard columns.indices.contains(selectedColumn) else {
             return
         }
 
