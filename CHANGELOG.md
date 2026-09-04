@@ -9,8 +9,16 @@ Improvements:
   - Rows can be supplied after init — reloadData() rebuilds all of its derived
     state, so a data source whose rows arrive later works the same way
   - Component frames follow the picker being laid out or resized
+  - Each component is a UICollectionView laid out by LAUPickerColumnLayout,
+    which owns the column widths, the insets that place the selection
+    indicator, the offset each column rests at and the snap at the end of a
+    drag. The hand-rolled offsets, content size and scroll view subclass are
+    gone, and columns are recycled rather than all built up front
+  - The selected column is centred exactly under the selection indicator; the
+    previous arithmetic left it 8.25pt to the left of centre
   - Unit tests covering the contract, selection, reloading, layout, the hidden
-    column states and the scroll snapping
+    column states, the selection geometry, column recycling and the scroll
+    snapping
 
 Other:
 

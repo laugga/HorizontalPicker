@@ -231,17 +231,17 @@ class LAUPickerViewTests: XCTestCase {
         let source = PickerSource(components: [["1.0", "1.1", "1.2", "1.4", "1.6"]])
         let pickerView = makePickerView(source)
         let table = try firstTable(of: pickerView)
-        let scrollView = try self.scrollView(of: table)
+        let collectionView = try XCTUnwrap(self.collectionView(of: table))
 
-        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: scrollView)
+        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: collectionView)
 
         for (column, offset) in offsets.enumerated() {
             for drift in [CGFloat(-3.0), CGFloat(3.0)] {
-                var target = CGPoint(x: offset + drift, y: 0)
-                table.scrollViewWillEndDragging(scrollView, withVelocity: .zero, targetContentOffset: &target)
+                // The layout is what UIKit asks where a drag should come to rest.
+                let target = collectionView.collectionViewLayout.targetContentOffset(
+                    forProposedContentOffset: CGPoint(x: offset + drift, y: 0),
+                    withScrollingVelocity: .zero)
 
-                // Read back through the scroll view, the resting offset is quantised to the
-                // pixel grid; the snap itself is computed exactly.
                 XCTAssertEqual(target.x, offset, accuracy: 0.5, "column \(column) drifted by \(drift)")
             }
         }
@@ -251,12 +251,13 @@ class LAUPickerViewTests: XCTestCase {
         let source = PickerSource(components: [["1.0", "1.1", "1.2"]])
         let pickerView = makePickerView(source)
         let table = try firstTable(of: pickerView)
-        let scrollView = try self.scrollView(of: table)
+        let collectionView = try XCTUnwrap(self.collectionView(of: table))
 
-        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: scrollView)
+        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: collectionView)
 
-        var target = CGPoint(x: (offsets.last ?? 0) + 500.0, y: 0)
-        table.scrollViewWillEndDragging(scrollView, withVelocity: .zero, targetContentOffset: &target)
+        let target = collectionView.collectionViewLayout.targetContentOffset(
+            forProposedContentOffset: CGPoint(x: (offsets.last ?? 0) + 500.0, y: 0),
+            withScrollingVelocity: .zero)
 
         XCTAssertEqual(target.x, offsets.last ?? 0, accuracy: 0.5)
     }
@@ -265,15 +266,73 @@ class LAUPickerViewTests: XCTestCase {
         let source = PickerSource(components: [["1.0", "1.1", "1.2", "1.4", "1.6"]])
         let pickerView = makePickerView(source)
         let table = try firstTable(of: pickerView)
-        let scrollView = try self.scrollView(of: table)
+        let collectionView = try XCTUnwrap(self.collectionView(of: table))
 
-        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: scrollView)
+        let offsets = contentOffsets(of: pickerView, columns: source.components[0].count, scrollView: collectionView)
 
-        scrollView.contentOffset = CGPoint(x: offsets[3], y: 0)
+        collectionView.contentOffset = CGPoint(x: offsets[3], y: 0)
 
         let opacities = columnLabels(of: pickerView).map { $0.layer.opacity }
 
         XCTAssertEqual(opacities, [0.0, 0.0, 0.0, 1.0, 0.0])
+    }
+
+    func testTheSelectedColumnRestsUnderTheSelectionIndicator() throws {
+        let source = PickerSource(components: [["1.0", "1.1", "1.2", "1.4", "1.6"]])
+        let pickerView = makePickerView(source)
+        let table = try firstTable(of: pickerView)
+
+        for column in 0..<source.components[0].count {
+            pickerView.setSelectionAlignment(.center, animated: false)
+            pickerView.selectColumn(column, inComponent: 0, animated: false)
+            pickerView.layoutIfNeeded()
+            XCTAssertEqual(try selectedColumnFrame(of: table).midX, table.bounds.midX,
+                           accuracy: 1.5, "centred column \(column)")
+
+            pickerView.setSelectionAlignment(.left, animated: false)
+            pickerView.layoutIfNeeded()
+            XCTAssertEqual(try selectedColumnFrame(of: table).minX, 0.0,
+                           accuracy: 1.5, "left aligned column \(column)")
+
+            pickerView.setSelectionAlignment(.right, animated: false)
+            pickerView.layoutIfNeeded()
+            XCTAssertEqual(try selectedColumnFrame(of: table).maxX, table.bounds.width,
+                           accuracy: 1.5, "right aligned column \(column)")
+        }
+    }
+
+    func testColumnsAreRecycledRatherThanAllBuiltUpFront() throws {
+        let titles = (0..<200).map { "\($0)" }
+        let source = PickerSource(components: [titles])
+        let pickerView = makePickerView(source)
+        let table = try firstTable(of: pickerView)
+        let collectionView = try XCTUnwrap(self.collectionView(of: table))
+
+        pickerView.selectColumn(titles.count - 1, inComponent: 0, animated: false)
+        pickerView.layoutIfNeeded()
+
+        XCTAssertLessThan(collectionView.visibleCells.count, titles.count)
+
+        let selected = try XCTUnwrap(table.viewForColumn(table.selectedColumn) as? UILabel)
+
+        XCTAssertEqual(selected.text, titles.last)
+    }
+
+    func testWatchingTouchesDoesNotStandInTheWayOfScrolling() throws {
+        let source = PickerSource(components: [["1.0", "1.1", "1.2"]])
+        let pickerView = makePickerView(source)
+        let table = try firstTable(of: pickerView)
+        let collectionView = try XCTUnwrap(self.collectionView(of: table))
+
+        let pan = collectionView.panGestureRecognizer
+        let touch = try XCTUnwrap(collectionView.gestureRecognizers?.first { $0.delegate === table })
+
+        // The component watches the touches to tell a tap on the selected column
+        // from a tap on empty space. It must do that alongside the scrolling
+        // rather than in place of it.
+        XCTAssertFalse(touch.cancelsTouchesInView)
+        XCTAssertFalse(touch.delaysTouchesBegan)
+        XCTAssertEqual(touch.delegate?.gestureRecognizer?(touch, shouldRecognizeSimultaneouslyWith: pan), true)
     }
 
     // MARK: - Unselected columns
@@ -301,25 +360,38 @@ class LAUPickerViewTests: XCTestCase {
 
     // MARK: - Helpers
 
+    /// The label drawn in each on-screen column, in column order. Columns are
+    /// cells, so only the ones the collection view has laid out are there — for
+    /// the handful of short titles these tests use, that is all of them.
     private func columnLabels(of pickerView: LAUPickerView) -> [UILabel] {
+        pickerView.layoutIfNeeded()
+
         return pickerView.subviews
             .compactMap { $0 as? LAUPickerTableView }
-            .flatMap { $0.subviews }
-            .compactMap { $0 as? UIScrollView }
-            .flatMap { $0.subviews }
-            .compactMap { $0 as? UILabel }
+            .flatMap { table -> [UILabel] in
+                guard let collectionView = self.collectionView(of: table) else {
+                    return []
+                }
+
+                collectionView.layoutIfNeeded()
+
+                return collectionView.indexPathsForVisibleItems
+                    .sorted()
+                    .compactMap { collectionView.cellForItem(at: $0) }
+                    .compactMap { $0.contentView.subviews.first { !$0.isHidden } as? UILabel }
+            }
     }
 
     private func firstTable(of pickerView: LAUPickerView) throws -> LAUPickerTableView {
         return try XCTUnwrap(pickerView.subviews.compactMap { $0 as? LAUPickerTableView }.first)
     }
 
-    private func scrollView(of table: LAUPickerTableView) throws -> UIScrollView {
-        return try XCTUnwrap(table.subviews.compactMap { $0 as? UIScrollView }.first)
+    private func collectionView(of table: LAUPickerTableView) -> UICollectionView? {
+        return table.subviews.compactMap { $0 as? UICollectionView }.first
     }
 
-    /// The resting content offset of each column, read back from the scroll view
-    /// after selecting it.
+    /// The resting content offset of each column, read back from the collection
+    /// view after selecting it.
     private func contentOffsets(of pickerView: LAUPickerView, columns: Int, scrollView: UIScrollView) -> [CGFloat] {
         return (0..<columns).map { column in
             pickerView.selectColumn(column, inComponent: 0, animated: false)
@@ -327,7 +399,17 @@ class LAUPickerViewTests: XCTestCase {
         }
     }
 
+    /// The frame of the column under the selection indicator, in the coordinates
+    /// of the component it belongs to.
+    private func selectedColumnFrame(of table: LAUPickerTableView) throws -> CGRect {
+        let column = try XCTUnwrap(table.viewForColumn(table.selectedColumn))
+
+        return column.convert(column.bounds, to: table)
+    }
+
     private func scrollViewContentSizes(of pickerView: LAUPickerView) -> [CGSize] {
+        pickerView.layoutIfNeeded()
+
         return pickerView.subviews
             .compactMap { $0 as? LAUPickerTableView }
             .flatMap { $0.subviews }

@@ -74,7 +74,16 @@ public class LAUPickerViewLabel: UILabel {
     public func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.isHighlighted = highlighted
 
-        UIView.animate(withDuration: animated ? 0.15 : 0.0, animations: {
+        // Unanimated has to land at once rather than in an animation completion:
+        // a column's cell is recycled, and the label it holds has to be back in
+        // a known font before the next title is measured against it.
+        guard animated else {
+            transform = .identity
+            font = highlighted ? highlightedFont : defaultFont
+            return
+        }
+
+        UIView.animate(withDuration: 0.15, animations: {
             self.transform = highlighted ? self.toHighlightedTransform : self.fromHighlightedTransform
         }, completion: { _ in
             self.font = highlighted ? self.highlightedFont : self.defaultFont

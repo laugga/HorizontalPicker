@@ -24,16 +24,17 @@
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
  */
-
 import UIKit
 
 /// One component of a picker view: a single horizontal slider of columns.
 ///
-/// The scroll mechanics live here. Columns are laid out left to right inside a
-/// scroll view at their natural widths, the content inset places the selection
-/// indicator, and dragging is snapped to the nearest column offset in
-/// `scrollViewWillEndDragging`, which is what gives the control its deceleration
-/// and its click.
+/// The columns are a `UICollectionView` laid out by `LAUPickerColumnLayout`,
+/// which owns the geometry — the column widths, the insets that place the
+/// selection indicator, and the offset each column rests at. Snapping is the
+/// layout's `targetContentOffset(forProposedContentOffset:withScrollingVelocity:)`,
+/// and deceleration is the scroll view's own, so this class is left with what
+/// the picker actually adds: which column is under the indicator, when to fade
+/// the others in and out, and the tick played on the way past each one.
 @objc(LAUPickerTableView)
 public class LAUPickerTableView: UIView {
 
@@ -51,8 +52,6 @@ public class LAUPickerTableView: UIView {
     /// the columns fade in.
     private static let showColumnsOnTouchDelay: TimeInterval = 0.2
 
-    private static let defaultInterColumnSpacing: CGFloat = 5.5
-
     // MARK: - Public
 
     /// The index of the column currently under the selection indicator, or -1
@@ -62,54 +61,61 @@ public class LAUPickerTableView: UIView {
     /// Sets the selection to the left edge, center or right edge.
     @objc public var selectionAlignment: LAUPickerSelectionAlignment {
         get {
-            return storedSelectionAlignment
+            return layout.selectionAlignment
         }
         set {
             setSelectionAlignment(newValue, animated: false)
         }
     }
 
-    private var storedSelectionAlignment: LAUPickerSelectionAlignment = .center
-
     @objc public weak var dataSource: LAUPickerTableViewDataSource?
     @objc public weak var delegate: LAUPickerTableViewDelegate?
 
     @objc public var isScrolling: Bool {
-        return scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating
+        return collectionView.isTracking || collectionView.isDragging || collectionView.isDecelerating
     }
 
     // MARK: - State
 
+    /// A column is a title the picker draws itself, or a view the delegate
+    /// supplied. Either way its width is what the layout places it against.
+    private struct Column {
+
+        enum Content {
+            case title(String)
+            case view(UIView)
+        }
+
+        let content: Content
+        let width: CGFloat
+    }
+
     private let component: Int
-    private var numberOfColumns: Int = 0
 
+    private var columns: [Column] = []
     private var highlightedColumn: Int = -1
-    private var maxSelectionRange: Int = -1 // [0, numberOfColumns-1]
-    private var selectedColumnView: UIView?
-
     private var hiddenColumns: Bool = true
     private var isTouched: Bool = false
+    private var isSelectedColumnHighlighted: Bool = false
+
+    private var laidOutSize: CGSize = .zero
 
     // MARK: - Subviews
 
-    private let scrollView: LAUPickerScrollView
-    private var columns: [UIView] = []
-    private var columnsOffset: [CGFloat] = []
-
-    // MARK: - Layout
-
-    private var interColumnSpacing: CGFloat = LAUPickerTableView.defaultInterColumnSpacing
-    private var selectionEdgeInset: CGFloat = 0 // inset from left edge
-    private var firstColumnOffset: CGFloat = 0
-    private var contentWidth: CGFloat = 0 // content width for the columns
-    private var contentWidthPadding: CGFloat = 0 // padding for the content width
+    private let layout: LAUPickerColumnLayout
+    private let collectionView: UICollectionView
+    private let touchRecognizer = LAUPickerTouchGestureRecognizer(target: nil, action: nil)
 
     // MARK: - Initialization
 
     @objc(initWithFrame:andComponent:)
     public init(frame: CGRect, component: Int) {
+        let layout = LAUPickerColumnLayout()
+
         self.component = component
-        self.scrollView = LAUPickerScrollView(frame: CGRect(origin: .zero, size: frame.size))
+        self.layout = layout
+        self.collectionView = UICollectionView(frame: CGRect(origin: .zero, size: frame.size),
+                                               collectionViewLayout: layout)
 
         super.init(frame: frame)
 
@@ -117,8 +123,11 @@ public class LAUPickerTableView: UIView {
     }
 
     public required init?(coder: NSCoder) {
+        let layout = LAUPickerColumnLayout()
+
         self.component = 0
-        self.scrollView = LAUPickerScrollView(frame: .zero)
+        self.layout = layout
+        self.collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
         super.init(coder: coder)
 
@@ -128,12 +137,22 @@ public class LAUPickerTableView: UIView {
     private func setup() {
         autoresizesSubviews = true
 
-        scrollView.frame = CGRect(origin: .zero, size: bounds.size)
-        scrollView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-        scrollView.delegate = self
-        addSubview(scrollView)
+        collectionView.frame = bounds
+        collectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.allowsSelection = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.register(LAUPickerColumnCell.self,
+                                forCellWithReuseIdentifier: LAUPickerColumnCell.reuseIdentifier)
+        addSubview(collectionView)
+
+        touchRecognizer.addTarget(self, action: #selector(handleTouch(_:)))
+        touchRecognizer.delegate = self
+        collectionView.addGestureRecognizer(touchRecognizer)
     }
 
     // MARK: - Layout
@@ -141,38 +160,110 @@ public class LAUPickerTableView: UIView {
     public override func layoutSubviews() {
         super.layoutSubviews()
 
-        setSelectionAlignment(selectionAlignment, animated: false)
-    }
+        collectionView.frame = bounds
 
-    private func updateScrollView(animated: Bool) {
-        guard numberOfColumns > 0 else {
+        // The insets that place the selection indicator are measured against the
+        // component's width, so a resize moves every column and the selection
+        // has to be brought back under the indicator.
+        guard bounds.size != laidOutSize else {
             return
         }
 
+        laidOutSize = bounds.size
+
+        collectionView.layoutIfNeeded()
+
+        if !isScrolling {
+            scrollToSelectedColumn(animated: false)
+        }
+    }
+
+    @objc(setSelectionAlignment:animated:)
+    public func setSelectionAlignment(_ selectionAlignment: LAUPickerSelectionAlignment, animated: Bool) {
+        guard selectionAlignment != layout.selectionAlignment else {
+            return
+        }
+
+        layout.selectionAlignment = selectionAlignment
+
+        // Changing the alignment changes the insets, which moves every column;
+        // laying the collection view out inside an animation block is what
+        // carries the columns and the selection across rather than jumping them.
+        let settle = {
+            self.collectionView.layoutIfNeeded()
+            self.scrollToSelectedColumn(animated: false)
+        }
+
         if animated {
-            UIView.animate(withDuration: LAUPickerTableView.selectionAlignmentAnimationDuration, animations: {
-                self.applyScrollViewMetrics()
-            }, completion: { _ in
-                self.setSelectedColumn(self.selectedColumn, animated: true)
-            })
+            UIView.animate(withDuration: LAUPickerTableView.selectionAlignmentAnimationDuration,
+                           animations: settle)
         } else {
-            applyScrollViewMetrics()
-            setSelectedColumn(selectedColumn, animated: false)
+            settle()
         }
     }
 
-    private func applyScrollViewMetrics() {
-        scrollView.contentInset = UIEdgeInsets(top: 0, left: selectionEdgeInset, bottom: 0, right: 0)
-        scrollView.contentSize = CGSize(width: contentWidth + contentWidthPadding, height: bounds.height)
+    // MARK: - Data
+
+    /// Reloads all columns in the component.
+    ///
+    /// Safe to call at any point in the view's life: the columns and everything
+    /// derived from them are rebuilt from scratch, so columns that arrive after
+    /// the view was created land the same way as columns that were there from
+    /// the start.
+    @objc public func reloadData() {
+        columns = loadColumns()
+        layout.columnWidths = columns.map { $0.width }
+
+        selectedColumn = columns.isEmpty ? -1 : 0
+        highlightedColumn = selectedColumn
+        isSelectedColumnHighlighted = false
+        hiddenColumns = true
+
+        collectionView.reloadData()
+        collectionView.layoutIfNeeded()
+
+        scrollToSelectedColumn(animated: false)
     }
 
-    private func scrollViewContentOffset(forColumn column: Int) -> CGPoint {
-        guard column >= 0 && column < columnsOffset.count else {
-            return .zero
+    private func loadColumns() -> [Column] {
+        guard let dataSource = dataSource, let delegate = delegate else {
+            return []
         }
 
-        return CGPoint(x: -firstColumnOffset + columnsOffset[column] + interColumnSpacing, y: 0)
+        let numberOfColumns = dataSource.pickerTableView(self, numberOfColumnsInComponent: component)
+
+        guard numberOfColumns > 0 else {
+            return []
+        }
+
+        return (0..<numberOfColumns).map { column in
+            let title = delegate.pickerTableView?(self, titleForColumn: column, forComponent: component) ?? nil
+
+            // A view the delegate supplies has to be built now rather than when
+            // its cell comes round: its width is what the layout places the
+            // column at, and only the view itself knows what that is.
+            let suppliedView = delegate.pickerTableView?(self,
+                                                         viewForColumn: column,
+                                                         forComponent: component,
+                                                         reusingView: nil) ?? nil
+
+            if let suppliedView = suppliedView {
+                if let title = title, let label = suppliedView as? UILabel {
+                    label.text = title
+                    label.sizeToFit()
+                }
+
+                return Column(content: .view(suppliedView), width: suppliedView.bounds.width)
+            }
+
+            let columnTitle = title ?? ""
+
+            return Column(content: .title(columnTitle),
+                          width: LAUPickerColumnCell.width(forTitle: columnTitle))
+        }
     }
+
+    // MARK: - Selection
 
     @objc(setSelectedColumn:animated:)
     public func setSelectedColumn(_ column: Int, animated: Bool) {
@@ -181,14 +272,9 @@ public class LAUPickerTableView: UIView {
         }
 
         selectedColumn = column
-        selectedColumnView = columns[column]
 
-        if animated {
-            hideColumns(false, animated: true)
-            scrollView.setContentOffset(scrollViewContentOffset(forColumn: column), animated: true)
-        } else {
-            scrollView.contentOffset = scrollViewContentOffset(forColumn: column)
-        }
+        scrollToSelectedColumn(animated: animated)
+        updateHighlightedColumn(column)
     }
 
     @objc(setSelectedColumnHighlighted:animated:)
@@ -197,348 +283,255 @@ public class LAUPickerTableView: UIView {
             return
         }
 
-        if let label = columns[selectedColumn] as? LAUPickerViewLabel {
-            label.setHighlighted(highlighted, animated: true)
-        }
-    }
+        isSelectedColumnHighlighted = highlighted
 
-    @objc(setSelectionAlignment:animated:)
-    public func setSelectionAlignment(_ selectionAlignment: LAUPickerSelectionAlignment, animated: Bool) {
-        storedSelectionAlignment = selectionAlignment
-
-        guard dataSource != nil else {
-            return
-        }
-
-        // The offset recorded for the first column is its width plus the spacing
-        // that follows it; the layout below has always been measured against that.
-        let firstColumnWidth = columnsOffset.first ?? 0.0
-
-        switch selectionAlignment {
-        case .left:
-            selectionEdgeInset = frame.width - firstColumnWidth
-            firstColumnOffset = firstColumnWidth
-            contentWidthPadding = 0.0
-        case .right:
-            selectionEdgeInset = frame.width - firstColumnWidth
-            firstColumnOffset = frame.width
-            contentWidthPadding = 0.0
-        case .center:
-            selectionEdgeInset = bounds.width / 2.0 + firstColumnWidth / 2.0
-            firstColumnOffset = bounds.width / 2.0 + firstColumnWidth / 2.0
-            contentWidthPadding = selectionEdgeInset
-        }
-
-        // Recalculate and correct non-integer values
-        selectionEdgeInset = selectionEdgeInset.rounded(.down)
-        contentWidthPadding = contentWidthPadding.rounded(.down)
-
-        updateScrollView(animated: animated)
-    }
-
-    private func updateHighlightedColumn(_ column: Int) {
-        // Range is [0, numberOfColumns-1]
-        let highlighted = max(0, min(column, maxSelectionRange))
-
-        guard highlighted != highlightedColumn, highlighted >= 0, highlighted < columns.count else {
-            return
-        }
-
-        if highlightedColumn > -1 { // Previous highlighted
-            columns[highlightedColumn].layer.opacity = hiddenColumns
-                ? LAUPickerTableView.hiddenColumnOpacity
-                : LAUPickerTableView.shownColumnOpacity
-        }
-
-        columns[highlighted].layer.opacity = LAUPickerTableView.selectedColumnOpacity
-
-        // Assign new value
-        highlightedColumn = highlighted
-
-        // Notify delegate only if due to user interaction
-        if scrollView.isTracking || scrollView.isDragging || scrollView.isDecelerating {
-            delegate?.pickerTableView(self, didHighlightColumn: highlighted, inComponent: component)
-        }
+        cell(forColumn: selectedColumn)?.setColumnHighlighted(highlighted, animated: animated)
     }
 
     @objc(viewForColumn:)
     public func viewForColumn(_ column: Int) -> UIView? {
-        guard column > -1, column < columns.count else {
+        guard columns.indices.contains(column) else {
             return nil
         }
 
-        return columns[column]
+        // A view the delegate supplied is held for as long as the column is; a
+        // title is only drawn while its cell is on screen.
+        if case .view(let suppliedView) = columns[column].content {
+            return suppliedView
+        }
+
+        return cell(forColumn: column)?.hostedView
     }
 
-    // MARK: - Data
+    private func cell(forColumn column: Int) -> LAUPickerColumnCell? {
+        return collectionView.cellForItem(at: IndexPath(item: column, section: 0)) as? LAUPickerColumnCell
+    }
 
-    /// Reloads all columns in the table view.
-    ///
-    /// Safe to call at any point in the view's life: every piece of derived
-    /// layout state is rebuilt from scratch, so rows that arrive after the view
-    /// was created land the same way as rows that were there from the start.
-    @objc public func reloadData() {
-        // Clean up
-        numberOfColumns = 0
-        columns.removeAll()
-        columnsOffset.removeAll()
-        contentWidth = 0
-        highlightedColumn = -1
-        selectedColumn = -1
-        selectedColumnView = nil
-        hiddenColumns = true
-        scrollView.subviews.forEach { $0.removeFromSuperview() }
-        scrollView.contentSize = .zero
-
-        guard let dataSource = dataSource else {
+    private func scrollToSelectedColumn(animated: Bool) {
+        guard columns.indices.contains(selectedColumn) else {
             return
         }
 
-        numberOfColumns = dataSource.pickerTableView(self, numberOfColumnsInComponent: component)
-        maxSelectionRange = numberOfColumns - 1
+        let contentOffset = layout.contentOffset(forColumn: selectedColumn)
 
-        interColumnSpacing = LAUPickerTableView.defaultInterColumnSpacing
+        if animated {
+            hideColumns(false, animated: true)
+            collectionView.setContentOffset(contentOffset, animated: true)
+        } else {
+            collectionView.contentOffset = contentOffset
+        }
+    }
 
-        guard let delegate = delegate, numberOfColumns > 0 else {
+    /// Takes the column now under the selection indicator as the selected one,
+    /// and tells the delegate if it changed.
+    private func commitSelectedColumn() {
+        let column = layout.column(nearestToContentOffset: collectionView.contentOffset.x)
+
+        guard columns.indices.contains(column), column != selectedColumn else {
             return
         }
 
-        var cumulativeViewOffset: CGFloat = 0.0
+        selectedColumn = column
 
-        for column in 0..<numberOfColumns {
-            let title = (delegate.pickerTableView?(self, titleForColumn: column, forComponent: component)) ?? nil
-            let suppliedView = (delegate.pickerTableView?(self, viewForColumn: column, forComponent: component, reusingView: nil)) ?? nil
-
-            let columnView: UIView
-
-            if let suppliedView = suppliedView {
-                if let title = title, let label = suppliedView as? UILabel {
-                    label.text = title
-                    label.sizeToFit()
-                }
-
-                columnView = suppliedView
-            } else {
-                let label = LAUPickerViewLabel()
-                label.textColor = .black
-                label.text = title
-                label.textAlignment = .center
-                label.backgroundColor = .clear
-
-                // TODO expose in the LAUPickerView interface
-                label.highlightedFont = .boldSystemFont(ofSize: 20.0)
-
-                label.sizeToFit()
-
-                columnView = label
-            }
-
-            let viewWidth = columnView.bounds.width
-            let viewHeight = columnView.bounds.height
-
-            columnView.frame = CGRect(x: cumulativeViewOffset, y: 0, width: viewWidth, height: viewHeight)
-
-            cumulativeViewOffset += viewWidth + interColumnSpacing
-            columnsOffset.append(cumulativeViewOffset)
-
-            columnView.layer.opacity = LAUPickerTableView.hiddenColumnOpacity
-
-            columns.append(columnView)
-            scrollView.addSubview(columnView)
-
-            contentWidth += viewWidth + interColumnSpacing
-        }
-
-        selectedColumn = 0
-        selectedColumnView = columns.first
-
-        // The alignment metrics are measured from the first column, which only
-        // exists now — recompute them before placing the scroll view.
-        setSelectionAlignment(selectionAlignment, animated: false)
+        delegate?.pickerTableView?(self, didChangeColumn: column, inComponent: component)
     }
 
-    private func column(forContentOffset contentOffset: CGFloat) -> Int {
-        let targetOffset = contentOffset + firstColumnOffset
-        var currentDelta = CGFloat.infinity
-        var currentColumn = 0
-
-        for column in 0..<columnsOffset.count {
-            let delta = abs(columnsOffset[column] - targetOffset)
-            if delta <= currentDelta {
-                currentDelta = delta
-                currentColumn = column
-            } else {
-                break
-            }
+    private func updateHighlightedColumn(_ column: Int) {
+        guard columns.indices.contains(column), column != highlightedColumn else {
+            return
         }
 
-        return currentColumn
+        highlightedColumn = column
+        applyColumnOpacity()
+
+        // Only a column the user brought under the indicator is worth a tick.
+        if isScrolling {
+            delegate?.pickerTableView(self, didHighlightColumn: column, inComponent: component)
+        }
     }
 
     // MARK: - Show/Hide with Animation
 
-    private func updateColumnsOpacity(_ opacity: Float) {
-        for column in columns {
-            // Skip selected column
-            if column === selectedColumnView {
-                column.layer.opacity = LAUPickerTableView.selectedColumnOpacity
+    private func opacity(forColumn column: Int) -> Float {
+        if column == highlightedColumn {
+            return LAUPickerTableView.selectedColumnOpacity
+        }
+
+        return hiddenColumns ? LAUPickerTableView.hiddenColumnOpacity : LAUPickerTableView.shownColumnOpacity
+    }
+
+    private func applyColumnOpacity() {
+        for cell in collectionView.visibleCells {
+            guard let cell = cell as? LAUPickerColumnCell,
+                  let indexPath = collectionView.indexPath(for: cell) else {
                 continue
             }
 
-            column.layer.opacity = opacity
+            cell.columnOpacity = opacity(forColumn: indexPath.item)
         }
     }
 
     @objc(hideColumns:animated:)
     public func hideColumns(_ hidden: Bool, animated: Bool) {
-        if let shouldHide = delegate?.pickerTableView?(self, shouldHideUnselectedColumnsInComponent: component),
-           shouldHide == false {
-            if hiddenColumns {
-                updateColumnsOpacity(LAUPickerTableView.shownColumnOpacity)
-                hiddenColumns = false
+        if delegate?.pickerTableView?(self, shouldHideUnselectedColumnsInComponent: component) == false {
+            guard hiddenColumns else {
+                return
             }
+
+            hiddenColumns = false
+            applyColumnOpacity()
             return
         }
 
-        if hidden == hiddenColumns {
+        guard hidden != hiddenColumns else {
             return
         }
 
-        if !hidden && !(isTouched || scrollView.isDragging) {
+        // The columns only come back for a finger that is on the control.
+        guard hidden || isTouched || collectionView.isDragging else {
             return
         }
 
         hiddenColumns = hidden
 
-        let opacity = hidden ? LAUPickerTableView.hiddenColumnOpacity : LAUPickerTableView.shownColumnOpacity
-
         if animated {
             UIView.animate(withDuration: LAUPickerTableView.hiddenColumnsAnimationDuration,
                            delay: 0,
                            options: [.curveEaseIn],
-                           animations: { self.updateColumnsOpacity(opacity) },
+                           animations: { self.applyColumnOpacity() },
                            completion: nil)
         } else {
-            updateColumnsOpacity(opacity)
+            applyColumnOpacity()
         }
     }
 
     // MARK: - Touches
 
-    private func doesTouchHitSelectedColumn(_ touch: UITouch) -> Bool {
-        guard let selectedColumnView = viewForColumn(selectedColumn) else {
+    @objc private func handleTouch(_ recognizer: LAUPickerTouchGestureRecognizer) {
+        switch recognizer.state {
+        case .began:
+            isTouched = true
+
+            guard hitsSelectedColumn(recognizer.location(in: self)) else {
+                return // Empty touch down
+            }
+
+            // A finger resting on the selected column reveals the rest of them.
+            DispatchQueue.main.asyncAfter(deadline: .now() + LAUPickerTableView.showColumnsOnTouchDelay) { [weak self] in
+                guard let self = self, self.isTouched else {
+                    return
+                }
+
+                self.hideColumns(false, animated: true)
+            }
+
+        case .ended, .cancelled, .failed:
+            guard isTouched else {
+                return
+            }
+
+            isTouched = false
+
+            // A lift that hands the control over to the scroll view is the
+            // scroll view's to finish.
+            guard !collectionView.isDragging, !collectionView.isDecelerating else {
+                return
+            }
+
+            hideColumns(true, animated: true)
+
+            if hitsSelectedColumn(recognizer.location(in: self)) {
+                // Column touch up
+                delegate?.pickerTableView?(self, didTouchUpColumn: selectedColumn, inComponent: component)
+            } else if let touch = recognizer.currentTouch {
+                // Empty touch up
+                delegate?.pickerTableView?(self, didTouchUp: touch, inComponent: component)
+            }
+
+        default:
+            break
+        }
+    }
+
+    private func hitsSelectedColumn(_ location: CGPoint) -> Bool {
+        guard columns.indices.contains(selectedColumn) else {
             return false
         }
 
-        let inset = LAUPickerTableView.selectedColumnTouchInset
-        let touchLocation = touch.location(in: self)
-        let touchHitArea = CGRect(x: frame.width - selectedColumnView.frame.width - inset,
-                                  y: 0,
-                                  width: selectedColumnView.frame.width + 2.0 * inset,
-                                  height: selectedColumnView.frame.height)
+        let columnFrame = collectionView.convert(layout.frame(forColumn: selectedColumn), to: self)
 
-        return touchHitArea.contains(touchLocation)
+        return columnFrame.insetBy(dx: -LAUPickerTableView.selectedColumnTouchInset, dy: 0).contains(location)
     }
 }
 
-// MARK: - LAUPickerScrollViewDelegate
+// MARK: - UIGestureRecognizerDelegate
 
-extension LAUPickerTableView: LAUPickerScrollViewDelegate {
+extension LAUPickerTableView: UIGestureRecognizerDelegate {
 
-    public func scrollViewTouchesDidBegin(_ scrollView: UIScrollView, withTouch touch: UITouch) {
-        isTouched = true
-
-        guard doesTouchHitSelectedColumn(touch) else {
-            return // Empty touch down
-        }
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + LAUPickerTableView.showColumnsOnTouchDelay) { [weak self] in
-            self?.hideColumns(false, animated: true)
-        }
-    }
-
-    public func scrollViewTouchesDidEnd(_ scrollView: UIScrollView, withTouch touch: UITouch) {
-        isTouched = false
-
-        guard !scrollView.isDecelerating && !scrollView.isDragging else {
-            return
-        }
-
-        hideColumns(true, animated: true)
-
-        if doesTouchHitSelectedColumn(touch) {
-            // Column touch up
-            delegate?.pickerTableView?(self, didTouchUpColumn: selectedColumn, inComponent: component)
-        } else {
-            // Empty touch up
-            delegate?.pickerTableView?(self, didTouchUp: touch, inComponent: component)
-        }
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                                  shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Watching the touches must not stand in the way of the scrolling.
+        return true
     }
 }
 
-// MARK: - UIScrollViewDelegate
+// MARK: - UICollectionViewDataSource
 
-extension LAUPickerTableView {
+extension LAUPickerTableView: UICollectionViewDataSource {
+
+    public func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return columns.count
+    }
+
+    public func collectionView(_ collectionView: UICollectionView,
+                               cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let dequeued = collectionView.dequeueReusableCell(withReuseIdentifier: LAUPickerColumnCell.reuseIdentifier,
+                                                          for: indexPath)
+
+        guard let cell = dequeued as? LAUPickerColumnCell, columns.indices.contains(indexPath.item) else {
+            return dequeued
+        }
+
+        switch columns[indexPath.item].content {
+        case .title(let title):
+            cell.showTitle(title, highlighted: isSelectedColumnHighlighted && indexPath.item == selectedColumn)
+        case .view(let suppliedView):
+            cell.showView(suppliedView)
+        }
+
+        cell.columnOpacity = opacity(forColumn: indexPath.item)
+
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension LAUPickerTableView: UICollectionViewDelegate {
 
     public func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         hideColumns(false, animated: false)
     }
 
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        // Ignore if empty
-        guard numberOfColumns > 0 else {
+        guard !columns.isEmpty else {
             return
         }
 
-        updateHighlightedColumn(column(forContentOffset: scrollView.contentOffset.x))
-    }
-
-    public func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-                                          withVelocity velocity: CGPoint,
-                                          targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        // Ignore if empty
-        guard numberOfColumns > 0 else {
-            return
-        }
-
-        let targetOffset = targetContentOffset.pointee.x + firstColumnOffset
-
-        var currentOffset: CGFloat = 0.0
-        var currentDelta = CGFloat.infinity
-
-        for columnOffset in columnsOffset {
-            let delta = abs(columnOffset - targetOffset)
-            if delta <= currentDelta {
-                currentDelta = delta
-                currentOffset = columnOffset
-            } else {
-                break
-            }
-        }
-
-        // Snap to the nearest column
-        targetContentOffset.pointee.x = currentOffset - firstColumnOffset + interColumnSpacing
+        updateHighlightedColumn(layout.column(nearestToContentOffset: scrollView.contentOffset.x))
     }
 
     public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-            hideColumns(true, animated: true)
+        guard !decelerate else {
+            return
         }
+
+        commitSelectedColumn()
+        hideColumns(true, animated: true)
     }
 
     public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        // Calculate selected column, range is [0, numberOfColumns-1]
-        let column = max(0, min(self.column(forContentOffset: scrollView.contentOffset.x), maxSelectionRange))
-
-        if column != selectedColumn, column > -1, column < numberOfColumns {
-            // Assign new value
-            selectedColumn = column
-            selectedColumnView = columns[column]
-
-            // Notify delegate
-            delegate?.pickerTableView?(self, didChangeColumn: column, inComponent: component)
-        }
-
+        commitSelectedColumn()
         hideColumns(true, animated: true)
     }
 
