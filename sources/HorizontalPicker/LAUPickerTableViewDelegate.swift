@@ -29,34 +29,54 @@ import UIKit
 
 /// Provides the content of one component's columns and is told when the column
 /// under the selection indicator changes.
-@objc public protocol LAUPickerTableViewDelegate: NSObjectProtocol {
+///
+/// Every method other than `pickerTableView(_:didHighlightColumn:inComponent:)`
+/// has a default implementation, so a delegate only writes the ones it needs.
+public protocol LAUPickerTableViewDelegate: AnyObject {
 
     /// Called while scrolling, every time a different column passes under the
     /// selection indicator. This is what the input sound and haptic hang off.
-    @objc(pickerTableView:didHighlightColumn:inComponent:)
     func pickerTableView(_ pickerTableView: LAUPickerTableView, didHighlightColumn column: Int, inComponent component: Int)
 
     /// Returns the title for a column, or `nil` to leave the column blank.
-    @objc(pickerTableView:titleForColumn:forComponent:)
-    optional func pickerTableView(_ pickerTableView: LAUPickerTableView, titleForColumn column: Int, forComponent component: Int) -> String?
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, titleForColumn column: Int, forComponent component: Int) -> String?
 
     /// Returns the view for a column, or `nil` to let the table build its own
     /// label from the title.
-    @objc(pickerTableView:viewForColumn:forComponent:reusingView:)
-    optional func pickerTableView(_ pickerTableView: LAUPickerTableView, viewForColumn column: Int, forComponent component: Int, reusingView view: UIView?) -> UIView?
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, viewForColumn column: Int, forComponent component: Int, reusingView view: UIView?) -> UIView?
 
-    @objc(pickerTableView:willSelectColumnInComponent:)
-    optional func pickerTableView(_ pickerTableView: LAUPickerTableView, willSelectColumnInComponent component: Int)
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, willSelectColumnInComponent component: Int)
 
-    @objc(pickerTableView:didChangeColumn:inComponent:)
-    optional func pickerTableView(_ pickerTableView: LAUPickerTableView, didChangeColumn column: Int, inComponent component: Int)
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, didChangeColumn column: Int, inComponent component: Int)
 
-    @objc(pickerTableView:didTouchUpColumn:inComponent:)
-    optional func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUpColumn column: Int, inComponent component: Int)
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUpColumn column: Int, inComponent component: Int)
 
-    @objc(pickerTableView:didTouchUp:inComponent:)
-    optional func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUp touch: UITouch, inComponent component: Int)
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUp touch: UITouch, inComponent component: Int)
 
-    @objc(pickerTableView:shouldHideUnselectedColumnsInComponent:)
-    optional func pickerTableView(_ pickerTableView: LAUPickerTableView, shouldHideUnselectedColumnsInComponent component: Int) -> Bool
+    /// Whether the unselected columns are hidden while the component is at rest.
+    /// Defaults to `true`.
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, shouldHideUnselectedColumnsInComponent component: Int) -> Bool
+}
+
+public extension LAUPickerTableViewDelegate {
+
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, titleForColumn column: Int, forComponent component: Int) -> String? {
+        return nil
+    }
+
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, viewForColumn column: Int, forComponent component: Int, reusingView view: UIView?) -> UIView? {
+        return nil
+    }
+
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, willSelectColumnInComponent component: Int) {}
+
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, didChangeColumn column: Int, inComponent component: Int) {}
+
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUpColumn column: Int, inComponent component: Int) {}
+
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUp touch: UITouch, inComponent component: Int) {}
+
+    func pickerTableView(_ pickerTableView: LAUPickerTableView, shouldHideUnselectedColumnsInComponent component: Int) -> Bool {
+        return true
+    }
 }

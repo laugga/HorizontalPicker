@@ -29,13 +29,11 @@ import Foundation
 
 /// Supplies the picker view with the number of components and the number of
 /// columns in each of them.
-@objc public protocol LAUPickerViewDataSource: NSObjectProtocol {
+public protocol LAUPickerViewDataSource: AnyObject {
 
     /// Returns the number of components (sliders) to display.
-    @objc(numberOfComponentsInPickerView:)
     func numberOfComponents(in pickerView: LAUPickerView) -> Int
 
     /// Returns the number of columns in the given component.
-    @objc(pickerView:numberOfColumnsInComponent:)
     func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent component: Int) -> Int
 }

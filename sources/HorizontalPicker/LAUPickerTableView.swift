@@ -35,7 +35,6 @@ import UIKit
 /// and deceleration is the scroll view's own, so this class is left with what
 /// the picker actually adds: which column is under the indicator, when to fade
 /// the others in and out, and the tick played on the way past each one.
-@objc(LAUPickerTableView)
 public class LAUPickerTableView: UIView {
 
     private static let hiddenColumnOpacity: Float = 0.0
@@ -56,10 +55,10 @@ public class LAUPickerTableView: UIView {
 
     /// The index of the column currently under the selection indicator, or -1
     /// when the component is empty.
-    @objc public private(set) var selectedColumn: Int = -1
+    public private(set) var selectedColumn: Int = -1
 
     /// Sets the selection to the left edge, center or right edge.
-    @objc public var selectionAlignment: LAUPickerSelectionAlignment {
+    public var selectionAlignment: LAUPickerSelectionAlignment {
         get {
             return layout.selectionAlignment
         }
@@ -68,10 +67,10 @@ public class LAUPickerTableView: UIView {
         }
     }
 
-    @objc public weak var dataSource: LAUPickerTableViewDataSource?
-    @objc public weak var delegate: LAUPickerTableViewDelegate?
+    public weak var dataSource: LAUPickerTableViewDataSource?
+    public weak var delegate: LAUPickerTableViewDelegate?
 
-    @objc public var isScrolling: Bool {
+    public var isScrolling: Bool {
         return collectionView.isTracking || collectionView.isDragging || collectionView.isDecelerating
     }
 
@@ -108,7 +107,6 @@ public class LAUPickerTableView: UIView {
 
     // MARK: - Initialization
 
-    @objc(initWithFrame:andComponent:)
     public init(frame: CGRect, component: Int) {
         let layout = LAUPickerColumnLayout()
 
@@ -178,7 +176,6 @@ public class LAUPickerTableView: UIView {
         }
     }
 
-    @objc(setSelectionAlignment:animated:)
     public func setSelectionAlignment(_ selectionAlignment: LAUPickerSelectionAlignment, animated: Bool) {
         guard selectionAlignment != layout.selectionAlignment else {
             return
@@ -210,7 +207,7 @@ public class LAUPickerTableView: UIView {
     /// derived from them are rebuilt from scratch, so columns that arrive after
     /// the view was created land the same way as columns that were there from
     /// the start.
-    @objc public func reloadData() {
+    public func reloadData() {
         columns = loadColumns()
         layout.columnWidths = columns.map { $0.width }
 
@@ -237,15 +234,15 @@ public class LAUPickerTableView: UIView {
         }
 
         return (0..<numberOfColumns).map { column in
-            let title = delegate.pickerTableView?(self, titleForColumn: column, forComponent: component) ?? nil
+            let title = delegate.pickerTableView(self, titleForColumn: column, forComponent: component)
 
             // A view the delegate supplies has to be built now rather than when
             // its cell comes round: its width is what the layout places the
             // column at, and only the view itself knows what that is.
-            let suppliedView = delegate.pickerTableView?(self,
-                                                         viewForColumn: column,
-                                                         forComponent: component,
-                                                         reusingView: nil) ?? nil
+            let suppliedView = delegate.pickerTableView(self,
+                                                        viewForColumn: column,
+                                                        forComponent: component,
+                                                        reusingView: nil)
 
             if let suppliedView = suppliedView {
                 if let title = title, let label = suppliedView as? UILabel {
@@ -265,7 +262,6 @@ public class LAUPickerTableView: UIView {
 
     // MARK: - Selection
 
-    @objc(setSelectedColumn:animated:)
     public func setSelectedColumn(_ column: Int, animated: Bool) {
         guard columns.indices.contains(column) else {
             return
@@ -277,7 +273,6 @@ public class LAUPickerTableView: UIView {
         updateHighlightedColumn(column)
     }
 
-    @objc(setSelectedColumnHighlighted:animated:)
     public func setSelectedColumnHighlighted(_ highlighted: Bool, animated: Bool) {
         guard columns.indices.contains(selectedColumn) else {
             return
@@ -288,7 +283,6 @@ public class LAUPickerTableView: UIView {
         cell(forColumn: selectedColumn)?.setColumnHighlighted(highlighted, animated: animated)
     }
 
-    @objc(viewForColumn:)
     public func viewForColumn(_ column: Int) -> UIView? {
         guard columns.indices.contains(column) else {
             return nil
@@ -333,7 +327,7 @@ public class LAUPickerTableView: UIView {
 
         selectedColumn = column
 
-        delegate?.pickerTableView?(self, didChangeColumn: column, inComponent: component)
+        delegate?.pickerTableView(self, didChangeColumn: column, inComponent: component)
     }
 
     private func updateHighlightedColumn(_ column: Int) {
@@ -371,9 +365,8 @@ public class LAUPickerTableView: UIView {
         }
     }
 
-    @objc(hideColumns:animated:)
     public func hideColumns(_ hidden: Bool, animated: Bool) {
-        if delegate?.pickerTableView?(self, shouldHideUnselectedColumnsInComponent: component) == false {
+        if delegate?.pickerTableView(self, shouldHideUnselectedColumnsInComponent: component) == false {
             guard hiddenColumns else {
                 return
             }
@@ -442,10 +435,10 @@ public class LAUPickerTableView: UIView {
 
             if hitsSelectedColumn(recognizer.location(in: self)) {
                 // Column touch up
-                delegate?.pickerTableView?(self, didTouchUpColumn: selectedColumn, inComponent: component)
+                delegate?.pickerTableView(self, didTouchUpColumn: selectedColumn, inComponent: component)
             } else if let touch = recognizer.currentTouch {
                 // Empty touch up
-                delegate?.pickerTableView?(self, didTouchUp: touch, inComponent: component)
+                delegate?.pickerTableView(self, didTouchUp: touch, inComponent: component)
             }
 
         default:

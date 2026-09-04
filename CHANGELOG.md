@@ -3,6 +3,10 @@
 Improvements:
 
   - Rewritten in Swift. No Objective-C remains; the package builds as pure Swift
+  - No @objc anywhere in the interface either: the data source and delegate are
+    plain Swift protocols, so an adopting type no longer has to be an NSObject
+    subclass, and the optional delegate methods are default implementations
+    rather than @objc optional requirements
   - The data source and delegate contract is unchanged: a data source supplies
     the components and their columns, a delegate supplies the content and is
     told about selection
@@ -19,6 +23,8 @@ Improvements:
   - Unit tests covering the contract, selection, reloading, layout, the hidden
     column states, the selection geometry, column recycling and the scroll
     snapping
+  - The example shows the picker above the native UIPickerView over the same
+    values, with the selection linked in both directions
 
 Other:
 

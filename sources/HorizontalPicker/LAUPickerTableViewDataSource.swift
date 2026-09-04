@@ -28,8 +28,7 @@
 import Foundation
 
 /// Supplies one component (one slider) with its number of columns.
-@objc public protocol LAUPickerTableViewDataSource: NSObjectProtocol {
+public protocol LAUPickerTableViewDataSource: AnyObject {
 
-    @objc(pickerTableView:numberOfColumnsInComponent:)
     func pickerTableView(_ pickerTableView: LAUPickerTableView, numberOfColumnsInComponent component: Int) -> Int
 }

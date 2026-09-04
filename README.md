@@ -57,7 +57,7 @@ func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent componen
 3. Implement the __LAUPickerViewDelegate__ protocol:
 
 ```swift
-func pickerView(_ pickerView: LAUPickerView, titleForColumn column: Int, forComponent component: Int) -> String {
+func pickerView(_ pickerView: LAUPickerView, titleForColumn column: Int, forComponent component: Int) -> String? {
     // return the title for the specific column-component pair
 }
 
@@ -66,7 +66,9 @@ func pickerView(_ pickerView: LAUPickerView, didChangeColumn column: Int, inComp
 }
 ```
 
-Every method of the delegate is optional. Return a view from `pickerView(_:viewForColumn:forComponent:reusingView:)` instead of a title to supply your own column views.
+Every method of the delegate has a default implementation, so only write the ones you need. Return a view from `pickerView(_:viewForColumn:forComponent:reusingView:)` instead of a title to supply your own column views.
+
+The data source and the delegate are plain Swift protocols — the adopting type does not have to be an `NSObject` subclass.
 
 4. The rows do not have to be known when the picker is created. Call `reloadData()` once the data source has them, and the picker rebuilds itself:
 
@@ -84,9 +86,9 @@ pickerView.selectionAlignment = .left // Change selected column position to left
 
 # Examples
 
-## LAUPickerViewOverview
+## LAUPickerViewExample
 
-The *LAUPickerViewOverview* is a single-view example showing two LAUPickerViews, one with the unselected columns shown and one with them hidden. The selection is linked, so changing the selected column in one will change the other to the corresponding column.
+The *LAUPickerViewExample* is a single-view example showing the same three components twice: a LAUPickerView at the top and the native UIPickerView at the bottom. The selection is linked in both directions, so spinning a column of the horizontal picker moves the matching row of the native one, and spinning a row of the native one moves the column back — the port side by side with the control it is modelled on.
 
 ![LAUPickerView Overview Example Screenshot](https://raw.github.com/laugga/LAUPickerView/master/docs/figures/overview_example_screenshot.png "LAUPickerView Overview Example Screenshot")
 

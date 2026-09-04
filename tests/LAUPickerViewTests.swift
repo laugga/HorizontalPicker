@@ -12,7 +12,7 @@ import HorizontalPicker
 
 /// A data source and delegate whose rows can be swapped at any point, so the
 /// tests can supply them before and after the picker exists.
-private class PickerSource: NSObject, LAUPickerViewDataSource, LAUPickerViewDelegate {
+private class PickerSource: LAUPickerViewDataSource, LAUPickerViewDelegate {
 
     var components: [[String]]
 
@@ -33,8 +33,15 @@ private class PickerSource: NSObject, LAUPickerViewDataSource, LAUPickerViewDele
         return components[component].count
     }
 
-    func pickerView(_ pickerView: LAUPickerView, titleForColumn column: Int, forComponent component: Int) -> String {
+    func pickerView(_ pickerView: LAUPickerView, titleForColumn column: Int, forComponent component: Int) -> String? {
         return components[component][column]
+    }
+
+    // Declared here rather than only on the subclass below: the delegate methods
+    // are protocol requirements with default implementations, so which one runs
+    // is settled where the conformance is, not by what a subclass adds later.
+    func pickerView(_ pickerView: LAUPickerView, viewForColumn column: Int, forComponent component: Int, reusingView view: UIView?) -> UIView? {
+        return nil
     }
 
     func pickerView(_ pickerView: LAUPickerView, didChangeColumn column: Int, inComponent component: Int) {
@@ -46,12 +53,31 @@ private class PickerSource: NSObject, LAUPickerViewDataSource, LAUPickerViewDele
 /// column views.
 private class ViewSuppliedSource: PickerSource {
 
-    func pickerView(_ pickerView: LAUPickerView, viewForColumn column: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+    override func pickerView(_ pickerView: LAUPickerView, viewForColumn column: Int, forComponent component: Int, reusingView view: UIView?) -> UIView? {
         let label = UILabel()
         label.text = components[component][column]
         label.sizeToFit()
         columnViews[column] = label
         return label
+    }
+}
+
+/// A source that answers nothing beyond what the data source has to, so the
+/// delegate's default implementations are what the picker gets.
+private class BareSource: LAUPickerViewDataSource, LAUPickerViewDelegate {
+
+    let components: [[String]]
+
+    init(components: [[String]]) {
+        self.components = components
+    }
+
+    func numberOfComponents(in pickerView: LAUPickerView) -> Int {
+        return components.count
+    }
+
+    func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent component: Int) -> Int {
+        return components[component].count
     }
 }
 
@@ -145,6 +171,27 @@ class LAUPickerViewTests: XCTestCase {
 
         XCTAssertEqual(labels.count, 2)
         XCTAssertTrue(labels.allSatisfy { !($0 is LAUPickerViewLabel) })
+    }
+
+    func testADelegateThatAnswersNothingGetsTheDefaults() throws {
+        let source = BareSource(components: [["1.4", "2.0"], ["50", "100"]])
+        let pickerView = LAUPickerView(frame: frame)
+        pickerView.dataSource = source
+        pickerView.delegate = source
+        pickerView.layoutIfNeeded()
+
+        // Components share the picker's height, and the columns are blank.
+        XCTAssertEqual(pickerView.numberOfComponents, 2)
+        XCTAssertEqual(pickerView.subviews.map { $0.frame.height }, [75, 75])
+        XCTAssertEqual(pickerView.subviews.map { $0.frame.minY }, [0, 75])
+        XCTAssertEqual(columnLabels(of: pickerView).map { $0.text }, ["", "", "", ""])
+    }
+
+    func testTheNumberOfComponentsIsTheOneTheDataSourceSupplied() throws {
+        let source = PickerSource(components: [["1.4"], ["50"], ["1/60"]])
+        let pickerView = makePickerView(source)
+
+        XCTAssertEqual(pickerView.numberOfComponents, 3)
     }
 
     // MARK: - Rows supplied after init

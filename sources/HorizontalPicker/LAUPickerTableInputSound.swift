@@ -29,17 +29,13 @@ import AudioToolbox
 import Foundation
 
 /// The iOS click-input sound, played when the highlighted column changes.
-@objc(LAUPickerTableInputSound)
-public class LAUPickerTableInputSound: NSObject {
+public class LAUPickerTableInputSound {
 
-    @objc(sharedPickerTableInputSound)
     public static let shared = LAUPickerTableInputSound()
 
     private var inputSoundId: SystemSoundID = 0
 
-    private override init() {
-        super.init()
-
+    private init() {
         if let soundURL = Bundle.module.url(forResource: "tick", withExtension: "caf") {
             AudioServicesCreateSystemSoundID(soundURL as CFURL, &inputSoundId)
         }
@@ -51,7 +47,7 @@ public class LAUPickerTableInputSound: NSObject {
         }
     }
 
-    @objc public func play() {
+    public func play() {
         guard inputSoundId != 0 else {
             return
         }

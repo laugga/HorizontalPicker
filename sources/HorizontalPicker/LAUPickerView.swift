@@ -33,14 +33,13 @@ import UIKit
 /// than rows, and it follows the same semantics for its data source and delegate
 /// methods. A component is a slider with a series of columns at indexed
 /// locations; each column's content is either a title or a view.
-@objc(LAUPickerView)
 public class LAUPickerView: UIView {
 
     // MARK: - Public
 
     /// The data source for the picker view, which supplies the number of
     /// components and the number of columns in each of them.
-    @objc public weak var dataSource: LAUPickerViewDataSource? {
+    public weak var dataSource: LAUPickerViewDataSource? {
         didSet {
             reloadDataIfNeeded()
         }
@@ -48,7 +47,7 @@ public class LAUPickerView: UIView {
 
     /// The delegate for the picker view, which supplies the content of each
     /// column and is told about new selections.
-    @objc public weak var delegate: LAUPickerViewDelegate? {
+    public weak var delegate: LAUPickerViewDelegate? {
         didSet {
             reloadDataIfNeeded()
         }
@@ -56,7 +55,7 @@ public class LAUPickerView: UIView {
 
     /// The alignment of the picker view selection indicator. Defaults to
     /// `.center`.
-    @objc public var selectionAlignment: LAUPickerSelectionAlignment {
+    public var selectionAlignment: LAUPickerSelectionAlignment {
         get {
             return storedSelectionAlignment
         }
@@ -73,15 +72,15 @@ public class LAUPickerView: UIView {
 
     /// The input sounds of the picker view are played when the selection
     /// changes. Defaults to `true`.
-    @objc public var soundsEnabled: Bool = true
+    public var soundsEnabled: Bool = true
 
     /// The input haptic patterns of the picker view are played when the
     /// selection changes. Defaults to `true`.
-    @objc public var hapticsEnabled: Bool = true
+    public var hapticsEnabled: Bool = true
 
     /// Hides unselected columns when the picker is not being scrolled. Defaults
     /// to `true`.
-    @objc public var hidesUnselectedColumns: Bool = true {
+    public var hidesUnselectedColumns: Bool = true {
         didSet {
             for table in tables {
                 table.hideColumns(hidesUnselectedColumns, animated: false)
@@ -89,10 +88,23 @@ public class LAUPickerView: UIView {
         }
     }
 
+    /// The number of components the data source supplied.
+    public private(set) var numberOfComponents: Int = 0
+
     // MARK: - State
 
-    private var numberOfComponents: Int = 0
     private var tables: [LAUPickerTableView] = []
+
+    /// The delegate answers the component geometry, and its protocol extension
+    /// supplies the defaults — so a picker whose delegate has gone away lays
+    /// itself out the same way as one whose delegate leaves those alone.
+    private var layoutDelegate: LAUPickerViewDelegate {
+        return delegate ?? LAUPickerView.defaultDelegate
+    }
+
+    private static let defaultDelegate: LAUPickerViewDelegate = DefaultDelegate()
+
+    private final class DefaultDelegate: LAUPickerViewDelegate {}
 
     private let feedbackGenerator = UISelectionFeedbackGenerator()
 
@@ -114,7 +126,6 @@ public class LAUPickerView: UIView {
 
     // MARK: - Layout
 
-    @objc(setSelectionAlignment:animated:)
     public func setSelectionAlignment(_ selectionAlignment: LAUPickerSelectionAlignment, animated: Bool) {
         storedSelectionAlignment = selectionAlignment
 
@@ -139,16 +150,12 @@ public class LAUPickerView: UIView {
     }
 
     private func frameForComponent(_ component: Int) -> CGRect {
-        let width = frame.width
-        var height = numberOfComponents > 0 ? (frame.height / CGFloat(numberOfComponents)).rounded(.down) : 0
+        let delegate = layoutDelegate
 
-        if let delegateHeight = delegate?.pickerView?(self, heightForComponent: component) {
-            height = delegateHeight
-        }
-
-        let top = delegate?.pickerView?(self, topSpaceForComponent: component) ?? height * CGFloat(component)
-
-        return CGRect(x: 0, y: top, width: width, height: height)
+        return CGRect(x: 0,
+                      y: delegate.pickerView(self, topSpaceForComponent: component),
+                      width: bounds.width,
+                      height: delegate.pickerView(self, heightForComponent: component))
     }
 
     // MARK: - Data
@@ -165,7 +172,7 @@ public class LAUPickerView: UIView {
     ///
     /// Safe to call at any point in the picker's life, so a data source whose
     /// rows only arrive later can call it once they have.
-    @objc public func reloadData() {
+    public func reloadData() {
         numberOfComponents = 0
 
         // Clean up
@@ -181,7 +188,7 @@ public class LAUPickerView: UIView {
         var accessibilityIdentifier = ""
 
         for component in 0..<numberOfComponents {
-            if let identifier = delegate.pickerView?(self, accessibilityIdentifierForComponent: component) {
+            if let identifier = delegate.pickerView(self, accessibilityIdentifierForComponent: component) {
                 accessibilityIdentifier = identifier
             }
 
@@ -202,7 +209,6 @@ public class LAUPickerView: UIView {
 
     /// Returns the index of the selected column in a given component, or -1 if
     /// no column is selected.
-    @objc(selectedColumnInComponent:)
     public func selectedColumn(inComponent component: Int) -> Int {
         guard component >= 0, component < tables.count else {
             return -1
@@ -212,7 +218,6 @@ public class LAUPickerView: UIView {
     }
 
     /// Selects a column in a specified component of the picker view.
-    @objc(selectColumn:inComponent:animated:)
     public func selectColumn(_ column: Int, inComponent component: Int, animated: Bool) {
         guard component >= 0, component < tables.count else {
             return
@@ -222,7 +227,6 @@ public class LAUPickerView: UIView {
     }
 
     /// Highlights the selected column of a specified component.
-    @objc(setSelectedColumnHighlighted:inComponent:animated:)
     public func setSelectedColumnHighlighted(_ highlighted: Bool, inComponent component: Int, animated: Bool) {
         guard component >= 0, component < tables.count else {
             return
@@ -233,7 +237,6 @@ public class LAUPickerView: UIView {
 
     // MARK: - Animation
 
-    @objc(showComponent:andHideComponent:animated:)
     public func showComponent(_ shownComponent: Int, andHideComponent hiddenComponent: Int, animated: Bool) {
         guard shownComponent >= 0, shownComponent < tables.count,
               hiddenComponent >= 0, hiddenComponent < tables.count else {
@@ -317,25 +320,25 @@ extension LAUPickerView: LAUPickerTableViewDelegate {
     }
 
     public func pickerTableView(_ pickerTableView: LAUPickerTableView, titleForColumn column: Int, forComponent component: Int) -> String? {
-        return delegate?.pickerView?(self, titleForColumn: column, forComponent: component)
+        return delegate?.pickerView(self, titleForColumn: column, forComponent: component)
     }
 
     public func pickerTableView(_ pickerTableView: LAUPickerTableView, viewForColumn column: Int, forComponent component: Int, reusingView view: UIView?) -> UIView? {
         // Reuse is not passed on: the Objective-C version has always asked the
         // delegate for a fresh view, and the columns are all built up front.
-        return delegate?.pickerView?(self, viewForColumn: column, forComponent: component, reusingView: nil)
+        return delegate?.pickerView(self, viewForColumn: column, forComponent: component, reusingView: nil)
     }
 
     public func pickerTableView(_ pickerTableView: LAUPickerTableView, didChangeColumn column: Int, inComponent component: Int) {
-        delegate?.pickerView?(self, didChangeColumn: column, inComponent: component)
+        delegate?.pickerView(self, didChangeColumn: column, inComponent: component)
     }
 
     public func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUpColumn column: Int, inComponent component: Int) {
-        delegate?.pickerView?(self, didTouchUpColumn: column, inComponent: component)
+        delegate?.pickerView(self, didTouchUpColumn: column, inComponent: component)
     }
 
     public func pickerTableView(_ pickerTableView: LAUPickerTableView, didTouchUp touch: UITouch, inComponent component: Int) {
-        delegate?.pickerView?(self, didTouchUp: touch, inComponent: component)
+        delegate?.pickerView(self, didTouchUp: touch, inComponent: component)
     }
 
     public func pickerTableView(_ pickerTableView: LAUPickerTableView, shouldHideUnselectedColumnsInComponent component: Int) -> Bool {

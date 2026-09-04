@@ -9,12 +9,11 @@ import UIKit
 
 /// The default column view: a label that scales into a bolder font when the
 /// column it stands for becomes the highlighted one.
-@objc(LAUPickerViewLabel)
 public class LAUPickerViewLabel: UILabel {
 
     /// The font the label takes while highlighted. Set it after the text, so the
     /// scale between the two fonts can be measured against the title.
-    @objc public var highlightedFont: UIFont? {
+    public var highlightedFont: UIFont? {
         didSet {
             defaultFont = font
             updateHighlightTransforms()
@@ -70,7 +69,6 @@ public class LAUPickerViewLabel: UILabel {
         }
     }
 
-    @objc(setHighlighted:animated:)
     public func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.isHighlighted = highlighted
 

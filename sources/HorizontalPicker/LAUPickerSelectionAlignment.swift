@@ -32,7 +32,7 @@ import Foundation
 /// - `left`: align selection along the left edge of the view.
 /// - `center`: align selection equally along both sides of the view. This is the default selection.
 /// - `right`: align selection along the right edge of the view.
-@objc public enum LAUPickerSelectionAlignment: Int {
+public enum LAUPickerSelectionAlignment: Int {
     case left = 0
     case center = 1
     case right = 2
