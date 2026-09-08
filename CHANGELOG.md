@@ -1,5 +1,13 @@
 ## 0.4.0
 
+Fixed:
+
+  - Columns going blank while scrolling a component whose views the delegate
+    supplies. One view exists per column and is re-parented into whichever cell
+    is showing that column, so the cell it came from was left referring to it;
+    when that cell was recycled it removed the view from the cell now drawing
+    it. A cell now gives up only a view it is still hosting
+
 Removed:
 
   - setSelectedColumnHighlighted(_:inComponent:animated:). It has no counterpart
