@@ -35,11 +35,9 @@ final class LAUPickerColumnCell: UICollectionViewCell {
 
     static let reuseIdentifier = "LAUPickerColumnCell"
 
-    /// The font a title is drawn in, and the bolder one it grows into while the
-    /// column is highlighted.
-    static let titleFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
     // TODO expose in the LAUPickerView interface
-    static let highlightedTitleFont = UIFont.boldSystemFont(ofSize: 20.0)
+    /// The font a title is drawn in.
+    static let titleFont = UIFont.systemFont(ofSize: UIFont.labelFontSize)
 
     /// The width a title takes at its natural size. The layout places the column
     /// against this, so it has to be measured with the font the label draws in.
@@ -83,18 +81,12 @@ final class LAUPickerColumnCell: UICollectionViewCell {
     }
 
     /// Draws a title, in the cell's own label.
-    func showTitle(_ title: String, highlighted: Bool) {
+    func showTitle(_ title: String) {
         let label = titleLabel ?? makeTitleLabel()
 
-        // `highlightedFont` measures the scale between the two fonts against the
-        // title, and takes the font in place as the one to come back to — so the
-        // label has to be plain, and the text has to be set, before it is given.
-        label.setHighlighted(false, animated: false)
         label.font = LAUPickerColumnCell.titleFont
         label.text = title
-        label.highlightedFont = LAUPickerColumnCell.highlightedTitleFont
         label.sizeToFit()
-        label.setHighlighted(highlighted, animated: false)
         label.isHidden = false
 
         hostedView = label
@@ -114,12 +106,6 @@ final class LAUPickerColumnCell: UICollectionViewCell {
 
         hostedView = view
         setNeedsLayout()
-    }
-
-    /// Grows the column into its highlighted font, if it is one of the cell's
-    /// own labels — a view the delegate supplied is left as it is.
-    func setColumnHighlighted(_ highlighted: Bool, animated: Bool) {
-        (hostedView as? LAUPickerViewLabel)?.setHighlighted(highlighted, animated: animated)
     }
 
     private func makeTitleLabel() -> LAUPickerViewLabel {

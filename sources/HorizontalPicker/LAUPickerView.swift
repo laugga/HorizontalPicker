@@ -226,15 +226,6 @@ public class LAUPickerView: UIView {
         tables[component].setSelectedColumn(column, animated: animated)
     }
 
-    /// Highlights the selected column of a specified component.
-    public func setSelectedColumnHighlighted(_ highlighted: Bool, inComponent component: Int, animated: Bool) {
-        guard component >= 0, component < tables.count else {
-            return
-        }
-
-        tables[component].setSelectedColumnHighlighted(highlighted, animated: animated)
-    }
-
     // MARK: - Animation
 
     public func showComponent(_ shownComponent: Int, andHideComponent hiddenComponent: Int, animated: Bool) {

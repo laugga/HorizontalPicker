@@ -163,6 +163,26 @@ class LAUPickerViewTests: XCTestCase {
         XCTAssertEqual(labels.map { $0.text }, ["1.4", "2.0", "2.8"])
     }
 
+    /// The regression the removed `setSelectedColumnHighlighted` left behind:
+    /// the column it grew into a bolder font kept that font once the selection
+    /// moved on, and the recycled cell carried it to whichever column came
+    /// next. No column is drawn differently from the others any more.
+    func testEveryColumnIsDrawnTheSameWhicheverOneIsSelected() throws {
+        // Long enough that the columns outlive their cells, which is how the
+        // stale font used to reach a column that was never highlighted.
+        let source = PickerSource(components: [(0..<60).map { "\($0)" }])
+        let pickerView = makePickerView(source)
+
+        for column in 0..<source.components[0].count {
+            pickerView.selectColumn(column, inComponent: 0, animated: false)
+
+            let labels = columnLabels(of: pickerView)
+
+            XCTAssertEqual(Set(labels.map { $0.font }).count, 1, "one font across the columns, selecting \(column)")
+            XCTAssertTrue(labels.allSatisfy { $0.transform == .identity }, "untransformed columns, selecting \(column)")
+        }
+    }
+
     func testDelegateSuppliedViewsAreUsedForTheColumns() throws {
         let source = ViewSuppliedSource(components: [["1.4", "2.0"]])
         let pickerView = makePickerView(source)

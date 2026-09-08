@@ -1,3 +1,16 @@
+## 0.4.0
+
+Removed:
+
+  - setSelectedColumnHighlighted(_:inComponent:animated:). It has no counterpart
+    in UIPickerView, and the highlight it set was left behind: the bolder font
+    stayed on the column once the selection moved on, and the recycled cell
+    carried it to columns that were never highlighted
+  - The highlight machinery behind it — the cell's bold title font and
+    setColumnHighlighted(_:animated:), the table view's isSelectedColumnHighlighted,
+    and LAUPickerViewLabel's highlightedFont, scale transforms and animation.
+    LAUPickerViewLabel remains as the label the picker draws a title in
+
 ## 0.3.0
 
 Improvements:

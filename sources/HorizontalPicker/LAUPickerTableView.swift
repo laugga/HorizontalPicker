@@ -95,7 +95,6 @@ public class LAUPickerTableView: UIView {
     private var highlightedColumn: Int = -1
     private var hiddenColumns: Bool = true
     private var isTouched: Bool = false
-    private var isSelectedColumnHighlighted: Bool = false
 
     private var laidOutSize: CGSize = .zero
 
@@ -213,7 +212,6 @@ public class LAUPickerTableView: UIView {
 
         selectedColumn = columns.isEmpty ? -1 : 0
         highlightedColumn = selectedColumn
-        isSelectedColumnHighlighted = false
         hiddenColumns = true
 
         collectionView.reloadData()
@@ -271,16 +269,6 @@ public class LAUPickerTableView: UIView {
 
         scrollToSelectedColumn(animated: animated)
         updateHighlightedColumn(column)
-    }
-
-    public func setSelectedColumnHighlighted(_ highlighted: Bool, animated: Bool) {
-        guard columns.indices.contains(selectedColumn) else {
-            return
-        }
-
-        isSelectedColumnHighlighted = highlighted
-
-        cell(forColumn: selectedColumn)?.setColumnHighlighted(highlighted, animated: animated)
     }
 
     public func viewForColumn(_ column: Int) -> UIView? {
@@ -487,7 +475,7 @@ extension LAUPickerTableView: UICollectionViewDataSource {
 
         switch columns[indexPath.item].content {
         case .title(let title):
-            cell.showTitle(title, highlighted: isSelectedColumnHighlighted && indexPath.item == selectedColumn)
+            cell.showTitle(title)
         case .view(let suppliedView):
             cell.showView(suppliedView)
         }
