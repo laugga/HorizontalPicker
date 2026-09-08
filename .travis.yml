@@ -1,4 +1,4 @@
-language: objective-c
-xcode_project: LAUPickerView.xcodeproj
-xcode_scheme: Test
-script: xcodebuild test -project LAUPickerView.xcodeproj -scheme Test -sdk iphonesimulator ONLY_ACTIVE_ARCH=NO
+language: swift
+os: osx
+script:
+  - xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'

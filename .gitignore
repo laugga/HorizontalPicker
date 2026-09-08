@@ -31,3 +31,8 @@ build
 configure
 research
 .deps
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved

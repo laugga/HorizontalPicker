@@ -1,11 +1,11 @@
 /*
- 
- LAUPickerTableInputSound.h
- LAUPickerView
- 
+
+ LAUPickerTableInputSound.swift
+ HorizontalPicker
+
  Copyright (cc) 2012 Luis Laugga.
  Some rights reserved, all wrongs deserved.
- 
+
  Permission is hereby granted, free of charge, to any person obtaining a copy of
  this software and associated documentation files (the "Software"), to deal in
  the Software without restriction, including without limitation the rights to
@@ -22,19 +22,36 @@
  COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
  IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
- 
-*/
 
-#import <Foundation/Foundation.h>
-#import <AudioToolbox/AudioToolbox.h>
+ */
 
-@interface LAUPickerTableInputSound : NSObject
-{
-    SystemSoundID _inputSoundId;
+import AudioToolbox
+import Foundation
+
+/// The iOS click-input sound, played when the highlighted column changes.
+public class LAUPickerTableInputSound {
+
+    public static let shared = LAUPickerTableInputSound()
+
+    private var inputSoundId: SystemSoundID = 0
+
+    private init() {
+        if let soundURL = Bundle.module.url(forResource: "tick", withExtension: "caf") {
+            AudioServicesCreateSystemSoundID(soundURL as CFURL, &inputSoundId)
+        }
+    }
+
+    deinit {
+        if inputSoundId != 0 {
+            AudioServicesDisposeSystemSoundID(inputSoundId)
+        }
+    }
+
+    public func play() {
+        guard inputSoundId != 0 else {
+            return
+        }
+
+        AudioServicesPlaySystemSound(inputSoundId)
+    }
 }
-
-+ (LAUPickerTableInputSound *)sharedPickerTableInputSound;
-
-- (void)play;
-
-@end
