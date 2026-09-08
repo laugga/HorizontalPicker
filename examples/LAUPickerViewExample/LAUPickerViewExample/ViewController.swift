@@ -36,17 +36,6 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
     @IBOutlet var horizontalPickerView: LAUPickerView?
     @IBOutlet var nativePickerView: UIPickerView?
 
-    private var highlightedComponent: Int = 0 {
-        didSet {
-            guard highlightedComponent != oldValue else {
-                return
-            }
-
-            horizontalPickerView?.setSelectedColumnHighlighted(false, inComponent: oldValue, animated: true)
-            horizontalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: true)
-        }
-    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -55,8 +44,6 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
 
         nativePickerView?.dataSource = self
         nativePickerView?.delegate = self
-
-        horizontalPickerView?.setSelectedColumnHighlighted(true, inComponent: highlightedComponent, animated: false)
 
         horizontalPickerView?.hidesUnselectedColumns = false
     }
@@ -85,16 +72,6 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
         // Selecting a row does not call back into the delegate, so following the
         // selection across cannot come back round as a second change.
         nativePickerView?.selectRow(column, inComponent: component, animated: true)
-
-        highlightedComponent = component
-    }
-
-    func pickerView(_ pickerView: LAUPickerView, didTouchUpColumn column: Int, inComponent component: Int) {
-        highlightedComponent = component
-    }
-
-    func pickerView(_ pickerView: LAUPickerView, didTouchUp touch: UITouch, inComponent component: Int) {
-        highlightedComponent = component
     }
 
     // MARK: - UIPickerViewDataSource
@@ -115,8 +92,6 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         horizontalPickerView?.selectColumn(row, inComponent: component, animated: true)
-
-        highlightedComponent = component
     }
 
     // MARK: - Values
