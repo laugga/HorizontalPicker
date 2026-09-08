@@ -385,6 +385,58 @@ class LAUPickerViewTests: XCTestCase {
         XCTAssertEqual(selected.text, titles.last)
     }
 
+    func testAColumnViewIsNotTakenFromTheCellShowingIt() throws {
+        let titles = (0..<200).map { "\($0)" }
+        let source = ViewSuppliedSource(components: [titles])
+        let pickerView = makePickerView(source)
+        let table = try firstTable(of: pickerView)
+        let collectionView = try XCTUnwrap(self.collectionView(of: table))
+
+        // A delegate-supplied view is built once and re-parented into whichever
+        // cell is showing its column, so a cell going back into the reuse pool
+        // must not take a view that has since moved on to another cell.
+        var blankColumns: [Int] = []
+
+        func scroll(to offset: CGFloat) {
+            collectionView.contentOffset = CGPoint(x: offset, y: 0)
+            collectionView.layoutIfNeeded()
+
+            for indexPath in collectionView.indexPathsForVisibleItems.sorted() {
+                guard let cell = collectionView.cellForItem(at: indexPath),
+                      let columnView = source.columnViews[indexPath.item] else {
+                    continue
+                }
+
+                if columnView.superview !== cell.contentView {
+                    blankColumns.append(indexPath.item)
+                }
+            }
+        }
+
+        // Small steps are what reproduces it: the columns on screen before and
+        // after a step overlap, so a cell is recycled while the view it still
+        // refers to is being shown by another one. Jumping straight to a far
+        // column empties and refills the reuse pool in a matched order, which
+        // is why every other test passes.
+        let step: CGFloat = 34.0
+        let start = collectionView.contentOffset.x
+        let turningPoint = collectionView.contentSize.width / 2.0
+
+        var offset = start
+
+        while offset < turningPoint {
+            offset += step
+            scroll(to: offset)
+        }
+
+        while offset > start {
+            offset -= step
+            scroll(to: offset)
+        }
+
+        XCTAssertEqual(blankColumns, [], "columns left blank")
+    }
+
     func testWatchingTouchesDoesNotStandInTheWayOfScrolling() throws {
         let source = PickerSource(components: [["1.0", "1.1", "1.2"]])
         let pickerView = makePickerView(source)

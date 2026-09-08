@@ -65,7 +65,13 @@ final class LAUPickerColumnCell: UICollectionViewCell {
     override func prepareForReuse() {
         super.prepareForReuse()
 
-        if let hostedView = hostedView, hostedView !== titleLabel {
+        // A delegate-supplied view outlives the cell that drew it: it is
+        // re-parented into whichever cell is showing its column, while the cell
+        // it came from goes on referring to it until it is dequeued again. So
+        // give up only a view this cell is still the one hosting — otherwise it
+        // is taken out from under the cell now showing it, leaving that column
+        // blank.
+        if let hostedView = hostedView, hostedView !== titleLabel, hostedView.superview === contentView {
             hostedView.removeFromSuperview()
         }
 
