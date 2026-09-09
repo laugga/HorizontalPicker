@@ -1,27 +1,10 @@
 //
-//  ViewController.swift
-//  LAUPickerViewExample
-//
-//  Created by Ferreira Luis (Cembra Money Bank) on 11.08.22.
+//  NativeComparisonScenarioViewController.swift
+//  HorizontalPicker
 //
 
 import UIKit
 import HorizontalPicker
-
-enum PickerComponents: CaseIterable {
-    case aperture, shutterSpeed, isoSpeed
-
-    var values: [Float] {
-        switch self {
-        case .aperture:
-            return [ 1.0, 1.1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.5, 2.8, 3.2, 3.5, 4, 4.5,4.7, 5.0, 5.6, 6.3, 7.1, 8, 9, 10, 11, 13, 14, 16, 18, 20, 22 ]
-        case .shutterSpeed:
-            return [ 1, 1.3, 1.6, 2, 2.5, 3, 4, 5, 6, 8, 10, 13, 15, 20, 25, 30, 40, 50, 60, 80, 100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1250, 1600, 2000, 2500, 3200, 4000 ]
-        case .isoSpeed:
-            return [ 50, 64, 80, 100, 125, 160, 200, 250, 320, 400, 500, 640, 800, 1000, 1250, 1600, 2000, 2500 ]
-        }
-    }
-}
 
 /// The same three components shown twice: `LAUPickerView` at the top and the
 /// native `UIPickerView` at the bottom, over the same values.
@@ -30,28 +13,38 @@ enum PickerComponents: CaseIterable {
 /// horizontal picker moves the matching row of the native one, and spinning a
 /// row of the native one moves the matching column back — so the port can be
 /// compared against the control it is modelled on side by side.
-class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewDataSource, UIPickerViewDelegate, UIPickerViewDataSource {
+///
+/// This is the screen the repository's original `LAUPickerViewExample` showed,
+/// rebuilt without the storyboard it used to be laid out in.
+final class NativeComparisonScenarioViewController: ScenarioViewController,
+                                                    LAUPickerViewDelegate,
+                                                    LAUPickerViewDataSource,
+                                                    UIPickerViewDelegate,
+                                                    UIPickerViewDataSource {
 
-    // Picker View
-    @IBOutlet var horizontalPickerView: LAUPickerView?
-    @IBOutlet var nativePickerView: UIPickerView?
+    private let horizontalPickerView = LAUPickerView()
+
+    private let nativePickerView = UIPickerView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        horizontalPickerView?.dataSource = self
-        horizontalPickerView?.delegate = self
+        horizontalPickerView.dataSource = self
+        horizontalPickerView.delegate = self
+        horizontalPickerView.hidesUnselectedColumns = false
 
-        nativePickerView?.dataSource = self
-        nativePickerView?.delegate = self
+        nativePickerView.dataSource = self
+        nativePickerView.delegate = self
 
-        horizontalPickerView?.hidesUnselectedColumns = false
+        add(horizontalPickerView, height: 150.0)
+        add(nativePickerView, height: 180.0)
+        addNote("Spinning either picker moves the other. Unselected columns are left visible so the two can be read against each other.")
     }
 
     // MARK: - LAUPickerViewDataSource
 
     func numberOfComponents(in pickerView: LAUPickerView) -> Int {
-        return PickerComponents.allCases.count
+        return ExposureValues.allCases.count
     }
 
     func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent component: Int) -> Int {
@@ -71,13 +64,13 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
     func pickerView(_ pickerView: LAUPickerView, didChangeColumn column: Int, inComponent component: Int) {
         // Selecting a row does not call back into the delegate, so following the
         // selection across cannot come back round as a second change.
-        nativePickerView?.selectRow(column, inComponent: component, animated: true)
+        nativePickerView.selectRow(column, inComponent: component, animated: true)
     }
 
     // MARK: - UIPickerViewDataSource
 
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return PickerComponents.allCases.count
+        return ExposureValues.allCases.count
     }
 
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
@@ -91,22 +84,17 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
     }
 
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        horizontalPickerView?.selectColumn(row, inComponent: component, animated: true)
+        horizontalPickerView.selectColumn(row, inComponent: component, animated: true)
     }
 
     // MARK: - Values
 
     private func values(forComponent component: Int) -> [Float] {
-        switch component {
-        case 0: // aperture
-            return PickerComponents.aperture.values
-        case 1: // shutter speed
-            return PickerComponents.shutterSpeed.values
-        case 2: // iso speed
-            return PickerComponents.isoSpeed.values
-        default:
+        guard let exposure = ExposureValues(rawValue: component) else {
             return []
         }
+
+        return exposure.values
     }
 
     private func title(forColumn column: Int, inComponent component: Int) -> String? {
@@ -119,3 +107,9 @@ class ViewController: UIViewController, LAUPickerViewDelegate, LAUPickerViewData
         return String(format: "%.1f", values[column])
     }
 }
+
+#if DEBUG
+#Preview("Native comparison") {
+    NativeComparisonScenarioViewController()
+}
+#endif

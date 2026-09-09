@@ -16,13 +16,11 @@ let package = Package(
     targets: [
         .target(
             name: "HorizontalPicker",
-            path: "sources/HorizontalPicker",
             resources: [
                 .copy("resources/tick.caf")
             ]),
         .testTarget(
             name: "HorizontalPickerTests",
-            dependencies: ["HorizontalPicker"],
-            path: "tests")
+            dependencies: ["HorizontalPicker"])
     ]
 )
