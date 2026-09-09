@@ -31,6 +31,10 @@ final class VariableWidthScenarioViewController: ScenarioViewController {
         picker.dataSource = source
         picker.delegate = source
 
+        // Every column stays on screen: the widths are the point, and only one
+        // column at a time would show nothing to compare.
+        picker.hidesUnselectedColumns = false
+
         add(picker, height: source.pickerHeight)
         addNote("The top component's columns are all different widths; the bottom one's are all the same. Spinning either should leave the selected column centred.")
     }

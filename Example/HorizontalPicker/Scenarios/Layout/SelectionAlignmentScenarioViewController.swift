@@ -22,6 +22,10 @@ final class SelectionAlignmentScenarioViewController: ScenarioViewController {
         picker.dataSource = source
         picker.delegate = source
 
+        // Every column stays on screen, so where the selection sits can be read
+        // against its neighbours.
+        picker.hidesUnselectedColumns = false
+
         add(picker, height: source.pickerHeight)
 
         let control = UISegmentedControl(items: ["Left", "Center", "Right"])

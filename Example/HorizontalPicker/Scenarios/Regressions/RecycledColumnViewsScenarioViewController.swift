@@ -74,7 +74,7 @@ final class RecycledColumnViewsScenarioViewController: ScenarioViewController,
                                         brightness: 0.85,
                                         alpha: 1.0)
         label.sizeToFit()
-        label.bounds.size.width += 16.0
+        label.bounds.size = CGSize(width: label.bounds.width + 16.0, height: Self.componentHeight)
 
         return label
     }
