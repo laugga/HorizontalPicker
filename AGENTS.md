@@ -1,15 +1,5 @@
 # AGENTS.md
 
-Guidance for AI coding agents (Claude, Codex, and others) and human
-contributors working in this repository. Read this before making changes.
-
-This file covers **this repository**: what it is, how to build and test it, how
-it is laid out, and what will bite you. How work reaches it — which task an
-agent picks up, when a task is ready, branch and pull request conventions, and
-what happens after review — lives in
-[`laugga/ops`](https://github.com/laugga/ops), which serves every repository
-and is where those rules are changed.
-
 ## What this is
 
 **HorizontalPicker** is a horizontal *spinning-wheel* picker view for iOS —
@@ -22,17 +12,12 @@ the interface: `LAUPickerViewDataSource` and `LAUPickerViewDelegate` are plain
 Swift protocols, so an adopting type does not have to be an `NSObject`
 subclass. It has no dependencies.
 
-**What depends on it.** [`laugga/lightmate-app-ios`](https://github.com/laugga/lightmate-app-ios)
-— the Lightmate iOS app — is the one consumer. It takes this package as a
-remote Swift Package Manager dependency and draws its exposure-value picker
-with it (`Sources/LightmateViewController.swift`,
-`Sources/Views/ExposureValuePickerView/`). It tracks the `main` **branch**, not
-a version tag; read the gotchas below before changing public API.
+The repository is public and self-contained. Consumers resolve it as a remote
+Swift Package Manager dependency, and a consumer may track the `main` branch
+rather than a version tag — so treat a change to the public API as reaching an
+app with no version gate in between, and say so in the pull request.
 
-This repository is **public**. Its only consumer is private. Nothing
-Lightmate-specific, and nothing secret, belongs in here.
-
-## Build and test
+## Build and test the library
 
 **`Package.swift` is the authoritative build.** It defines the `HorizontalPicker`
 library target and the `HorizontalPickerTests` test target, and it is what
@@ -54,11 +39,20 @@ builds `Package.swift` directly through an implicit workspace. Substitute any
 installed simulator for `iPhone 17`; check with
 `xcrun simctl list devices available`.
 
-**`Example/HorizontalPicker.xcodeproj` is the other build system, and it builds
-only the example app.** It is not an alternative way to build the library: it
-depends on the repository root as a *local* Swift package (`XCLocalSwiftPackageReference ".."`),
-so it compiles whatever is in the working tree through the same `Package.swift`.
-It exists so a change can be seen working by hand.
+**There is no lint step.** No SwiftLint, no SwiftFormat, no `.editorconfig` —
+match the surrounding file instead.
+
+**There is no CI.** No GitHub Actions workflows exist and no status check runs
+on a pull request. The commands here and below are the whole gate; run them
+yourself.
+
+## Build and run the example app
+
+`Example/HorizontalPicker.xcodeproj` builds **only the example app**. It is not
+an alternative way to build the library: it depends on the repository root as a
+*local* Swift package (`XCLocalSwiftPackageReference ".."`), so it compiles
+whatever is in the working tree through the same `Package.swift`. It exists so
+a change can be seen working by hand.
 
 ```bash
 xcodebuild -project Example/HorizontalPicker.xcodeproj -scheme Example \
@@ -72,24 +66,33 @@ through the public API only. Add a scenario by adding the view controller under
 `Example/HorizontalPicker/Scenarios/<Section>/` and an entry in `Catalog.swift`;
 nothing else is wired by hand.
 
-**There is no lint step.** No SwiftLint, no SwiftFormat, no `.editorconfig` —
-match the surrounding file instead.
+**The example app is kept in step with the library, always.** A change to the
+library is not finished until the example reflects it:
 
-**There is no CI.** No GitHub Actions workflows exist and no status check runs
-on a pull request. The commands above are the whole gate; run them yourself.
-`.travis.yml` is dormant — Travis is not connected to this repository.
+- **New public API** — a property, a delegate method, a selection mode — gets a
+  scenario that exercises it, or is folded into an existing scenario where one
+  already fits. An addition nobody can see running is not covered.
+- **Changed public API** — every call site in `Example/` is updated to the new
+  shape in the same pull request. The example must compile against the working
+  tree, not against the previous release.
+- **Removed public API** — the scenarios that used it go with it.
+- **A fixed bug** gets a scenario under `Scenarios/Regressions/` that shows the
+  behaviour it fixed, so the next change can be checked against it by hand.
+
+The example targets iOS 17 while the package targets iOS 13, so the example
+compiling is *not* evidence that an API you used is available to the package's
+own deployment target — see the gotchas.
 
 ## Project layout
 
 | Path | What's there |
 |---|---|
 | `Package.swift` | The authoritative manifest. Library target `HorizontalPicker`, test target `HorizontalPickerTests`, iOS 13 platform, `resources/tick.caf` declared as a copied resource. |
-| `Sources/HorizontalPicker/` | The library. `LAUPickerView` is the public view; `LAUPickerViewDataSource` / `LAUPickerViewDelegate` are the public protocols; `LAUPickerSelectionAlignment` the public enum. Everything else (`LAUPickerTableView`, `LAUPickerColumnLayout`, `LAUPickerColumnCell`, `LAUPickerTouchGestureRecognizer`, `LAUPickerTableInputSound`, `LAUPickerViewLabel`) is internal. |
+| `Sources/HorizontalPicker/` | The library. `LAUPickerView` is the picker; `LAUPickerViewDataSource` / `LAUPickerViewDelegate` the protocols a consumer adopts; `LAUPickerSelectionAlignment` the selection position. `LAUPickerTableView` (one component) and its own data source and delegate protocols, `LAUPickerViewLabel` and `LAUPickerTableInputSound` are public too, but they are the picker's internals — a consumer is not meant to reach for them. `LAUPickerColumnLayout`, `LAUPickerColumnCell` and `LAUPickerTouchGestureRecognizer` are internal. |
 | `Sources/HorizontalPicker/resources/` | `tick.caf`, the click-input sound, loaded through `Bundle.module`. |
 | `Tests/HorizontalPickerTests/` | XCTest unit tests covering the data source and delegate contract, selection, reloading, layout, hidden column states, selection geometry, column recycling and scroll snapping. |
 | `Example/` | The example app and its Xcode project. `App/` is the entry point, `Catalog/` the index of scenarios, `Scenarios/` the scenarios themselves, `Resources/` the asset catalog. |
-| `docs/` | `figures/` holds the README screenshots. `features.md` is a stale wishlist, not a description of what exists — see the gotchas. |
-| `scripts/`, `support/` | Dead. Left over from the pre-SPM framework build — see the gotchas. |
+| `docs/figures/` | The screenshots the README displays. Regenerate the example screenshot when the example's appearance changes. |
 | `CHANGELOG.md` | Hand-written, newest first, grouped under `Features:` / `Improvements:` / `Fixed:` / `Removed:` / `Other:`. Add an entry for anything a consumer would notice. |
 
 ## Conventions
@@ -100,7 +103,7 @@ its task are the same in every Laugga Practice repository and are documented in
 repository:
 
 - **The default and integration branch is `main`.** Open pull requests against
-  it. (Lightmate uses `development`; this repository does not.)
+  it.
 - **Commit subjects read `Type / Description`** — the same shape as the pull
   request title: `Fix / Blank columns when a delegate-supplied column view is
   recycled`, `Refactor / Rewrite the horizontal picker in Swift`.
@@ -124,54 +127,24 @@ repository:
   This is expected, not a broken checkout. Always go through `xcodebuild` with
   an iOS Simulator destination.
 
-- **Lightmate tracks the `main` branch, not a tag.** `lightmate-app-ios`
-  declares this package as `requirement = { branch = main; kind = branch; }`,
-  so anything merged here reaches the app the next time it resolves packages —
-  there is no version gate in between. Treat a change to the public API as a
-  change to the app, and say so in the pull request.
-
-- **Lightmate has not caught up with the Swift rewrite yet.** Its
-  `Package.resolved` pins revision `0c3059e`, the last commit before
-  `616808a Refactor / Rewrite the horizontal picker in Swift`. Its call sites
-  still use the Objective-C-bridged signatures (`pickerView: LAUPickerView!`,
-  `-> String!`), which do not satisfy the current pure-Swift protocols. Its
-  next package resolve will not compile until those signatures are updated.
-  Do not assume the app builds against `main` today.
-
-- **The version tags are behind the CHANGELOG.** `0.3.0` is the newest tag and
-  it points at `31f828f`, thirteen commits back, *before* the Swift rewrite —
-  even though `CHANGELOG.md` files the rewrite under 0.3.0 and there is a 0.4.0
-  section with no tag at all. So the README's
-  `.package(url: ..., from: "0.3.0")` resolves to the old Objective-C code, not
-  to the Swift API the README goes on to document. Don't trust a tag to mean
-  what the CHANGELOG says it means, and don't create one to tidy this up
-  without being asked — Lightmate is on `main` and would not notice either way.
-
-- **This repository is public; `lightmate-app-ios`'s own `AGENTS.md` says it is
-  private.** That is wrong (`gh repo view laugga/HorizontalPicker` reports
-  `PUBLIC`), and only `laugga/LightmateUI` in that list actually is private.
-  Nothing here needs GitHub credentials to resolve. The remote is configured
-  over SSH (`git@github.com:laugga/HorizontalPicker.git`) for pushing, which is
-  a separate matter from how consumers fetch it — Lightmate fetches over HTTPS.
-
-- **`scripts/` and `support/` are dead.** `build_framework.sh`,
-  `copy_framework_headers.sh`, `copy_framework_resources.sh`,
-  `embed_framework_resources.sh`, `update_bundle_version.sh` and
-  `LAUPickerView-Info.plist` were build phases of the hand-rolled `.framework`
-  target in `LAUPickerView.xcodeproj`, which was removed in 0.3.0. Nothing
-  invokes them and nothing reads that plist. Don't wire them into anything;
-  don't treat the plist's `0.1.0` as the package version.
-
-- **`docs/features.md` is a wishlist.** It lists a vertical and a circular
-  picker view. Neither exists. Only the horizontal one does.
+- **The example targets iOS 17, the package targets iOS 13.** The example
+  compiling is not evidence that an API you used is available to the package's
+  own deployment target. The library build is what settles that.
 
 - **Resources go through `Bundle.module`.** `tick.caf` is declared in
   `Package.swift` as `.copy("resources/tick.caf")`. A new resource that is not
   added to that array is silently absent at runtime.
 
-- **The example targets iOS 17, the package targets iOS 13.** The example
-  compiling is not evidence that an API you used is available to the package's
-  own deployment target. The library build is what settles that.
+- **The version tags are behind the CHANGELOG.** `0.3.0` is the newest tag and
+  it points at `31f828f`, *before* the Swift rewrite, even though
+  `CHANGELOG.md` files the rewrite under 0.3.0; the top section of the
+  CHANGELOG, `1.0.0`, has no tag yet. Don't trust a tag to mean what the
+  CHANGELOG says it means, and don't create one without being asked.
+
+- **`LAUPickerView` is public but not the whole public surface.** `xcodebuild`
+  will happily let you use `LAUPickerTableView` or `LAUPickerViewLabel` from
+  outside the module; they are public for the picker's own composition, not as
+  API. Build against `LAUPickerView` and its two protocols.
 
 ## Definition of done
 
@@ -179,7 +152,8 @@ Before opening a pull request, confirm:
 
 - [ ] `xcodebuild -scheme HorizontalPicker -destination 'generic/platform=iOS Simulator' build` succeeds
 - [ ] `xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'` passes
-- [ ] The example still builds, if you touched anything it uses
+- [ ] The example app builds, and covers whatever the library gained, lost or changed
 - [ ] `CHANGELOG.md` has an entry, if a consumer would notice the change
-- [ ] Public API changes are called out in the pull request — Lightmate is on `main`
+- [ ] Public API changes are called out in the pull request — a consumer may be tracking `main`
+- [ ] The README still matches the code, and its screenshots still match the example
 - [ ] No unintended churn is committed

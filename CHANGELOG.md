@@ -1,4 +1,4 @@
-## 0.4.0
+## 1.0.0
 
 Fixed:
 
@@ -18,6 +18,20 @@ Removed:
     setColumnHighlighted(_:animated:), the table view's isSelectedColumnHighlighted,
     and LAUPickerViewLabel's highlightedFont, scale transforms and animation.
     LAUPickerViewLabel remains as the label the picker draws a title in
+  - scripts/ and support/, the build phases and Info.plist of the hand-rolled
+    .framework target that went with LAUPickerView.xcodeproj in 0.3.0. Nothing
+    invoked them
+  - .travis.yml. Travis is not connected to this repository
+  - docs/features.md, a wishlist of a vertical and a circular picker that were
+    never written
+
+Other:
+
+  - AGENTS.md, so an agent or a new contributor can build, test and follow the
+    conventions of this repository without asking. CLAUDE.md points at it
+  - README rewritten against the current API — the configuration properties,
+    the full delegate and its defaults, and the catalog example — with a fresh
+    screenshot and the roadmap dropped
 
 ## 0.3.0
 

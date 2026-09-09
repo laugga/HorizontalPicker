@@ -1,4 +1,0 @@
-language: swift
-os: osx
-script:
-  - xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'
