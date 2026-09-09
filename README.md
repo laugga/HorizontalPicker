@@ -84,11 +84,11 @@ pickerView.reloadData()
 pickerView.selectionAlignment = .left // Change selected column position to left
 ```
 
-# Examples
+# Example
 
-## LAUPickerViewExample
+The example app is a catalog: thirteen scenarios in six sections, each opening a working screen built through the public API alone. Open `Example/HorizontalPicker.xcodeproj` and run the *Example* scheme.
 
-The *LAUPickerViewExample* is a single-view example showing the same three components twice: a LAUPickerView at the top and the native UIPickerView at the bottom. The selection is linked in both directions, so spinning a column of the horizontal picker moves the matching row of the native one, and spinning a row of the native one moves the column back — the port side by side with the control it is modelled on.
+Its *Native Comparison* scenario shows the same three components twice: a LAUPickerView at the top and the native UIPickerView at the bottom. The selection is linked in both directions, so spinning a column of the horizontal picker moves the matching row of the native one, and spinning a row of the native one moves the column back — the port side by side with the control it is modelled on.
 
 ![LAUPickerView Overview Example Screenshot](https://raw.github.com/laugga/LAUPickerView/master/docs/figures/overview_example_screenshot.png "LAUPickerView Overview Example Screenshot")
 
@@ -101,7 +101,7 @@ xcodebuild -scheme HorizontalPicker -destination 'generic/platform=iOS Simulator
 xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
-The example app lives in `examples/LAUPickerViewExample` and consumes the package from the repository root.
+The example app lives in `Example/` and consumes the package from the repository root as a local Swift package, so it always builds the sources in the working tree.
 
 ## Roadmap
 
