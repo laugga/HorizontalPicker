@@ -1,17 +1,21 @@
 # HorizontalPicker
 
-## Introduction
+`LAUPickerView` is a horizontal *spinning-wheel* picker view for iOS.
 
-LAUPickerView is an horizontal *spinning-wheel* picker control view for iOS.
+It is the same idea as `UIPickerView`, but the wheel runs left to right: a
+component is a row of **columns** instead of a column of rows. It follows
+`UIPickerView`'s data source and delegate semantics, so if you have written one
+you have written the other.
 
-It is similar to UIPickerView, but the user interface provided consists of columns instead of rows. It also follows the same semantics used for the *data source* and *delegate* methods. Please read the __Overview__ section for more details about usage.
+![HorizontalPicker example](docs/figures/overview_example_screenshot.png "The Native Comparison scenario: LAUPickerView above, UIPickerView below, over the same values")
 
 ## Requirements
 
 * iOS 13.0 or later
-* Suported devices: iPhone/iPad (*)
+* iPhone and iPad
+* Swift 5.5 or later
 
-## How to use LAUPickerView in your project
+## Installation
 
 ### Swift Package Manager
 
@@ -19,7 +23,7 @@ Add the package to your `Package.swift`:
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/laugga/HorizontalPicker.git", from: "0.3.0")
+    .package(url: "https://github.com/laugga/HorizontalPicker.git", from: "1.0.0")
 ]
 ```
 
@@ -31,82 +35,115 @@ Then import it:
 import HorizontalPicker
 ```
 
-## Overview Tutorial
+## Usage
 
-1. Add the LAUPickerView to an existing UIView (ie. inside UIViewController's *viewDidLoad* method).
+### 1. Add the picker
 
 ```swift
-let pickerView = LAUPickerView(frame: view.frame)
-pickerView.dataSource = self // LAUPickerViewDataSource protocol
-pickerView.delegate = self   // LAUPickerViewDelegate protocol
+let pickerView = LAUPickerView(frame: view.bounds)
+pickerView.dataSource = self // LAUPickerViewDataSource
+pickerView.delegate = self   // LAUPickerViewDelegate
 view.addSubview(pickerView)
 ```
 
-2. Implement the __LAUPickerViewDataSource__ protocol:
+`LAUPickerViewDataSource` and `LAUPickerViewDelegate` are plain Swift
+protocols. The adopting type does not have to be an `NSObject` subclass.
+
+### 2. Implement the data source
+
+Both methods are required.
 
 ```swift
 func numberOfComponents(in pickerView: LAUPickerView) -> Int {
-    // return the number of components needed
+    // the number of components (rows of columns) to show
 }
 
 func pickerView(_ pickerView: LAUPickerView, numberOfColumnsInComponent component: Int) -> Int {
-    // return the number of columns for each component
+    // the number of columns in that component
 }
 ```
 
-3. Implement the __LAUPickerViewDelegate__ protocol:
+### 3. Implement the delegate
+
+Every delegate method has a default implementation, so write only the ones you
+need.
 
 ```swift
 func pickerView(_ pickerView: LAUPickerView, titleForColumn column: Int, forComponent component: Int) -> String? {
-    // return the title for the specific column-component pair
+    // the title for a column-component pair, or nil to leave the column blank
 }
 
 func pickerView(_ pickerView: LAUPickerView, didChangeColumn column: Int, inComponent component: Int) {
-    // called when a new, different column is selected following a user touch-based input
+    // a new, different column has been selected
 }
 ```
 
-Every method of the delegate has a default implementation, so only write the ones you need. Return a view from `pickerView(_:viewForColumn:forComponent:reusingView:)` instead of a title to supply your own column views.
+The rest of the delegate:
 
-The data source and the delegate are plain Swift protocols — the adopting type does not have to be an `NSObject` subclass.
+| Method | What it does | Default |
+|---|---|---|
+| `pickerView(_:viewForColumn:forComponent:reusingView:)` | Supply your own column view instead of a title | `nil` — the picker draws the title |
+| `pickerView(_:heightForComponent:)` | The height of a component | An equal share of the picker's height |
+| `pickerView(_:topSpaceForComponent:)` | Where a component sits vertically | Components stacked top to bottom |
+| `pickerView(_:accessibilityIdentifierForComponent:)` | The component's accessibility identifier | `nil` |
+| `pickerView(_:didTouchUpColumn:inComponent:)` | A touch ended on the selected column | Nothing |
+| `pickerView(_:didTouchUp:inComponent:)` | A touch ended anywhere else in a component | Nothing |
 
-4. The rows do not have to be known when the picker is created. Call `reloadData()` once the data source has them, and the picker rebuilds itself:
+### 4. Drive it
+
+The columns do not have to exist when the picker is created. Call
+`reloadData()` once the data source has them and the picker rebuilds itself.
 
 ```swift
 pickerView.reloadData()
+
+pickerView.selectColumn(3, inComponent: 0, animated: true)
+let column = pickerView.selectedColumn(inComponent: 0)
+
+pickerView.showComponent(1, andHideComponent: 0, animated: true)
 ```
 
-5. Additionally you can change the selected column position to __left__, __center__ or __right__.
-
-![Selection Alignment Options](https://raw.github.com/laugga/LAUPickerView/master/docs/figures/selection_alignment_options.png "Selection alignment options of LAUPickerView: left, center, right")
+### 5. Configure it
 
 ```swift
-pickerView.selectionAlignment = .left // Change selected column position to left
+pickerView.selectionAlignment = .left   // .left, .center (the default) or .right
+pickerView.setSelectionAlignment(.right, animated: true)
+
+pickerView.hidesUnselectedColumns = false // keep unselected columns fully drawn
+pickerView.soundsEnabled = false          // silence the click-input sound
+pickerView.hapticsEnabled = false         // silence the selection haptic
 ```
 
-# Examples
+`selectionAlignment` moves the selection indicator — and so the resting
+position of the selected column — to the left, the centre or the right:
 
-## LAUPickerViewExample
+![Selection alignment options](docs/figures/selection_alignment_options.png "Selection alignment options of LAUPickerView: left, center, right")
 
-The *LAUPickerViewExample* is a single-view example showing the same three components twice: a LAUPickerView at the top and the native UIPickerView at the bottom. The selection is linked in both directions, so spinning a column of the horizontal picker moves the matching row of the native one, and spinning a row of the native one moves the column back — the port side by side with the control it is modelled on.
+## Example app
 
-![LAUPickerView Overview Example Screenshot](https://raw.github.com/laugga/LAUPickerView/master/docs/figures/overview_example_screenshot.png "LAUPickerView Overview Example Screenshot")
+`Example/` is a catalog app: thirteen scenarios in six sections — Basics,
+Layout, Data, Interaction, Customization and Regressions — each opening a
+working screen built through the public API alone. Open
+`Example/HorizontalPicker.xcodeproj` and run the *Example* scheme.
+
+The *Native Comparison* scenario, shown above, puts `LAUPickerView` and
+`UIPickerView` over the same values with the selection linked in both
+directions: spinning a column of the horizontal picker moves the matching row
+of the native one, and spinning a row of the native one moves the column back.
+
+The example consumes the package from the repository root as a *local* Swift
+package, so it always builds the sources in the working tree.
 
 ## Building and testing
 
-The package is pure Swift and iOS only, so it is built against a simulator rather than with `swift build`:
+The package is UIKit-only, so it is built against an iOS simulator rather than
+with `swift build`:
 
 ```sh
 xcodebuild -scheme HorizontalPicker -destination 'generic/platform=iOS Simulator' build
 xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'
 ```
 
-The example app lives in `examples/LAUPickerViewExample` and consumes the package from the repository root.
+## License
 
-## Roadmap
-
-* Improve layout and autoresize constraints
-* Fix click sound loudness
-* Fix click sound while scrolling
-* Improve selected to unselected state animation
-* Implement 3D transform similar to UIPickerView
+MIT. See [LICENSE](LICENSE).
