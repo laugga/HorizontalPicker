@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- Only the export method. The archive supplies the signing style and the
+	     team, and the default thinning is one universal .ipa. `debugging` is a
+	     development-signed export: only devices registered in the Apple team
+	     can install it. -->
+	<key>method</key>
+	<string>debugging</string>
+</dict>
+</plist>
