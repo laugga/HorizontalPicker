@@ -17,7 +17,7 @@ let package = Package(
         .target(
             name: "HorizontalPicker",
             resources: [
-                .copy("resources/tick.caf")
+                .copy("Resources/tick.caf")
             ]),
         .testTarget(
             name: "HorizontalPickerTests",

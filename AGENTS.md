@@ -24,27 +24,27 @@ library target and the `HorizontalPickerTests` test target, and it is what
 consumers resolve. Every change to the library is built and tested through it.
 
 The package is UIKit-only, so it is built against an iOS simulator with
-`xcodebuild` rather than with `swift build`. Run these from the repository root:
+`xcodebuild` rather than with `swift build`. The root `Makefile` wraps both:
 
 ```bash
-# Build the library
-xcodebuild -scheme HorizontalPicker -destination 'generic/platform=iOS Simulator' build
-
-# Run the 27 unit tests
-xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'
+make build   # xcodebuild build -scheme HorizontalPicker -destination 'generic/platform=iOS Simulator'
+make test    # xcodebuild test -scheme HorizontalPicker on the newest available iPhone simulator
 ```
 
 There is no `.xcodeproj` for the library and none is needed — `xcodebuild`
-builds `Package.swift` directly through an implicit workspace. Substitute any
-installed simulator for `iPhone 17`; check with
+builds `Package.swift` directly through an implicit workspace. `make test`
+picks the newest installed iPhone simulator automatically; override it with
+`TEST_DEVICE=` or `TEST_DEST=`, and check what's installed with
 `xcrun simctl list devices available`.
 
 **There is no lint step.** No SwiftLint, no SwiftFormat, no `.editorconfig` —
 match the surrounding file instead.
 
-**There is no CI.** No GitHub Actions workflows exist and no status check runs
-on a pull request. The commands here and below are the whole gate; run them
-yourself.
+**CI gates the merge.** `.github/workflows/ci.yml` runs `make build` and
+`make test` on `macos-latest` for every pull request into `main`, and a human
+cannot merge without it passing. Xcode Cloud isn't an option here: it needs an
+app or framework target in an Xcode project, and this SwiftPM package has
+neither.
 
 ## Build and run the example app
 
@@ -92,7 +92,7 @@ own deployment target — see the gotchas.
 | `Sources/HorizontalPicker/resources/` | `tick.caf`, the click-input sound, loaded through `Bundle.module`. |
 | `Tests/HorizontalPickerTests/` | XCTest unit tests covering the data source and delegate contract, selection, reloading, layout, hidden column states, selection geometry, column recycling and scroll snapping. |
 | `Example/` | The example app and its Xcode project. `App/` is the entry point, `Catalog/` the index of scenarios, `Scenarios/` the scenarios themselves, `Resources/` the asset catalog. |
-| `docs/figures/` | The screenshots the README displays. Regenerate the example screenshot when the example's appearance changes. |
+| `Docs/figures/` | The screenshots the README displays. Regenerate the example screenshot when the example's appearance changes. |
 | `CHANGELOG.md` | Hand-written, newest first, grouped under `Features:` / `Improvements:` / `Fixed:` / `Removed:` / `Other:`. Add an entry for anything a consumer would notice. |
 
 ## Conventions
@@ -150,8 +150,8 @@ repository:
 
 Before opening a pull request, confirm:
 
-- [ ] `xcodebuild -scheme HorizontalPicker -destination 'generic/platform=iOS Simulator' build` succeeds
-- [ ] `xcodebuild test -scheme HorizontalPicker -destination 'platform=iOS Simulator,name=iPhone 17'` passes
+- [ ] `make build` succeeds
+- [ ] `make test` passes
 - [ ] The example app builds, and covers whatever the library gained, lost or changed
 - [ ] `CHANGELOG.md` has an entry, if a consumer would notice the change
 - [ ] Public API changes are called out in the pull request — a consumer may be tracking `main`
