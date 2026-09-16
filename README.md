@@ -7,7 +7,7 @@ component is a row of **columns** instead of a column of rows. It follows
 `UIPickerView`'s data source and delegate semantics, so if you have written one
 you have written the other.
 
-![HorizontalPicker example](docs/figures/overview_example_screenshot.png "The Native Comparison scenario: LAUPickerView above, UIPickerView below, over the same values")
+![HorizontalPicker example](Docs/figures/overview_example_screenshot.png "The Native Comparison scenario: LAUPickerView above, UIPickerView below, over the same values")
 
 ## Requirements
 
@@ -117,7 +117,7 @@ pickerView.hapticsEnabled = false         // silence the selection haptic
 `selectionAlignment` moves the selection indicator — and so the resting
 position of the selected column — to the left, the centre or the right:
 
-![Selection alignment options](docs/figures/selection_alignment_options.png "Selection alignment options of LAUPickerView: left, center, right")
+![Selection alignment options](Docs/figures/selection_alignment_options.png "Selection alignment options of LAUPickerView: left, center, right")
 
 ## Example app
 

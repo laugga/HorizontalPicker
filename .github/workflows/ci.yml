@@ -1,0 +1,53 @@
+# The library's test gate (LM-624).
+#
+# This gates the *package* — the root Makefile's `build` and `test`, on the
+# scheme SwiftPM generates for it.
+#
+# Why GitHub Actions and not Xcode Cloud, which every other Laugga CI uses:
+# Xcode Cloud needs an app or framework target in an Xcode project, and a
+# SwiftPM package has neither — opening Package.swift in Xcode reports "no apps
+# or frameworks". See AGENTS.md → Gotchas, and OPS-25 for the rule this follows.
+#
+# Why macOS and not ubuntu, which would be ten times cheaper: the library is
+# UIKit-only, so it does not build on Linux at all. Same reason the Makefile
+# wraps xcodebuild rather than `swift build`.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+
+# A new push supersedes the run in flight. macOS minutes bill at 10x on a
+# private repository, so don't pay for a result nobody will read.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: macos-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v5
+
+      # No credential step: Package.swift declares no dependencies at all, so
+      # there is nothing for SwiftPM to resolve.
+
+      # Printed before the build so a first failure says which Xcode and which
+      # simulators the runner had, rather than only that xcodebuild exited 1.
+      - name: Environment
+        run: |
+          xcodebuild -version
+          xcrun simctl list devices available | grep -E 'iPhone' || true
+
+      - name: make build
+        run: make build
+
+      - name: make test
+        run: make test
